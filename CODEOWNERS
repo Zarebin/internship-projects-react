@@ -1,7 +1,10 @@
 * @ketabi
-counter/ @HosseinMohammadi24 @ainyava @zghorbani @behradhajmiri @sarasadatnasr @ketabi
+
+# Give access to counter folder and these two users can approve the codes in this folder
+# Note that add me(hassan) as codeowner to review your codes pleasse
+counter/** @sarasadatnasr @ketabi
+
 pair-matching/ @ainyava @ketabi
 calculator/ @HosseinMohammadi24 @ketabi
 converter/ @zghorbani @ketabi
 calendar/ @behradhajmiri @ketabi
-
