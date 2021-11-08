@@ -4,6 +4,7 @@
 # Note that add me(hassan) as codeowner to review your codes pleasse
 counter/** @sarasadatnasr @ketabi
 
-pair-matching/
-
-convertor/
+pair-matching/ @ainyava @ketabi
+calculator/ @HosseinMohammadi24 @ketabi
+converter/ @zghorbani @ketabi
+calendar/ @behradhajmiri @ketabi
