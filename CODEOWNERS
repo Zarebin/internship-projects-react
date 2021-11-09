@@ -1,12 +1,12 @@
 * @ketabi
 
-# Give access to counter folder and these two users can approve the codes in this folder
-# Note that add me(hassan) as codeowner to review your codes pleasse
-counter/** @sarasadatnasr @ketabi
+# Give access to timer folder and these two users can approve the codes in this folder
+# Note that add me(hassan) as codeowner to review your codes please
+timer/** @ketabi
 
-pair-matching/ @ainyava @ketabi
-calculator/ @HosseinMohammadi24 @ketabi
-converter/ @zghorbani @ketabi
-calendar/ @behradhajmiri @ketabi
-color/ @iimohammad @ketabi
-spinner/ @sarasadatnasr @ketabi
+apps/pair-matching/ @ainyava @ketabi
+apps/calculator/ @HosseinMohammadi24 @ketabi
+apps/converter/ @zghorbani @ketabi
+apps/calendar/ @behradhajmiri @ketabi
+apps/color/ @iimohammad @ketabi
+apps/spinner/ @sarasadatnasr @ketabi
