@@ -73,7 +73,7 @@ module.exports = {
       name: 'converterApp',
       filename: 'remoteEntry.js',
       exposes: {
-        './RemoteApp': './src/converter',
+        './RemoteApp': './src/Converter',
       },
     //   remotes: {
     //     "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
