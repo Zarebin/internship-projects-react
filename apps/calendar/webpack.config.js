@@ -1,6 +1,5 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const deps = require('./package.json').dependencies;
 
 module.exports = {
   entry: './src/index',
@@ -42,7 +41,6 @@ module.exports = {
             {
               test: /\.(sa|sc|c)ss$/,
               use: [
-                // MiniCssExtractPlugin.loader,
                 "css-loader",
                 "postcss-loader",
                 "sass-loader",
