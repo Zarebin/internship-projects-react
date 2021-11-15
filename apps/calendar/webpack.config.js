@@ -31,13 +31,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /bootstrap\.js$/,
-      //   loader: "bundle-loader",
-      //   options: {
-      //     lazy: true,
-      //   },
-      // },
       {
         test: /\.(jpg|png|gif|jpeg)$/,
         loader: "url-loader",
@@ -55,10 +48,6 @@ module.exports = {
                 "sass-loader",
               ],
             },
-      // {
-      //   test: /\.svg$/,
-      //   use: ['@svgr/webpack'],
-      // },
       {
         test: /\.jsx?$/,
         loader: "babel-loader",
@@ -85,7 +74,7 @@ module.exports = {
       },
       
       remotes: {
-        // "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
+        "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
       },
     }),
     new HtmlWebpackPlugin({
