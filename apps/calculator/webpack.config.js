@@ -1,6 +1,6 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const path = require("path");
 
 module.exports = {
   entry: './src/index',
@@ -13,14 +13,12 @@ module.exports = {
   },
 
   output: {
-    publicPath: 'http://localhost:3003/',
+    publicPath: 'http://localhost:3004/',
   },
   resolve: {
     extensions: [
       ".jsx",
       ".js",
-      ".tsx",
-      ".ts",
       ".json",
       ".css",
       ".scss",
@@ -36,17 +34,17 @@ module.exports = {
         loader: "url-loader",
       },
       {
-            test: /\.css$/i,
-            use: ["style-loader", "css-loader"],
-          },
-            {
-              test: /\.(sa|sc|c)ss$/,
-              use: [
-                "css-loader",
-                "postcss-loader",
-                "sass-loader",
-              ],
-            },
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
       {
         test: /\.jsx?$/,
         loader: "babel-loader",
@@ -55,19 +53,20 @@ module.exports = {
           presets: ["@babel/preset-react"],
         },
       },
-      // {
-      //   test: /\.tsx?$/,
-      //   use: 'ts-loader',
-      //   exclude: /node_modules/
-      // },
     ],
   },
-
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 3004
+  },
   plugins: [
     new ModuleFederationPlugin({
       name: 'calculatorApp',
       filename: 'remoteEntry.js',
-      
+
       exposes: {
         './Calculator': './src/components/Calculator',
       },

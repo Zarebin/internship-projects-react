@@ -52,6 +52,7 @@ module.exports = {
         "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
         "timerApp": "timerApp@http://localhost:3001/remoteEntry.js",
         "pairMatchingApp": "pairMatchingApp@http://localhost:3003/remoteEntry.js",
+        "calculatorApp": "calculatorApp@http://localhost:3004/remoteEntry.js",
       },
     }),
     new HtmlWebpackPlugin({
