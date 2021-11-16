@@ -1,8 +1,13 @@
 import React from 'zarkit/react';
+import Monitor from './Monitor'
+import MainPanel from './MainPanel';
 
 function Calculator() {
     return (
-        <div>This is a Calculator Project initialization!</div>
+        <div id='container'>
+            <Monitor />
+            <MainPanel />
+        </div>
     );
 }
 

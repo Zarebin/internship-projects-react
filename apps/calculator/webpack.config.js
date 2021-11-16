@@ -38,14 +38,6 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(sa|sc|c)ss$/,
-        use: [
-          "css-loader",
-          "postcss-loader",
-          "sass-loader",
-        ],
-      },
-      {
         test: /\.jsx?$/,
         loader: "babel-loader",
         exclude: /node_modules/,
