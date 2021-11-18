@@ -23,7 +23,7 @@ function MainPanel() {
             />
             <mwc-button
                 onClick={() => dispatch(addToExpression(
-                    { id: "percentage", type: "operator", label: "%", value: "%", monitorValue: "%" }
+                    { id: "percentage", type: "operand", label: "%", value: "%", monitorValue: "%" }
                 ))}
                 label="%" raised
             />
@@ -123,7 +123,7 @@ function MainPanel() {
             />
             <mwc-button
                 onClick={() => dispatch(equals(
-                    { id: "equals", label: "(" }
+                    { id: "equals", label: "=" }
                 ))}
                 label="=" raised
             />
