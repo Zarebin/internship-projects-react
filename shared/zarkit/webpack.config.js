@@ -141,6 +141,8 @@ module.exports = {
         "./react": "react",
         // و همینطور من react-dom رو هم expose میکنم بیرون و بقیه میتونن اگر دوست داشتن از این استفاده کنن
         "./react-dom": "react-dom",
+        "./@reduxjs/toolkit": "@reduxjs/toolkit",
+        "./react-redux":"react-redux",
       },
     }),
   ],
