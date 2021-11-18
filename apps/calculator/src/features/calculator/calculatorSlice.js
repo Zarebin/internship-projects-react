@@ -189,8 +189,12 @@ function isValidButton(lastButton, currentButton) {
                 return false;
             }
         }
-    } else if (currentButton.id) {
-
+    } else if (currentButton.type === 'function') {
+        if (lastButton !== undefined) {
+            if (lastButton.id === 'percentage') {
+                return false;
+            }
+        }
     }
     return true;
 }
