@@ -12,7 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@material/mwc-button": "^0.25.3"
+    "@material/mwc-button": "^0.25.3",
+    "@reduxjs/toolkit": "^1.6.2",
+    "mathjs": "^10.0.0",
+    "react-redux": "^7.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

@@ -60,7 +60,7 @@ module.exports = {
       filename: 'remoteEntry.js',
 
       exposes: {
-        './Calculator': './src/components/Calculator',
+        './Calculator': './src/features/calculator/Calculator',
       },
 
       remotes: {
