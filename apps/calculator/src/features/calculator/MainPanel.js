@@ -1,7 +1,7 @@
 import React from 'zarkit/react';
 import '@material/mwc-button';
 import { useDispatch } from 'zarkit/react-redux';
-import { addToExpression, equals, closeParenthesis, CE } from './calculatorSlice';
+import { addToExpression, solveExpression, addCloseParenthesis, clearEntry } from './calculatorSlice';
 
 function MainPanel() {
 
@@ -16,7 +16,7 @@ function MainPanel() {
                 label="(" raised
             />
             <mwc-button
-                onClick={() => dispatch(closeParenthesis(
+                onClick={() => dispatch(addCloseParenthesis(
                     { id: "close-parenthesis", label: ")" }
                 ))}
                 label=")" raised
@@ -28,7 +28,7 @@ function MainPanel() {
                 label="%" raised
             />
             <mwc-button
-                onClick={() => dispatch(CE(
+                onClick={() => dispatch(clearEntry(
                     { id: "ce", type: "operation", label: "CE" }
                 ))}
                 label="CE" raised
@@ -122,7 +122,7 @@ function MainPanel() {
                 label="." raised
             />
             <mwc-button
-                onClick={() => dispatch(equals(
+                onClick={() => dispatch(solveExpression(
                     { id: "equals", label: "=" }
                 ))}
                 label="=" raised
