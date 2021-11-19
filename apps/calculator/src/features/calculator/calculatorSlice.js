@@ -4,7 +4,7 @@ import { original } from 'immer';
 const math = create(all);
 
 const initialState = {
-    buttonsHistory: [],
+    expressionHistory: [],
     ans: 0,
     expression: '',
     cursor: 0,
@@ -19,34 +19,35 @@ export const calculatorSlice = createSlice({
     reducers: {
         addToExpression(state, action) {
 
-            let lastButton = getLastButton(state);
-            let currentButton = getCurrentButton(action);
+            let lastAddition = getLastAddition(state);
+            let currentAddition = getCurrentAddition(action);
 
-            activateSmartAddition(state, action);
+            enableSmartAddition(state, action);
+            exceptionalFeatueresAddition(state, action);
 
-            if (isValidButton(lastButton, currentButton)) {
+            if (isValidAddition(lastAddition, currentAddition)) {
                 const start = state.expression.slice(0, state.cursor);
                 const end = state.expression.slice(state.cursor, state.expression.length);
-                state.expression = start + currentButton.value + end;
-                state.cursor += currentButton.value.length;
+                state.expression = start + currentAddition.value + end;
+                state.cursor += currentAddition.value.length;
 
                 const monitorStart = state.monitorExpression.slice(0, state.monitorCursor);
                 const monitorEnd = state.monitorExpression.slice(state.monitorCursor, state.monitorExpression.length);
-                state.monitorExpression = monitorStart + currentButton.monitorValue + monitorEnd;
-                state.monitorCursor += currentButton.monitorValue.length;
+                state.monitorExpression = monitorStart + currentAddition.monitorValue + monitorEnd;
+                state.monitorCursor += currentAddition.monitorValue.length;
 
-                if (currentButton.type === 'function') {
+                if (currentAddition.type === 'function') {
                     state.cursor--;
                     state.monitorCursor--;
                 }
-                state.buttonsHistory.push(currentButton);
+                state.expressionHistory.push(currentAddition);
                 state.primaryMonitor = state.monitorExpression;
             }
         },
-        equals(state, action) {
-            const lastButton = getLastButton(state);
-            const currentButton = getCurrentButton(action);
-            if (isValidButton(lastButton, currentButton)) {
+        solveExpression(state, action) {
+            const lastAddition = getLastAddition(state);
+            const currentAddition = getCurrentAddition(action);
+            if (isValidAddition(lastAddition, currentAddition)) {
                 let result;
                 try {
                     result = Number(math.evaluate(state.expression ? state.expression : '0').toFixed(11));
@@ -57,12 +58,12 @@ export const calculatorSlice = createSlice({
                         state.monitorExpression = '' + state.ans;
                         state.monitorCursor = state.monitorExpression.length;
                         state.primaryMonitor = state.monitorExpression;
-                        const currentButton = getCurrentButton(action);
-                        state.buttonsHistory.push(currentButton);
+                        const currentAddition = getCurrentAddition(action);
+                        state.expressionHistory.push(currentAddition);
                     }
                 } catch (error) {
                     state.primaryMonitor = 'Error';
-                    state.buttonsHistory = [];
+                    state.expressionHistory = [];
                     state.expression = '';
                     state.cursor = 0;
                     state.monitorExpression = '';
@@ -70,45 +71,45 @@ export const calculatorSlice = createSlice({
                 }
             };
         },
-        closeParenthesis(state, action) {
-            const lastButton = getLastButton(state);
-            const currentButton = getCurrentButton(action);
-            if (isValidButton(lastButton, currentButton)) {
+        addCloseParenthesis(state, action) {
+            const lastAddition = getLastAddition(state);
+            const currentAddition = getCurrentAddition(action);
+            if (isValidAddition(lastAddition, currentAddition)) {
                 if (state.expression.length !== state.cursor) {
                     state.cursor++;
                     state.monitorCursor++;
-                    const currentButton = getCurrentButton(action);
-                    state.buttonsHistory.push(currentButton);
+                    const currentAddition = getCurrentAddition(action);
+                    state.expressionHistory.push(currentAddition);
                 }
             }
         },
-        CE(state, action) {
-            let buttonsHistory = original(state.buttonsHistory);
-            const lastButton = buttonsHistory[buttonsHistory.length - 1];
-            state.buttonsHistory.pop();
-            if (lastButton !== undefined) {
-                if (lastButton.type === 'operand' || lastButton.type === 'operator' || lastButton.type === 'function') {
-                    const start = state.expression.slice(0, state.expression.lastIndexOf(lastButton.value));
-                    const end = state.expression.slice(state.expression.lastIndexOf(lastButton.value) + lastButton.value.length, state.expression.length);
+        clearEntry(state, action) {
+            let expressionHistory = original(state.expressionHistory);
+            const lastAddition = expressionHistory[expressionHistory.length - 1];
+            state.expressionHistory.pop();
+            if (lastAddition !== undefined) {
+                if (lastAddition.type === 'operand' || lastAddition.type === 'operator' || lastAddition.type === 'function') {
+                    const start = state.expression.slice(0, state.expression.lastIndexOf(lastAddition.value));
+                    const end = state.expression.slice(state.expression.lastIndexOf(lastAddition.value) + lastAddition.value.length, state.expression.length);
                     state.expression = start + end;
-                    state.cursor -= lastButton.value.length;
+                    state.cursor -= lastAddition.value.length;
 
-                    const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastButton.monitorValue));
-                    const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastButton.monitorValue) + lastButton.monitorValue.length, state.monitorExpression.length);
+                    const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastAddition.monitorValue));
+                    const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastAddition.monitorValue) + lastAddition.monitorValue.length, state.monitorExpression.length);
                     state.monitorExpression = monitorStart + monitorEnd;
-                    state.monitorCursor -= lastButton.monitorValue.length;
+                    state.monitorCursor -= lastAddition.monitorValue.length;
 
-                    if (lastButton.type === 'function') {
+                    if (lastAddition.type === 'function') {
                         state.cursor++;
                         state.monitorCursor++;
                     }
-                } else if (lastButton.id === 'equals') {
+                } else if (lastAddition.id === 'equals') {
                     state.expression = '';
                     state.cursor = 0;
                     state.monitorExpression = '';
                     state.monitorCursor = 0;
-                    state.buttonsHistory = [];
-                } else if (lastButton.id === 'close-parenthesis') {
+                    state.expressionHistory = [];
+                } else if (lastAddition.id === 'close-parenthesis') {
                     state.cursor--;
                     state.monitorCursor--;
                 }
@@ -118,14 +119,14 @@ export const calculatorSlice = createSlice({
     }
 });
 
-export const { addToExpression, equals, closeParenthesis, CE } = calculatorSlice.actions;
+export const { addToExpression, solveExpression, addCloseParenthesis, clearEntry } = calculatorSlice.actions;
 
 export const selectAns = state => state.calculator.ans;
 export const selectExpression = state => state.calculator.expression;
 export const selectCursor = state => state.calculator.cursor;
 export const selectMonitorExpression = state => state.calculator.monitorExpression;
 export const selectMonitorCursor = state => state.calculator.monitorCursor;
-export const selectButtonsHistory = state => state.calculator.buttonsHistory;
+export const selectExpressionHistory = state => state.calculator.expressionHistory;
 export const selectPrimaryMonitor = state => state.calculator.primaryMonitor;
 
 export default calculatorSlice.reducer;
@@ -134,64 +135,65 @@ export default calculatorSlice.reducer;
 
 
 
-function getCurrentButton(action) {
-    let currentButton = {
+function getCurrentAddition(action) {
+    let currentAddition = {
         id: action.payload.id,
         type: action.payload.type,
         value: action.payload.value,
         label: action.payload.label,
         monitorValue: action.payload.monitorValue,
     };
-    return currentButton;
-}
-function getLastButton(state) {
-    let buttonsHistory = original(state.buttonsHistory);
-    const lastButton = buttonsHistory[buttonsHistory.length - 1];
-    return lastButton;
+    return currentAddition;
 }
 
-function isValidButton(lastButton, currentButton) {
-    if (currentButton.id === 'close-parenthesis') {
-        if (lastButton !== undefined) {
-            if (lastButton.id === 'open-parenthesis' || lastButton.id === 'close-parenthesis' || lastButton.type === 'operator') {
+function getLastAddition(state) {
+    let expressionHistory = original(state.expressionHistory);
+    const lastAddition = expressionHistory[expressionHistory.length - 1];
+    return lastAddition;
+}
+
+function isValidAddition(lastAddition, currentAddition) {
+    if (currentAddition.id === 'close-parenthesis') {
+        if (lastAddition !== undefined) {
+            if (lastAddition.id === 'open-parenthesis' || lastAddition.id === 'close-parenthesis' || lastAddition.type === 'operator') {
                 return false;
             }
         }
-    } else if (currentButton.type === 'operator') {
-        if (lastButton === undefined) {
-            if (currentButton.id !== 'plus' && currentButton.id !== 'minus') {
+    } else if (currentAddition.type === 'operator') {
+        if (lastAddition === undefined) {
+            if (currentAddition.id !== 'plus' && currentAddition.id !== 'minus') {
                 return false;
             }
-        } else if (lastButton.type === 'function') {
-            if (currentButton.id !== 'plus' && currentButton.id !== 'minus') {
+        } else if (lastAddition.type === 'function') {
+            if (currentAddition.id !== 'plus' && currentAddition.id !== 'minus') {
                 return false;
             }
-        } else if (lastButton.id === 'point') {
+        } else if (lastAddition.id === 'point') {
             return false;
         }
-    } else if (currentButton.id === 'equals') {
-        if (lastButton !== undefined) {
-            if (lastButton.type === 'function' || lastButton.type === 'operator') {
+    } else if (currentAddition.id === 'equals') {
+        if (lastAddition !== undefined) {
+            if (lastAddition.type === 'function' || lastAddition.type === 'operator') {
                 return false;
             }
         }
-    } else if (currentButton.id === 'percentage') {
-        if (lastButton === undefined) {
+    } else if (currentAddition.id === 'percentage') {
+        if (lastAddition === undefined) {
             return false;
-        } else if (lastButton.type === 'function' || lastButton.type === 'operator') {
+        } else if (lastAddition.type === 'function' || lastAddition.type === 'operator') {
             return false;
-        } else if (lastButton.id === 'point') {
+        } else if (lastAddition.id === 'point') {
             return false;
         }
-    } else if (currentButton.type === 'operand') {
-        if (lastButton !== undefined) {
-            if (lastButton.id === 'percentage') {
+    } else if (currentAddition.type === 'operand') {
+        if (lastAddition !== undefined) {
+            if (lastAddition.id === 'percentage') {
                 return false;
             }
         }
-    } else if (currentButton.type === 'function') {
-        if (lastButton !== undefined) {
-            if (lastButton.id === 'percentage') {
+    } else if (currentAddition.type === 'function') {
+        if (lastAddition !== undefined) {
+            if (lastAddition.id === 'percentage') {
                 return false;
             }
         }
@@ -199,35 +201,41 @@ function isValidButton(lastButton, currentButton) {
     return true;
 }
 
-function activateSmartAddition(state, action) {
-    let buttonsHistory = original(state.buttonsHistory);
-    let lastButton = getLastButton(state);
-    let currentButton = getCurrentButton(action);
+function enableSmartAddition(state, action) {
+    let lastAddition = getLastAddition(state);
+    let currentAddition = getCurrentAddition(action);
 
-    if (buttonsHistory.length !== 0) {
-        if (lastButton.id === 'equals' && !(currentButton.type === 'operator' || currentButton.id === 'percentage')) {
+    if (lastAddition !== undefined) {
+        if (lastAddition.id === 'equals' && !(currentAddition.type === 'operator' || currentAddition.id === 'percentage')) {
             state.expression = '';
             state.monitorExpression = '';
             state.cursor = 0;
             state.monitorCursor = 0;
-            state.buttonsHistory = [];
+            state.expressionHistory = [];
         }
     }
-    if (currentButton.id === 'ans') {
-        currentButton.value = state.ans;
-        currentButton.monitorValue = 'Ans';
-    }
-    if (lastButton !== undefined) {
-        if (currentButton.type === 'operator' && lastButton.type === 'operator') {
-            const start = state.expression.slice(0, state.expression.lastIndexOf(lastButton.value));
-            const end = state.expression.slice(state.expression.lastIndexOf(lastButton.value) + lastButton.value.length, state.expression.length);
-            state.expression = start + end;
-            state.cursor -= lastButton.value.length;
 
-            const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastButton.monitorValue));
-            const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastButton.monitorValue) + lastButton.monitorValue.length, state.monitorExpression.length);
+
+    if (lastAddition !== undefined) {
+        if (currentAddition.type === 'operator' && lastAddition.type === 'operator') {
+            const start = state.expression.slice(0, state.expression.lastIndexOf(lastAddition.value));
+            const end = state.expression.slice(state.expression.lastIndexOf(lastAddition.value) + lastAddition.value.length, state.expression.length);
+            state.expression = start + end;
+            state.cursor -= lastAddition.value.length;
+
+            const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastAddition.monitorValue));
+            const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastAddition.monitorValue) + lastAddition.monitorValue.length, state.monitorExpression.length);
             state.monitorExpression = monitorStart + monitorEnd;
-            state.monitorCursor -= lastButton.monitorValue.length;
+            state.monitorCursor -= lastAddition.monitorValue.length;
         }
+    }
+}
+
+function exceptionalFeatueresAddition(state, action) {
+    let currentAddition = getCurrentAddition(action);
+
+    if (currentAddition.id === 'ans') {
+        currentAddition.value = state.ans;
+        currentAddition.monitorValue = 'Ans';
     }
 }
