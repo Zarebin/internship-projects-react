@@ -1,5 +1,6 @@
-const { ModuleFederationPlugin } = require("webpack").container;
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   entry: './src/index',
@@ -35,17 +36,21 @@ module.exports = {
         loader: "url-loader",
       },
       {
-            test: /\.css$/i,
-            use: ["style-loader", "css-loader"],
-          },
-            {
-              test: /\.(sa|sc|c)ss$/,
-              use: [
-                "css-loader",
-                "postcss-loader",
-                "sass-loader",
-              ],
-            },
+        test: /\.css$/i,
+        use: [
+          "style-loader",
+          "css-loader"
+        ],
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
       {
         test: /\.jsx?$/,
         loader: "babel-loader",
@@ -54,23 +59,17 @@ module.exports = {
           presets: ["@babel/preset-react"],
         },
       },
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      },
     ],
   },
-
   plugins: [
     new ModuleFederationPlugin({
       name: 'calendarApp',
       filename: 'remoteEntry.js',
-  
+
       exposes: {
-        './RemoteApp': './src/Calendar',
+        './RemoteApp': './src/App',
       },
-      
+
       remotes: {
         "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
       },

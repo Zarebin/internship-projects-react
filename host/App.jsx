@@ -1,16 +1,25 @@
 import React from 'zarkit/react';
 import { Button } from 'zarkit/Button'
 import Timer from 'timerApp/RemoteApp'
-export default class App extends React.Component{
+import PairMatching from 'pairMatchingApp/RemoteApp';
+import Calendar from 'calendarApp/RemoteApp';
 
-    render(){
-      return (<div>
+export default class App extends React.Component {
+
+  render() {
+    return (
+      <div>
         <div>
-          timer:
+          <h3>timer:</h3>
           <Timer />
+          <h3>Pair Matching</h3>
+          <PairMatching />
+          <h3>Calendar</h3>
+          <Calendar />
         </div>
-        <Button type="primary"/>
-        <Button type="warning"/>
-      </div>)
-    }
+        <Button type="primary" />
+        <Button type="warning" />
+      </div>
+    )
   }
+}
