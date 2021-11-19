@@ -1,33 +1,37 @@
 * {
+    box-sizing: border-box;
     font-family: sans-serif;
 }
+
 #container {
     display: grid;
     grid-template-columns: auto;
     gap: 10px;
-    max-width: 300px;
+    max-width: 400px; 
 }
 
 #monitor {
     display: grid;
     grid-template-columns: auto;
-    border: 1px solid #999;
+    border: 1px solid #434148;
     border-radius: 5px;
     text-align: right;
     padding: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     font-size: xx-large;
-    background-color: #efefef;
+    background-color: #fff;
 }
 
 #main-panel {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    gap: 5px;
+    gap: 4px;
 }
 
 mwc-button {
     --mdc-typography-button-text-transform: none;
     --mdc-typography-button-font-family: sans-serif;
+    --mdc-theme-primary: #651fff;
+    --mdc-theme-on-primary: white;
 }
