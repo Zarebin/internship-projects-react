@@ -15,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', '.css', '.scss', '.jpg', 'jpeg', 'png', 'svg']
   },
+  performance: { hints: false},
   module: {
     rules: [
       {
