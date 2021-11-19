@@ -1,6 +1,5 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const deps = require('./package.json').dependencies;
 const path= require('path');
 module.exports = {
   entry: './src/index.js',
@@ -12,14 +11,12 @@ module.exports = {
     minimize: false,
   },
   output: {
-    publicPath: 'http://localhost:3004/',
+    publicPath: 'http://localhost:3005/',
   },
   resolve: {
     extensions: [
       ".jsx",
       ".js",
-      ".tsx",
-      ".ts",
       ".json",
       ".css",
       ".scss",
@@ -30,13 +27,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /bootstrap\.js$/,
-      //   loader: "bundle-loader",
-      //   options: {
-      //     lazy: true,
-      //   },
-      // },
       {
         test: /\.(jpg|png|gif|jpeg)$/,
         loader: "url-loader",
@@ -49,15 +39,14 @@ module.exports = {
               test: /\.(sa|sc|c)ss$/,
               use: [
                 // MiniCssExtractPlugin.loader,
+                "style-loader",
+                // Translates CSS into CommonJS
                 "css-loader",
-                "postcss-loader",
+                // Compiles Sass to CSS
                 "sass-loader",
               ],
             },
-      // {
-      //   test: /\.svg$/,
-      //   use: ['@svgr/webpack'],
-      // },
+
       {
         test: /\.jsx?$/,
         loader: "babel-loader",
@@ -75,9 +64,9 @@ module.exports = {
       exposes: {
         './RemoteApp': './src/Converter',
       },
-    //   remotes: {
-    //     "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
-    //   },
+      remotes: {
+        "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
+      },
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',

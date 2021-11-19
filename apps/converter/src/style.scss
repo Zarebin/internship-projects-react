@@ -1,0 +1,37 @@
+#whole {
+    width: 50%;
+    position: relative;
+    left: 25%;
+}
+#top {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 20px;
+    justify-content: center;
+}
+
+
+#header mwc-select {
+    width: 100%;
+}
+
+#root {
+    border: 1px solid rgb(27, 26, 26);
+}
+
+#bottom{
+    display: flex;
+    flex-direction: row;
+    row-gap: 10px;
+    align-items: center;
+    justify-content: space-around; 
+}
+#bottom * {
+    width: 100%;;
+}
+#center {
+    text-align: center;
+}
+
+
