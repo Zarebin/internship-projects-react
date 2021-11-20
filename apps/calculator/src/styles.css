@@ -1,37 +1,58 @@
 * {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: "Roboto", "Helvetica Neue", "Arial", "sans-serif";
 }
 
 #container {
     display: grid;
     grid-template-columns: auto;
     gap: 10px;
-    max-width: 400px; 
+    max-width: 450px;
 }
 
 #monitor {
     display: grid;
     grid-template-columns: auto;
-    border: 1px solid #434148;
+    border: 1px solid #dadce0;
     border-radius: 5px;
     text-align: right;
     padding: 10px;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     font-size: xx-large;
-    background-color: #fff;
+    color: #4d5156;
 }
 
 #main-panel {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    gap: 4px;
+    gap: 10px;
 }
 
 mwc-button {
     --mdc-typography-button-text-transform: none;
-    --mdc-typography-button-font-family: sans-serif;
-    --mdc-theme-primary: #651fff;
-    --mdc-theme-on-primary: white;
+    --mdc-typography-button-font-family: "Roboto", "Helvetica Neue", "Arial", "sans-serif";
+    --mdc-typography-button-font-weight: 400;
+    --mdc-typography-button-font-size: 15px;
+    --mdc-theme-primary: #f1f3f4;
+    --mdc-theme-on-primary: #000;
+    min-width: 0px;
+}
+
+.gray-button {
+    --mdc-theme-primary: #dadce0;
+    --mdc-theme-on-primary: #000;
+}
+
+.blue-button {
+    --mdc-theme-primary: #4285f4;
+    --mdc-theme-on-primary: #fff;
+}
+
+.big-font-button {
+    --mdc-typography-button-font-size: 20px;
+}
+
+.small-font-button {
+    --mdc-typography-button-font-size: 14px;
 }

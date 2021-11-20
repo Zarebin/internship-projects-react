@@ -18,6 +18,14 @@ export const calculatorSlice = createSlice({
     initialState,
     reducers: {
         addToExpression(state, action) {
+            let expressionHistory = original(state.expressionHistory);
+            console.log('expressionHistory: ', expressionHistory);
+            console.log('expression: ', state.expression);
+            console.log('cursor: ', state.cursor);
+            console.log('monitorExpression: ', state.monitorExpression);
+            console.log('monitorCursor: ', state.monitorCursor);
+            console.log('ans: ', state.ans);
+            console.log('--------------------------------');
 
             let lastAddition = getLastAddition(state);
             let currentAddition = getCurrentAddition(action);
@@ -45,6 +53,16 @@ export const calculatorSlice = createSlice({
             }
         },
         solveExpression(state, action) {
+            let expressionHistory = original(state.expressionHistory);
+            console.log('expressionHistory: ', expressionHistory);
+            console.log('expression: ', state.expression);
+            console.log('cursor: ', state.cursor);
+            console.log('monitorExpression: ', state.monitorExpression);
+            console.log('monitorCursor: ', state.monitorCursor);
+            console.log('ans: ', state.ans);
+            console.log('--------------------------------');
+
+
             const lastAddition = getLastAddition(state);
             const currentAddition = getCurrentAddition(action);
             if (isValidAddition(lastAddition, currentAddition)) {
@@ -72,6 +90,16 @@ export const calculatorSlice = createSlice({
             };
         },
         addCloseParenthesis(state, action) {
+            let expressionHistory = original(state.expressionHistory);
+            console.log('expressionHistory: ', expressionHistory);
+            console.log('expression: ', state.expression);
+            console.log('cursor: ', state.cursor);
+            console.log('monitorExpression: ', state.monitorExpression);
+            console.log('monitorCursor: ', state.monitorCursor);
+            console.log('ans: ', state.ans);
+            console.log('--------------------------------');
+
+
             const lastAddition = getLastAddition(state);
             const currentAddition = getCurrentAddition(action);
             if (isValidAddition(lastAddition, currentAddition)) {
@@ -85,6 +113,16 @@ export const calculatorSlice = createSlice({
         },
         clearEntry(state, action) {
             let expressionHistory = original(state.expressionHistory);
+            console.log('expressionHistory: ', expressionHistory);
+            console.log('expression: ', state.expression);
+            console.log('cursor: ', state.cursor);
+            console.log('monitorExpression: ', state.monitorExpression);
+            console.log('monitorCursor: ', state.monitorCursor);
+            console.log('ans: ', state.ans);
+            console.log('--------------------------------');
+
+
+            // let expressionHistory = original(state.expressionHistory);
             const lastAddition = expressionHistory[expressionHistory.length - 1];
             state.expressionHistory.pop();
             if (lastAddition !== undefined) {
@@ -157,6 +195,8 @@ function isValidAddition(lastAddition, currentAddition) {
         if (lastAddition !== undefined) {
             if (lastAddition.id === 'open-parenthesis' || lastAddition.id === 'close-parenthesis' || lastAddition.type === 'operator') {
                 return false;
+            } else if (lastAddition.id === 'point') {
+                return false;
             }
         }
     } else if (currentAddition.type === 'operator') {
@@ -175,6 +215,10 @@ function isValidAddition(lastAddition, currentAddition) {
         if (lastAddition !== undefined) {
             if (lastAddition.type === 'function' || lastAddition.type === 'operator') {
                 return false;
+            } else if (lastAddition.id === 'equals') {
+                return false;
+            } else if (lastAddition.id === 'point') {
+                return false;
             }
         }
     } else if (currentAddition.id === 'percentage') {
@@ -185,6 +229,12 @@ function isValidAddition(lastAddition, currentAddition) {
         } else if (lastAddition.id === 'point') {
             return false;
         }
+    } else if (currentAddition.id === 'point') {
+        if (lastAddition !== undefined) {
+            if (lastAddition.id === 'close-parenthesis') {
+                return false;
+            }
+        }
     } else if (currentAddition.type === 'operand') {
         if (lastAddition !== undefined) {
             if (lastAddition.id === 'percentage') {
@@ -194,6 +244,8 @@ function isValidAddition(lastAddition, currentAddition) {
     } else if (currentAddition.type === 'function') {
         if (lastAddition !== undefined) {
             if (lastAddition.id === 'percentage') {
+                return false;
+            } else if (lastAddition.id === 'point') {
                 return false;
             }
         }
@@ -218,6 +270,7 @@ function enableSmartAddition(state, action) {
 
     if (lastAddition !== undefined) {
         if (currentAddition.type === 'operator' && lastAddition.type === 'operator') {
+            state.expressionHistory.pop();
             const start = state.expression.slice(0, state.expression.lastIndexOf(lastAddition.value));
             const end = state.expression.slice(state.expression.lastIndexOf(lastAddition.value) + lastAddition.value.length, state.expression.length);
             state.expression = start + end;
