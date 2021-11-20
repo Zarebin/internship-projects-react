@@ -1,11 +1,11 @@
 {
-  "name": "timer-app",
+  "name": "calculator-app",
   "version": "1.0.0",
-  "description": "This is a timer project.",
+  "description": "This is a calculator app.",
   "main": "index.js",
   "scripts": {
     "webpack": "webpack --watch",
-    "serve": "webpack serve",
+    "serve": "serve dist -p 3003",
     "start": "concurrently \"npm run webpack\" \"npm run serve\""
   },
   "keywords": [],
@@ -25,8 +25,7 @@
     "serve": "^13.0.2",
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1",
-    "webpack": "5.61.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.5.0"
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.9.1"
   }
 }

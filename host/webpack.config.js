@@ -37,6 +37,13 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 3000
+  },
   plugins: [
     new ModuleFederationPlugin({
       name: "mainApp",
@@ -45,6 +52,8 @@ module.exports = {
         "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
         "timerApp": "timerApp@http://localhost:3001/remoteEntry.js",
         "converterApp":"converterApp@http://localhost:3005/remoteEntry.js",
+        "pairMatchingApp": "pairMatchingApp@http://localhost:3003/remoteEntry.js",
+        
       },
     }),
     new HtmlWebpackPlugin({
