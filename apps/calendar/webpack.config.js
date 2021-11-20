@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: './src/index',
@@ -36,16 +37,9 @@ module.exports = {
         loader: "url-loader",
       },
       {
-        test: /\.css$/i,
-        use: [
-          "style-loader",
-          "css-loader"
-        ],
-      },
-      {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          "style-loader",
+          MiniCssExtractPlugin.loader,
           "css-loader",
           "postcss-loader",
           "sass-loader",
@@ -61,21 +55,30 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist')
+    },
+    compress: true,
+    port: 3007
+  },
   plugins: [
     new ModuleFederationPlugin({
       name: 'calendarApp',
       filename: 'remoteEntry.js',
-
       exposes: {
         './RemoteApp': './src/App',
       },
-
       remotes: {
         "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
       },
     }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: './src/index.html',
     })
   ],
 };
