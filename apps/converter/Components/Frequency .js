@@ -1,4 +1,4 @@
-import React , {ReactDOM} from "react";
+import React  from "react";
 function FrequencyFunc(val,madeSelection_1,madeSelection_2) {
     var result,formulvalue;
     if (madeSelection_1 === madeSelection_2 ) {

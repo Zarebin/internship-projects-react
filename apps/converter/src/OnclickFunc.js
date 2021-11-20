@@ -1,4 +1,4 @@
-import React , {ReactDOM} from "react";
+import React from "react";
 function OnclickFunc(){
             var x,x1,list,notlist,notlis,note, index,onlist,testElement;
             x1 = document.querySelector('#myselect').value;
