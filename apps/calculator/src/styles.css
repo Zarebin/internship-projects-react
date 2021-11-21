@@ -23,6 +23,20 @@
     color: #4d5156;
 }
 
+#primary-monitor {
+    margin-top: 6px;
+    line-height: 32px;
+}
+
+#secondary-monitor {
+    font-size: small;
+    color: #666;
+    font-size: 13px;
+    line-height: 13px;
+    margin-top: 3px;
+    margin-bottom: 6px;
+}
+
 #main-panel {
     display: grid;
     grid-template-columns: auto auto auto auto;

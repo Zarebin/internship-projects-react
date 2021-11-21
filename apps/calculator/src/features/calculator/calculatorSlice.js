@@ -11,6 +11,7 @@ const initialState = {
     monitorExpression: '',
     monitorCursor: 0,
     primaryMonitor: '',
+    secondaryMonitor: '',
 };
 
 export const calculatorSlice = createSlice({
@@ -50,6 +51,7 @@ export const calculatorSlice = createSlice({
                 }
                 state.expressionHistory.push(currentAddition);
                 state.primaryMonitor = state.monitorExpression;
+                state.secondaryMonitor = 'Ans' + '=' + state.ans
             }
         },
         solveExpression(state, action) {
@@ -70,6 +72,7 @@ export const calculatorSlice = createSlice({
                 try {
                     result = Number(math.evaluate(state.expression ? state.expression : '0').toFixed(11));
                     if (!Number.isNaN(result)) {
+                        state.secondaryMonitor = state.monitorExpression + '=';
                         state.ans = result;
                         state.expression = '' + state.ans;
                         state.cursor = state.expression.length;
@@ -125,6 +128,7 @@ export const calculatorSlice = createSlice({
             // let expressionHistory = original(state.expressionHistory);
             const lastAddition = expressionHistory[expressionHistory.length - 1];
             state.expressionHistory.pop();
+            state.secondaryMonitor = 'Ans' + '=' + state.ans;
             if (lastAddition !== undefined) {
                 if (lastAddition.type === 'operand' || lastAddition.type === 'operator' || lastAddition.type === 'function') {
                     const start = state.expression.slice(0, state.expression.lastIndexOf(lastAddition.value));
@@ -166,6 +170,8 @@ export const selectMonitorExpression = state => state.calculator.monitorExpressi
 export const selectMonitorCursor = state => state.calculator.monitorCursor;
 export const selectExpressionHistory = state => state.calculator.expressionHistory;
 export const selectPrimaryMonitor = state => state.calculator.primaryMonitor;
+export const selectSecondaryMonitor = state => state.calculator.secondaryMonitor;
+
 
 export default calculatorSlice.reducer;
 
@@ -233,6 +239,8 @@ function isValidAddition(lastAddition, currentAddition) {
         if (lastAddition !== undefined) {
             if (lastAddition.id === 'close-parenthesis') {
                 return false;
+            } else if (lastAddition.id === 'point') {
+                return false
             }
         }
     } else if (currentAddition.type === 'operand') {
