@@ -1,4 +1,4 @@
-import React  from "react";
+import React  from "zarkit/react";
 import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
 import '@material/mwc-button';
 import '@material/mwc-select';

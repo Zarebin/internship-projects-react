@@ -1,5 +1,5 @@
  
-import React  from "react";
+import React  from "zarkit/react";
 function PressureFunc(val,madeSelection_1,madeSelection_2) {
     var result,formulvalue;
     if (madeSelection_1 === madeSelection_2 ) {

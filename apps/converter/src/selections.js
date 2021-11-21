@@ -1,4 +1,4 @@
-import React  from "react";
+import React  from "zarkit/react";
 import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
 import '@material/mwc-button';
 import '@material/mwc-select';
@@ -119,6 +119,14 @@ class Selection extends React.Component {
             }
 
             }
+            // const mydata={
+            //     Area: [
+            //         {
+            //             values: 'Square kilometer',
+            //             title: 'کیلومتر مربع'
+            //         }
+            //     ]
+            // }
 
     render () {
         return(

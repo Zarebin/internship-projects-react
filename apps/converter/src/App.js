@@ -1,5 +1,5 @@
-import React from "react";
-import { ReactDOM } from "react";
+import React from "zarkit/react";
+import { ReactDOM } from "zarkit/react-dom";
 import TopSelection from './TopSelection';
 
 class App extends React.Component {

@@ -1,5 +1,5 @@
-import React from "react";
-import { ReactDOM } from "react";
+import React from "zarkit/react";
+import { ReactDOM } from 'zarkit/react-dom';
 
 function Converter() {
     return (
