@@ -13,7 +13,7 @@ module.exports = {
   },
   devtool: isDEV ? 'inline-source-map' : false,
   resolve: {
-    extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', '.css', '.scss', '.jpg', 'jpeg', 'png', 'svg']
+    extensions: ['.jsx', '.js', '.tsx', '.ts', '.css', '.scss', 'svg']
   },
   performance: { hints: false},
   module: {
@@ -49,10 +49,6 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader'
-      },
-      {
-        test: /\.(jpg|png|gif|jpeg)$/,
-        loader: 'file-loader'
       }
     ]
   },
@@ -61,7 +57,10 @@ module.exports = {
       directory: path.join(__dirname, 'dist'),
     },
     compress: true,
-    port: 3003
+    port: 3003,
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
   },
   plugins: [
     new MiniCssExtractPlugin({

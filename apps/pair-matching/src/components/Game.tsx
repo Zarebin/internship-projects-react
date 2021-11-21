@@ -1,39 +1,40 @@
-import React, {useEffect, useState} from 'zarkit/react';
+import React, {useEffect} from 'zarkit/react';
 import {fillIcons, icons} from "./Settings";
 
 function Game(props: any) {
-
-    const [gameState, setGameState] = useState('play');
 
     // Set events
     const cardOnClick = (i: number) => {
 
         // Ignore invalid clicks
         if (props.flipped.indexOf(i) !== -1) return;
-        if (props.flipped.length === 2) return;
+        if (props.flipped.length >= 2) return;
 
         // Flip the clicked card
         props.setFlipped(props.flipped.concat(i));
-
-        // Initialize the timer of not already
-        if (!window.timerPairMatching) {
-            window.timerPairMatching = setInterval(() => {
-                props.setTime((t = props.time) => t + 1);
-            }, 1000);
-
-        }
 
     }
 
     // Event for replay button
     const replay = () => {
-        props.setFlipped([]);
+        // Set initial values
+        fillIcons(props);
+        props.setFlipped([...props.icons.keys()]);
         props.setSolved([]);
         props.setTime(0);
-        clearInterval(window.timerPairMatching);
-        window.timerPairMatching = undefined;
-        setGameState('play');
-        setTimeout(() => fillIcons(props), 500);
+        clearInterval(props.timer);
+        props.setTimer(undefined);
+        // Initialize the timer
+        props.setTimer(setInterval(() => {
+            props.setTime((t = props.time) => t + 1);
+        }, 1000));
+        props.setGameState('play');
+        // Calculate hint delay time and flip cards till then
+        const delay = props.size.split('x')[0]*props.size.split('x')[1] * 100 + 1000;
+        setTimeout( () => {
+            props.setFlipped([]);
+        }, delay);
+
     }
 
     // checking flipped cards are the same?
@@ -55,13 +56,15 @@ function Game(props: any) {
     useEffect(() => {
         // Check if all cards are solved
         if (props.solved.length !== 0 && props.solved.length === props.icons.length) {
-            setGameState('won');
-            clearInterval(window.timerPairMatching);
+            props.setGameState('won');
+            clearInterval(props.timer);
+            props.setTimer(undefined);
             // Check for new record
-            if (!props.bestTime || props.time < parseInt(props.bestTime)) {
-                console.log('time: ', props.time);
-                props.setBestTime(props.time);
-                localStorage.setItem('bestTime', props.time);
+            if (!props.bestTime.hasOwnProperty(props.size) || props.time < parseInt(props.bestTime[props.size])) {
+                let newBest = props.bestTime;
+                newBest[props.size] = props.time;
+                props.setBestTime(newBest);
+                localStorage.setItem('pairMatchingBestTime', JSON.stringify(newBest));
             }
         }
     }, [props.solved]);
@@ -78,7 +81,7 @@ function Game(props: any) {
             // render card with its state class
             return <div className={'card' + flipped + solved} data-name={icon} key={'card' + i}
                         onClick={() => cardOnClick(i)}>
-                <div className="front"></div>
+                <div className="front" />
                 <div className="back" dangerouslySetInnerHTML={{__html: icons[props.iconTheme][icon]}}/>
             </div>;
         })
@@ -86,11 +89,14 @@ function Game(props: any) {
 
     // game grid
     return (
-        <div className={'game size' + props.size}>
+        <div className={'game size' + props.size.split('x')[0]}>
             {renderCards()}
-            {gameState === 'won' ? <div class="overlay">
+            {props.gameState === 'init' ? <div className="overlay">
+                <mwc-button raised={true} onClick={replay}>شروع بازی</mwc-button>
+            </div> : null}
+            {props.gameState === 'won' ? <div className="overlay">
                 <span>تبریک! شما برنده شدید</span>
-                <mwc-button raised class="replay" onClick={replay}>بازی دوباره</mwc-button>
+                <mwc-button raised={true} onClick={replay}>بازی دوباره</mwc-button>
             </div> : null}
         </div>
     )

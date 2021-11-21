@@ -26,9 +26,10 @@ function Settings(props: any) {
         props.setFlipped([]);
         props.setSolved([]);
         props.setTime(0);
-        clearInterval(window.timerPairMatching);
-        window.timerPairMatching = undefined;
-        setTimeout(() => fillIcons(props), 500);
+        props.setGameState('init');
+        clearInterval(props.timer);
+        props.setTimer(undefined);
+        fillIcons(props);
     }, [props.size, props.iconTheme]);
 
 
@@ -36,9 +37,14 @@ function Settings(props: any) {
     return (
         <div className="settings">
             <mwc-select label="اندازه" className="setting-size" ref={sizeRef}>
-                <mwc-list-item value="4">۴x۴</mwc-list-item>
-                <mwc-list-item value="6" selected={true}>۶x۶</mwc-list-item>
-                <mwc-list-item value="8">۸x۸</mwc-list-item>
+                <mwc-list-item value="4x4">۴x۴</mwc-list-item>
+                <mwc-list-item value="4x6">۴x۶</mwc-list-item>
+                <mwc-list-item value="4x7">۴x۷</mwc-list-item>
+                <mwc-list-item value="5x6" selected={true}>۵x۶</mwc-list-item>
+                <mwc-list-item value="5x8">۵x۸</mwc-list-item>
+                <mwc-list-item value="6x6">۶x۶</mwc-list-item>
+                <mwc-list-item value="6x8">۶x۸</mwc-list-item>
+                <mwc-list-item value="6x10">۶x۱۰</mwc-list-item>
             </mwc-select>
             <mwc-select label="زمینه" className="setting-theme" ref={iconThemeRef}>
                 <mwc-list-item value="christmas" selected={true}>کریسمس</mwc-list-item>
@@ -48,7 +54,7 @@ function Settings(props: any) {
                 <span>زمان</span>
                 <div>
                     <span className="val">{(props.time).toLocaleString('fa-IR')}</span>
-                    <span className="best">{(props.bestTime ? parseInt(props.bestTime):'-').toLocaleString('fa-IR')}</span>
+                    <span className="best">{(props.bestTime.hasOwnProperty(props.size) ? parseInt(props.bestTime[props.size]):'-').toLocaleString('fa-IR')}</span>
                 </div>
             </div>
         </div>
@@ -79,7 +85,7 @@ const shuffle = (array: any) => {
 // Fill game object with icons by required count and shuffle those
 export const fillIcons = (props: any) => {
     let icn = Object.keys(icons[props.iconTheme]);
-    let iconsCount = (props.size * props.size) / 2;
+    let iconsCount = (props.size.split('x')[0] * props.size.split('x')[1]) / 2;
 
     if (icn.length < iconsCount) {
         icn = [...icn, ...icn];

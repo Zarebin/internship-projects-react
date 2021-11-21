@@ -4,7 +4,9 @@ import PairMatching from './components/PairMatching';
 
 ReactDOM.render(
     <React.StrictMode>
-        <PairMatching />
+        <div className="wrapper">
+            <PairMatching />
+        </div>
     </React.StrictMode>,
-    document.getElementById('app-pair-matching')
+    document.getElementById('app')
 );

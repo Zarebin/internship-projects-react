@@ -1,6 +1,6 @@
 declare module "zarkit/react" {
     export default React;
-    export { createRef, useEffect, useRef, useState };
+    export { useMemo, useEffect, useRef, useState };
 }
 
 declare module "zarkit/react-dom" {

@@ -1,3 +1,4 @@
+$whitesmoke: #dadce0;
 $primary: #651fff;
 $secondary: #ff9100;
 
@@ -20,15 +21,18 @@ $secondary: #ff9100;
 }
 
 body {
-  background-color: #efefef;
   direction: rtl;
   --mdc-theme-primary: #651fff;
   --mdc-typography-font-family: IranYekan;
+  --mdc-typography-letter-spacing: 0;
+}
+
+mwc-button{
+  --mdc-typography-button-letter-spacing: 0;
 }
 
 .wrapper {
-  width: 80%;
-  margin: 1rem 10%;
+  padding: 1rem 30%;
 }
 
 .pair-matching * {
@@ -39,7 +43,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: .5%;
+  gap: 1%;
   position: relative;
 }
 
@@ -51,10 +55,9 @@ body {
   position: relative;
   transform-style: preserve-3d;
   transition: transform .3s ease-in-out;
-  border: 1px solid $primary;
-  border-radius: 3px;
-  box-shadow: 0 0 3px $primary;
-  margin-bottom: .5%;
+  border-radius: 4px;
+  box-shadow: 0 0 .5rem $whitesmoke;
+  margin-bottom: 1%;
   cursor: pointer;
 }
 
@@ -64,16 +67,18 @@ body {
   height: 100%;
   left: 0;
   top: 0;
+  border-radius: 4px;
 }
 
 .pair-matching .game .card .front {
-  background: $primary;
+  background: $whitesmoke;
   z-index: 2;
 }
 
 .pair-matching .game .card .back {
-  background: #eee;
+  background: #fefefe;
   transform: rotateY(180deg);
+  padding: 1rem;
 }
 
 .pair-matching .game .card.flipped {
@@ -88,20 +93,26 @@ body {
 .pair-matching .game .card.solved .front {
   z-index: -1;
 }
+.pair-matching .game .card.solved .front svg{
+  width: 100%;
+}
 
 .pair-matching .game.size4 .card {
-  width: 24%;
-  padding-top: 24%;
+  width: 24.2%;
+  padding-top: 24.2%;
+}
+
+.pair-matching .game.size5 .card {
+  width: 19.2%;
+  padding-top: 19.2%;
 }
 
 .pair-matching .game.size6 .card {
-  width: 16%;
-  padding-top: 16%;
+  width: 15.8%;
+  padding-top: 15.8%;
 }
-
-.pair-matching .game.size8 .card {
-  width: 12%;
-  padding-top: 12%;
+.pair-matching .game.size6 .card .back{
+  padding: .5em;
 }
 
 .pair-matching .settings {
@@ -138,20 +149,33 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, .3);
+  background: rgba(255, 255, 255, .5);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 1rem;
+  padding-top: 40%;
 }
 
 .pair-matching .game .overlay span {
   font-size: 1.2rem;
 }
 
+@media screen and (max-width: 1024px) {
+  .wrapper{
+    padding: 1rem 10%;
+  }
+}
+
 @media screen and (max-width: 768px) {
+  .wrapper{
+    padding: 1rem;
+  }
   .pair-matching .settings{
     flex-direction: column;
+  }
+  .pair-matching .game .card .back{
+    padding: .2rem;
   }
 }
