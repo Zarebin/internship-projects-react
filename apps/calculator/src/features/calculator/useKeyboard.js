@@ -1,8 +1,9 @@
 import { useDispatch } from 'zarkit/react-redux';
 import { addToExpression, solveExpression, addCloseParenthesis, clearEntry } from './calculatorSlice';
 
+// A custom hook returns a function that gets an event and handles any valid keyboard event
 export default function useKeyboard() {
-    
+
     const dispatch = useDispatch();
 
     return function (e) {
@@ -85,7 +86,7 @@ export default function useKeyboard() {
                 break;
             case '-':
                 dispatch(addToExpression(
-                    { id: "minus", type: "operator", label: "-", value: "-", monitorValue: "-" }
+                    { id: "minus", type: "operator", label: "−", value: "-", monitorValue: "−" }
                 ));
                 break;
             case '0':
@@ -110,6 +111,7 @@ export default function useKeyboard() {
                 break;
 
             case 'Enter':
+                e.preventDefault();
                 dispatch(solveExpression(
                     { id: "equals", label: "=" }
                 ));

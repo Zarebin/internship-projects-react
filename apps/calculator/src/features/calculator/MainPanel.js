@@ -3,10 +3,11 @@ import '@material/mwc-button';
 import { useDispatch } from 'zarkit/react-redux';
 import { addToExpression, solveExpression, addCloseParenthesis, clearEntry } from './calculatorSlice';
 
+// This Component returns all Main buttons includes their configuration
 function MainPanel() {
 
     const dispatch = useDispatch();
-
+    
     return (
         <div id='main-panel'>
             <mwc-button
@@ -111,9 +112,9 @@ function MainPanel() {
             <mwc-button
                 class="gray-button big-font-button"
                 onClick={() => dispatch(addToExpression(
-                    { id: "minus", type: "operator", label: "-", value: "-", monitorValue: "-" }
+                    { id: "minus", type: "operator", label: "−", value: "-", monitorValue: "−" }
                 ))}
-                label="-" unelevated
+                label="−" unelevated
             />
 
             <mwc-button

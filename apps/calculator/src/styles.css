@@ -17,24 +17,21 @@
     border-radius: 5px;
     text-align: right;
     padding: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     font-size: xx-large;
     color: #4d5156;
 }
 
 #primary-monitor {
-    margin-top: 6px;
-    line-height: 32px;
+    margin-top: 7px;
 }
 
 #secondary-monitor {
     font-size: small;
     color: #666;
     font-size: 13px;
-    line-height: 13px;
     margin-top: 3px;
-    margin-bottom: 6px;
 }
 
 #main-panel {
@@ -59,7 +56,7 @@ mwc-button {
 }
 
 .blue-button {
-    --mdc-theme-primary: #4285f4;
+    --mdc-theme-primary: #651fff;
     --mdc-theme-on-primary: #fff;
 }
 

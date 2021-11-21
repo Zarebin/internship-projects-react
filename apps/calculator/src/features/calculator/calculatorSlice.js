@@ -18,56 +18,42 @@ export const calculatorSlice = createSlice({
     name: 'calculator',
     initialState,
     reducers: {
+        // A reducer function that handles adding an entry to expression
         addToExpression(state, action) {
-            let expressionHistory = original(state.expressionHistory);
-            console.log('expressionHistory: ', expressionHistory);
-            console.log('expression: ', state.expression);
-            console.log('cursor: ', state.cursor);
-            console.log('monitorExpression: ', state.monitorExpression);
-            console.log('monitorCursor: ', state.monitorCursor);
-            console.log('ans: ', state.ans);
-            console.log('--------------------------------');
-
-            let lastAddition = getLastAddition(state);
-            let currentAddition = getCurrentAddition(action);
+            let lastEntry = getLastEntry(state);
+            let currentEntry = getCurrentEntry(action);
 
             enableSmartAddition(state, action);
             exceptionalFeatueresAddition(state, action);
 
-            if (isValidAddition(lastAddition, currentAddition)) {
+            // Checks if addition is valid then adds the entry to expression and works on the related state changes
+            if (isValidOperation(lastEntry, currentEntry)) {
                 const start = state.expression.slice(0, state.cursor);
                 const end = state.expression.slice(state.cursor, state.expression.length);
-                state.expression = start + currentAddition.value + end;
-                state.cursor += currentAddition.value.length;
+                state.expression = start + currentEntry.value + end;
+                state.cursor += currentEntry.value.length;
 
                 const monitorStart = state.monitorExpression.slice(0, state.monitorCursor);
                 const monitorEnd = state.monitorExpression.slice(state.monitorCursor, state.monitorExpression.length);
-                state.monitorExpression = monitorStart + currentAddition.monitorValue + monitorEnd;
-                state.monitorCursor += currentAddition.monitorValue.length;
+                state.monitorExpression = monitorStart + currentEntry.monitorValue + monitorEnd;
+                state.monitorCursor += currentEntry.monitorValue.length;
 
-                if (currentAddition.type === 'function') {
+                if (currentEntry.type === 'function') {
                     state.cursor--;
                     state.monitorCursor--;
                 }
-                state.expressionHistory.push(currentAddition);
+                state.expressionHistory.push(currentEntry);
                 state.primaryMonitor = state.monitorExpression;
                 state.secondaryMonitor = 'Ans' + '=' + state.ans
             }
         },
+        // A reducer function that solves the entry expression and shows the result to the user
         solveExpression(state, action) {
-            let expressionHistory = original(state.expressionHistory);
-            console.log('expressionHistory: ', expressionHistory);
-            console.log('expression: ', state.expression);
-            console.log('cursor: ', state.cursor);
-            console.log('monitorExpression: ', state.monitorExpression);
-            console.log('monitorCursor: ', state.monitorCursor);
-            console.log('ans: ', state.ans);
-            console.log('--------------------------------');
+            const lastEntry = getLastEntry(state);
+            const currentEntry = getCurrentEntry(action);
 
-
-            const lastAddition = getLastAddition(state);
-            const currentAddition = getCurrentAddition(action);
-            if (isValidAddition(lastAddition, currentAddition)) {
+            // Checks if request to solve expression is valid then solve the expression and works on the related state changes and if an error occurred shows "Error" to user
+            if (isValidOperation(lastEntry, currentEntry)) {
                 let result;
                 try {
                     result = Number(math.evaluate(state.expression ? state.expression : '0').toFixed(11));
@@ -79,8 +65,8 @@ export const calculatorSlice = createSlice({
                         state.monitorExpression = '' + state.ans;
                         state.monitorCursor = state.monitorExpression.length;
                         state.primaryMonitor = state.monitorExpression;
-                        const currentAddition = getCurrentAddition(action);
-                        state.expressionHistory.push(currentAddition);
+                        const currentEntry = getCurrentEntry(action);
+                        state.expressionHistory.push(currentEntry);
                     }
                 } catch (error) {
                     state.primaryMonitor = 'Error';
@@ -92,66 +78,49 @@ export const calculatorSlice = createSlice({
                 }
             };
         },
+        // A reducer function that adds close parenthesis to expression
         addCloseParenthesis(state, action) {
-            let expressionHistory = original(state.expressionHistory);
-            console.log('expressionHistory: ', expressionHistory);
-            console.log('expression: ', state.expression);
-            console.log('cursor: ', state.cursor);
-            console.log('monitorExpression: ', state.monitorExpression);
-            console.log('monitorCursor: ', state.monitorCursor);
-            console.log('ans: ', state.ans);
-            console.log('--------------------------------');
+            const lastEntry = getLastEntry(state);
+            const currentEntry = getCurrentEntry(action);
 
-
-            const lastAddition = getLastAddition(state);
-            const currentAddition = getCurrentAddition(action);
-            if (isValidAddition(lastAddition, currentAddition)) {
+            // Checks if addition is valid then adds close parenthesis by changing cursors and works on the related state changes
+            if (isValidOperation(lastEntry, currentEntry)) {
                 if (state.expression.length !== state.cursor) {
                     state.cursor++;
                     state.monitorCursor++;
-                    const currentAddition = getCurrentAddition(action);
-                    state.expressionHistory.push(currentAddition);
+                    state.expressionHistory.push(currentEntry);
                 }
             }
         },
+        // A reducer function that operates CE on expression
         clearEntry(state, action) {
             let expressionHistory = original(state.expressionHistory);
-            console.log('expressionHistory: ', expressionHistory);
-            console.log('expression: ', state.expression);
-            console.log('cursor: ', state.cursor);
-            console.log('monitorExpression: ', state.monitorExpression);
-            console.log('monitorCursor: ', state.monitorCursor);
-            console.log('ans: ', state.ans);
-            console.log('--------------------------------');
-
-
-            // let expressionHistory = original(state.expressionHistory);
-            const lastAddition = expressionHistory[expressionHistory.length - 1];
+            const lastEntry = expressionHistory[expressionHistory.length - 1];
             state.expressionHistory.pop();
             state.secondaryMonitor = 'Ans' + '=' + state.ans;
-            if (lastAddition !== undefined) {
-                if (lastAddition.type === 'operand' || lastAddition.type === 'operator' || lastAddition.type === 'function') {
-                    const start = state.expression.slice(0, state.expression.lastIndexOf(lastAddition.value));
-                    const end = state.expression.slice(state.expression.lastIndexOf(lastAddition.value) + lastAddition.value.length, state.expression.length);
+            if (lastEntry !== undefined) {
+                if (lastEntry.type === 'operand' || lastEntry.type === 'operator' || lastEntry.type === 'function') {
+                    const start = state.expression.slice(0, state.expression.lastIndexOf(lastEntry.value));
+                    const end = state.expression.slice(state.expression.lastIndexOf(lastEntry.value) + lastEntry.value.length, state.expression.length);
                     state.expression = start + end;
-                    state.cursor -= lastAddition.value.length;
+                    state.cursor -= lastEntry.value.length;
 
-                    const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastAddition.monitorValue));
-                    const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastAddition.monitorValue) + lastAddition.monitorValue.length, state.monitorExpression.length);
+                    const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastEntry.monitorValue));
+                    const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastEntry.monitorValue) + lastEntry.monitorValue.length, state.monitorExpression.length);
                     state.monitorExpression = monitorStart + monitorEnd;
-                    state.monitorCursor -= lastAddition.monitorValue.length;
+                    state.monitorCursor -= lastEntry.monitorValue.length;
 
-                    if (lastAddition.type === 'function') {
+                    if (lastEntry.type === 'function') {
                         state.cursor++;
                         state.monitorCursor++;
                     }
-                } else if (lastAddition.id === 'equals') {
+                } else if (lastEntry.id === 'equals') {
                     state.expression = '';
                     state.cursor = 0;
                     state.monitorExpression = '';
                     state.monitorCursor = 0;
                     state.expressionHistory = [];
-                } else if (lastAddition.id === 'close-parenthesis') {
+                } else if (lastEntry.id === 'close-parenthesis') {
                     state.cursor--;
                     state.monitorCursor--;
                 }
@@ -161,8 +130,10 @@ export const calculatorSlice = createSlice({
     }
 });
 
+// Exports functions that return corresponding dispatch object to every reducer
 export const { addToExpression, solveExpression, addCloseParenthesis, clearEntry } = calculatorSlice.actions;
 
+// Exports selector functions corresponding to every variable in calculator state
 export const selectAns = state => state.calculator.ans;
 export const selectExpression = state => state.calculator.expression;
 export const selectCursor = state => state.calculator.cursor;
@@ -172,88 +143,90 @@ export const selectExpressionHistory = state => state.calculator.expressionHisto
 export const selectPrimaryMonitor = state => state.calculator.primaryMonitor;
 export const selectSecondaryMonitor = state => state.calculator.secondaryMonitor;
 
-
+// Export reducer function that needs to add to the redux store
 export default calculatorSlice.reducer;
 
 
 
 
-
-function getCurrentAddition(action) {
-    let currentAddition = {
+// Creates current entry object from action parameter and return it
+function getCurrentEntry(action) {
+    let currentEntry = {
         id: action.payload.id,
         type: action.payload.type,
         value: action.payload.value,
         label: action.payload.label,
         monitorValue: action.payload.monitorValue,
     };
-    return currentAddition;
+    return currentEntry;
 }
 
-function getLastAddition(state) {
+// Read last entry object from state parameter and return it
+function getLastEntry(state) {
     let expressionHistory = original(state.expressionHistory);
-    const lastAddition = expressionHistory[expressionHistory.length - 1];
-    return lastAddition;
+    const lastEntry = expressionHistory[expressionHistory.length - 1];
+    return lastEntry;
 }
 
-function isValidAddition(lastAddition, currentAddition) {
-    if (currentAddition.id === 'close-parenthesis') {
-        if (lastAddition !== undefined) {
-            if (lastAddition.id === 'open-parenthesis' || lastAddition.id === 'close-parenthesis' || lastAddition.type === 'operator') {
+// Gets lastEntry and currentEntry as a parameter and returns a boolean that determines current operation is valid or not
+function isValidOperation(lastEntry, currentEntry) {
+    if (currentEntry.id === 'close-parenthesis') {
+        if (lastEntry !== undefined) {
+            if (lastEntry.id === 'open-parenthesis' || lastEntry.id === 'close-parenthesis' || lastEntry.type === 'operator') {
                 return false;
-            } else if (lastAddition.id === 'point') {
-                return false;
-            }
-        }
-    } else if (currentAddition.type === 'operator') {
-        if (lastAddition === undefined) {
-            if (currentAddition.id !== 'plus' && currentAddition.id !== 'minus') {
-                return false;
-            }
-        } else if (lastAddition.type === 'function') {
-            if (currentAddition.id !== 'plus' && currentAddition.id !== 'minus') {
-                return false;
-            }
-        } else if (lastAddition.id === 'point') {
-            return false;
-        }
-    } else if (currentAddition.id === 'equals') {
-        if (lastAddition !== undefined) {
-            if (lastAddition.type === 'function' || lastAddition.type === 'operator') {
-                return false;
-            } else if (lastAddition.id === 'equals') {
-                return false;
-            } else if (lastAddition.id === 'point') {
+            } else if (lastEntry.id === 'point') {
                 return false;
             }
         }
-    } else if (currentAddition.id === 'percentage') {
-        if (lastAddition === undefined) {
-            return false;
-        } else if (lastAddition.type === 'function' || lastAddition.type === 'operator') {
-            return false;
-        } else if (lastAddition.id === 'point') {
+    } else if (currentEntry.type === 'operator') {
+        if (lastEntry === undefined) {
+            if (currentEntry.id !== 'plus' && currentEntry.id !== 'minus') {
+                return false;
+            }
+        } else if (lastEntry.type === 'function') {
+            if (currentEntry.id !== 'plus' && currentEntry.id !== 'minus') {
+                return false;
+            }
+        } else if (lastEntry.id === 'point') {
             return false;
         }
-    } else if (currentAddition.id === 'point') {
-        if (lastAddition !== undefined) {
-            if (lastAddition.id === 'close-parenthesis') {
+    } else if (currentEntry.id === 'equals') {
+        if (lastEntry !== undefined) {
+            if (lastEntry.type === 'function' || lastEntry.type === 'operator') {
                 return false;
-            } else if (lastAddition.id === 'point') {
+            } else if (lastEntry.id === 'equals') {
+                return false;
+            } else if (lastEntry.id === 'point') {
+                return false;
+            }
+        }
+    } else if (currentEntry.id === 'percentage') {
+        if (lastEntry === undefined) {
+            return false;
+        } else if (lastEntry.type === 'function' || lastEntry.type === 'operator') {
+            return false;
+        } else if (lastEntry.id === 'point') {
+            return false;
+        }
+    } else if (currentEntry.id === 'point') {
+        if (lastEntry !== undefined) {
+            if (lastEntry.id === 'close-parenthesis') {
+                return false;
+            } else if (lastEntry.id === 'point') {
                 return false
             }
         }
-    } else if (currentAddition.type === 'operand') {
-        if (lastAddition !== undefined) {
-            if (lastAddition.id === 'percentage') {
+    } else if (currentEntry.type === 'operand') {
+        if (lastEntry !== undefined) {
+            if (lastEntry.id === 'percentage') {
                 return false;
             }
         }
-    } else if (currentAddition.type === 'function') {
-        if (lastAddition !== undefined) {
-            if (lastAddition.id === 'percentage') {
+    } else if (currentEntry.type === 'function') {
+        if (lastEntry !== undefined) {
+            if (lastEntry.id === 'percentage') {
                 return false;
-            } else if (lastAddition.id === 'point') {
+            } else if (lastEntry.id === 'point') {
                 return false;
             }
         }
@@ -261,12 +234,14 @@ function isValidAddition(lastAddition, currentAddition) {
     return true;
 }
 
+// Adding some entries needs complement works to be a smart addition. calling this function operates this complement works and makes addition smarter.
 function enableSmartAddition(state, action) {
-    let lastAddition = getLastAddition(state);
-    let currentAddition = getCurrentAddition(action);
+    let lastEntry = getLastEntry(state);
+    let currentEntry = getCurrentEntry(action);
 
-    if (lastAddition !== undefined) {
-        if (lastAddition.id === 'equals' && !(currentAddition.type === 'operator' || currentAddition.id === 'percentage')) {
+    // Reset most of the state when gets equal as last entry except when gets an operator or percentage after that
+    if (lastEntry !== undefined) {
+        if (lastEntry.id === 'equals' && !(currentEntry.type === 'operator' || currentEntry.id === 'percentage')) {
             state.expression = '';
             state.monitorExpression = '';
             state.cursor = 0;
@@ -275,28 +250,29 @@ function enableSmartAddition(state, action) {
         }
     }
 
-
-    if (lastAddition !== undefined) {
-        if (currentAddition.type === 'operator' && lastAddition.type === 'operator') {
+    // Checks if last entry is an operator and gets another operator after it then replaces last entry with the new operator
+    if (lastEntry !== undefined) {
+        if (currentEntry.type === 'operator' && lastEntry.type === 'operator') {
             state.expressionHistory.pop();
-            const start = state.expression.slice(0, state.expression.lastIndexOf(lastAddition.value));
-            const end = state.expression.slice(state.expression.lastIndexOf(lastAddition.value) + lastAddition.value.length, state.expression.length);
+            const start = state.expression.slice(0, state.expression.lastIndexOf(lastEntry.value));
+            const end = state.expression.slice(state.expression.lastIndexOf(lastEntry.value) + lastEntry.value.length, state.expression.length);
             state.expression = start + end;
-            state.cursor -= lastAddition.value.length;
+            state.cursor -= lastEntry.value.length;
 
-            const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastAddition.monitorValue));
-            const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastAddition.monitorValue) + lastAddition.monitorValue.length, state.monitorExpression.length);
+            const monitorStart = state.monitorExpression.slice(0, state.monitorExpression.lastIndexOf(lastEntry.monitorValue));
+            const monitorEnd = state.monitorExpression.slice(state.monitorExpression.lastIndexOf(lastEntry.monitorValue) + lastEntry.monitorValue.length, state.monitorExpression.length);
             state.monitorExpression = monitorStart + monitorEnd;
-            state.monitorCursor -= lastAddition.monitorValue.length;
+            state.monitorCursor -= lastEntry.monitorValue.length;
         }
     }
 }
 
+// Some entries (most of the advanced entries) need extra works in addition. this function provides this extra works.
 function exceptionalFeatueresAddition(state, action) {
-    let currentAddition = getCurrentAddition(action);
+    let currentEntry = getCurrentEntry(action);
 
-    if (currentAddition.id === 'ans') {
-        currentAddition.value = state.ans;
-        currentAddition.monitorValue = 'Ans';
+    if (currentEntry.id === 'ans') {
+        currentEntry.value = state.ans;
+        currentEntry.monitorValue = 'Ans';
     }
 }

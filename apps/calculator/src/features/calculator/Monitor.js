@@ -10,8 +10,12 @@ function Monitor() {
 
     return (
         <div id='monitor'>
-            <div id="secondary-monitor" style={secondaryMonitor ? null : styles.secondaryMonitor}>{secondaryMonitor ? secondaryMonitor : 0}</div>
-            <div>{primaryMonitor ? primaryMonitor : 0}</div>
+            {/* Hides secondary monitor if it's an empty string */}
+            <div id="secondary-monitor" style={secondaryMonitor ? null : styles.secondaryMonitor}>
+                {secondaryMonitor ? secondaryMonitor : 0}
+            </div>
+            {/* Shows zero in primary monitor if the primary monitor is an empty string */}
+            <div id="primary-monitor">{primaryMonitor ? primaryMonitor : 0}</div>
         </div>
     );
 }
