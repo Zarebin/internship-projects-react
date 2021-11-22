@@ -60,7 +60,10 @@ module.exports = {
       directory: path.join(__dirname, 'dist')
     },
     compress: true,
-    port: 3007
+    port: 3007,
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    },
   },
   plugins: [
     new ModuleFederationPlugin({

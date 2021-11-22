@@ -3,6 +3,9 @@
    src: url("fonts/IRANYekanWebRegular.woff2") format("woff");
 }
 
+$zarebi-purple: #651fff;
+$zarebin-grey: rgb(200, 200, 200);
+
 :root {
    font-family: "IRANYekan", tahoma;
    direction: rtl;
@@ -17,7 +20,7 @@ h5 {
 }
 
 #calendar-app {
-   margin: 20px 100px 0 0;
+   margin: 20px;
 }
 
 #day-time {
@@ -52,7 +55,7 @@ h5 {
    width: 600px;
    float: right;
    padding: 10px;
-   box-shadow: 0 0 20px 5px #651fff;
+   box-shadow: 0 0 20px 5px $zarebin-grey;
    margin: 0 0 30px 30px;
    border-radius: 1%;
 }
@@ -65,9 +68,14 @@ td {
    table-layout: fixed;
 }
 
+table {
+   width: 100%;
+   height: 100%;
+}
+
 thead {
    height: 50px;
-   background-color: #ff9100;
+   background-color: $zarebin-grey;
    text-align: center;
    font-size: 16px;
 }
@@ -76,79 +84,60 @@ td {
    padding: 5px;
 }
 
-table {
-   width: 100%;
-   height: 100%;
-}
-
-td:nth-child(7) {
-   color: red;
-}
-
-#aban tbody tr:last-child {
-   @for $i from 1 through 5 {
-      td:nth-last-child(#{$i}) {
-         opacity: 0.2;
-      }
-   }
-}
-
-#mehr tbody tr:first-child {
-   td:first-child {
-      opacity: 0.2;
-   }
-   @for $i from 2 through 5 {
-      td:nth-child(#{$i}) {
-         opacity: 0.2;
-      }
-   }
-}
-
-#azar tbody {
-   tr:first-child {
-      td:first-child,
-      td:nth-child(2) {
-         opacity: 0.2;
-      }
-   }
-   tr:last-child {
-      @for $i from 1 through 3 {
-         td:nth-last-child(#{$i}) {
-            opacity: 0.2;
-         }
-      }
-   }
-}
-
-#dey tbody {
-   tr:first-child {
-      @for $i from 1 through 4 {
-         td:nth-child(#{$i}) {
-            opacity: 0.2;
-         }
-      }
-   }
-   tr:last-child td:last-child {
-      opacity: 0.2;
-   }
-}
-
-#aban tbody tr:first-child td:nth-child(2),
-#mehr tbody tr:nth-child(2) td:nth-child(3),
-#mehr tbody tr:nth-child(3) td:nth-child(4),
-#mehr tbody tr:nth-child(3) td:nth-child(6),
-#dey tbody tr:nth-child(3) td:nth-child(6) {
-   color: red;
-}
-
-.holiday {
-   color: red;
-}
-
 .today {
-   border-radius: 10%;
-   color: #651fff;
-   box-shadow: 0 0 4px 3px #651fff;
+   border-radius: 5%;
+   color: $zarebi-purple;
+   box-shadow: 0 0 0 2px $zarebi-purple;
+}
+
+td:nth-child(7),
+.holiday.holiday {
+   color: red;
+}
+
+.other-month {
+   opacity: 0.2;
+}
+
+#monthGhamari {
+   opacity: 0.7;
+}
+
+#monthMiladi {
+   padding-top: 5px;
+   opacity: 0.5;
+}
+
+#nextMonth {
+   float: left;
+   padding-bottom: 3px;
+   border-bottom: $zarebin-grey solid 2px;
+   --mdc-typography-button-font-size: 16px;
+   &:active {
+      opacity: 0.2;
+   }
+}
+
+#perviousMonth {
+   float: right;
+   padding-bottom: 3px;
+   border-bottom: $zarebin-grey solid 2px;
+   --mdc-typography-button-font-size: 16px;
+   &:active {
+      opacity: 0.2;
+   }
+}
+
+#goToToday {
+   width: 600px;
+   margin: 0 10px 30px 0;
+   padding-bottom: 3px;
+   border-radius: 5px;
+   box-shadow: 0 0 10px 1px $zarebin-grey;
+   --mdc-typography-button-font-size: 26px;
+   &:active {
+      opacity: 0.2;
+   }
 }
 
 .shamsi {
@@ -168,79 +157,48 @@ td:nth-child(7) {
    float: left;
    margin-left: 5px;
    opacity: 0.7;
-   padding: 0;
 }
 
 #mainMonasebat {
+   width: 620px;
    float: right;
-}
-
-#monasebatha {
-   padding-top: 20px;
-   font-size: 18px;
-   line-height: 1.8;
+   padding-bottom: 20px;
 }
 
 #monasebat {
-   color: #ff9100;
+   position: relative;
+   z-index: 1;
    font-size: 18px;
-   padding: 10px 0;
-   border-bottom: #ff9100 solid 1px;
+   padding-bottom: 10px;
+   border-bottom: black solid 1px;
+   h2 {
+      &::before {
+         content: "+   ";
+      }
+      &.active::before {
+         content: "ــ   ";
+      }
+   }
 }
 
-#monthGhamari {
-   opacity: 0.7;
+#monasebatha {
+   font-size: 18px;
+   line-height: 1.8;
+   opacity: 0;
+   transform: translateY(-2%);
+   height: 0;
+   padding-top: 0;
+   transition: all 0.5s;
+   &.active {
+      opacity: 1;
+      transform: translateY(0);
+      padding-top: 20px;
+      height: auto;
+   }
 }
 
-#monthMiladi {
-   padding-top: 5px;
-   opacity: 0.5;
-}
-
-.nextMonth {
-   float: left;
-   padding-bottom: 5px;
-   border: none;
-   border-bottom: #651fff 2px solid;
-   --mdc-typography-button-font-size: 16px;
-}
-
-.perviousMonth {
-   float: right;
-   padding-bottom: 5px;
-   border-bottom: #651fff 2px solid;
-   --mdc-typography-button-font-size: 16px;
-}
-
-.nextMonth:hover,
-.perviousMonth:hover {
-   animation: buttons 0.2s;
-   animation-fill-mode: forwards;
-}
-
-.nextMonth:active,
-.perviousMonth:active {
-   opacity: 0.2;
-}
-
-#goToToday {
-   width: 600px;
-   margin: 0 10px 30px 0;
-   box-shadow: 0 0 10px 1px #651fff;
-   --mdc-typography-button-font-size: 26px;
-   transition: all 0.3s ease-in-out;
-   border-radius: 5px;
-   letter-spacing: -10px;
-}
-
-#goToToday:hover {
-   background-color: #651fff;
-   --mdc-theme-primary: white;
-}
-
-#goToToday:active {
-   background-color: transparent;
-   --mdc-theme-primary: #651fff;
+.clear {
+   clear: both;
 }
 
 mwc-button {
@@ -249,13 +207,5 @@ mwc-button {
    --mdc-typography-font-family: "IRANYekan", tahoma;
    --mdc-ripple-color: transparent;
    --mdc-typography-button-letter-spacing: 0;
-}
-
-@keyframes buttons {
-   50% {
-      border-bottom-color: #661fff7e;
-   }
-   100% {
-      border-bottom-color: #661fff00;
-   }
+   --mdc-theme-primary: black;
 }
