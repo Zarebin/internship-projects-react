@@ -29,11 +29,11 @@ function App() {
       const timeOptions = { hourCycle: 'h23', hour: '2-digit', minute: '2-digit', second: '2-digit' };
       setTime(date.toLocaleTimeString('fa-IR', timeOptions));
 
-      const rooz = date.toLocaleDateString('fa-IR', { weekday: 'long' });
-      const adadeRooz = date.toLocaleDateString('fa-IR', { day: 'numeric' });
-      const maah = date.toLocaleDateString('fa-IR', { month: 'long' });
-      const saal = date.toLocaleDateString('fa-IR', { year: 'numeric' });
-      setDay(`${rooz} ${adadeRooz} ${maah} ${saal}`);
+      const shownDay = date.toLocaleDateString('fa-IR', { weekday: 'long' });
+      const shownDayNumber = date.toLocaleDateString('fa-IR', { day: 'numeric' });
+      const shownMonth = date.toLocaleDateString('fa-IR', { month: 'long' });
+      const shownYear = date.toLocaleDateString('fa-IR', { year: 'numeric' });
+      setDay(`${shownDay} ${shownDayNumber} ${shownMonth} ${shownYear}`);
 
       setToday(date.getDate());
    }
@@ -42,20 +42,20 @@ function App() {
 
    function monthTable() {
       return (
-         new Array(months[monthNumber].shamsi.length / 7).fill('').map((_, j) => {
+         new Array(months[monthNumber].jalali.length / 7).fill('').map((_, j) => {
             return (
-               <tr key={'row' + j}>{months[monthNumber].shamsi.slice(j * 7, j * 7 + 7).map((_, i) => {
+               <tr key={'row' + j}>{months[monthNumber].jalali.slice(j * 7, j * 7 + 7).map((_, i) => {
                   let tdClass = '';
-                  if ((j == 0 && months[monthNumber].shamsi[j * 7 + i] > 20) || (j == 4 && months[monthNumber].shamsi[j * 7 + i] < 10)) {
+                  if ((j == 0 && months[monthNumber].jalali[j * 7 + i] > 20) || (j == 4 && months[monthNumber].jalali[j * 7 + i] < 10)) {
                      tdClass += ' other-month';
                   }
-                  tdClass += tdClass !== ' other-month' && monthNumber === thisMonth && months[monthNumber].miladi[j * 7 + i] === today ? ' today' : '';
-                  tdClass += tdClass !== ' other-month' && months[monthNumber].holidays.includes(months[monthNumber].shamsi[j * 7 + i]) ? ' holiday' : '';
+                  tdClass += tdClass !== ' other-month' && monthNumber === thisMonth && months[monthNumber].gregorian[j * 7 + i] === today ? ' today' : '';
+                  tdClass += tdClass !== ' other-month' && months[monthNumber].holidays.includes(months[monthNumber].jalali[j * 7 + i]) ? ' holiday' : '';
                   return (
                      <td className={tdClass} key={'col' + j * 7 + i}>
-                        <div className='shamsi'>{months[monthNumber].shamsi[j * 7 + i].toLocaleString('fa-IR')}</div>
-                        <div className='miladi'>{months[monthNumber].miladi[j * 7 + i]}</div>
-                        <div className='ghamari'>{months[monthNumber].ghamari[j * 7 + i].toLocaleString('ar-SA')}</div>
+                        <div className='jalali'>{months[monthNumber].jalali[j * 7 + i].toLocaleString('fa-IR')}</div>
+                        <div className='gregorian'>{months[monthNumber].gregorian[j * 7 + i]}</div>
+                        <div className='hijri'>{months[monthNumber].hijri[j * 7 + i].toLocaleString('ar-SA')}</div>
                      </td>
                   )
                })}</tr>
@@ -80,7 +80,7 @@ function App() {
       setTimeout(() => setDayStyle({ backgroundColor: 'transparent' }), 500);
    }
 
-   function monasebathaShowHide() {
+   function occasionsShowHide() {
       if (showHide !== 'active') {
          setToggle('active');
          setShowHide('active');
@@ -105,9 +105,9 @@ function App() {
                <div id="month">
                   <mwc-button id="perviousMonth" onClick={perviousMonth}>ماه قبل</mwc-button>
                   <mwc-button id="nextMonth" onClick={nextMonth}>ماه بعد</mwc-button>
-                  <h1 id="monthShamsi">{months[monthNumber].monthShamsi}</h1>
-                  <h4 id="monthGhamari">{months[monthNumber].monthGhamari}</h4>
-                  <h4 id="monthMiladi">{months[monthNumber].monthMiladi}</h4>
+                  <h1 id="monthJalali">{months[monthNumber].monthJalali}</h1>
+                  <h4 id="monthHijri">{months[monthNumber].monthHijri}</h4>
+                  <h4 id="monthGregorian">{months[monthNumber].monthGregorian}</h4>
                </div>
                <table>
                   <thead>
@@ -126,9 +126,9 @@ function App() {
                   </tbody>
                </table>
             </div>
-            <div id="mainMonasebat">
-               <div id="monasebat" onClick={monasebathaShowHide}><h2 className={toggle}>مناسبت‌های این ماه</h2></div>
-               <div id="monasebatha" dangerouslySetInnerHTML={{ __html: months[monthNumber].monasebatha }} className={showHide}></div>
+            <div id="mainOccasion">
+               <div id="occasion" onClick={occasionsShowHide}><h2 className={toggle}>مناسبت‌های این ماه</h2></div>
+               <div id="occasions" dangerouslySetInnerHTML={{ __html: months[monthNumber].occasions }} className={showHide}></div>
             </div>
             <div className="clear"></div>
          </div>
