@@ -9,11 +9,12 @@ class Selection extends React.Component {
     constructor(props) {
     super(props);
     this.converterfunc = converterfunc.bind(this);
-    this.state = {query1 : ' 1' , query2 : ' 100', src:'',dest:'',formule:''};
+    this.state = {query1 : ' 1' , query2 : ' 100', src:'Meter',dest:'Centimeter',formule:''};
     }
     oninputfunc= (e) =>  {
             var src,des,valsrc,valdest,result,madeSelection_1,madeSelection_2,pin;
             var topselect=this.props.selectid;
+            console.log('topselect',this.state.src);
             if (e.target.id==='value') { 
                     const newState =this.converterfunc(topselect,e.target.value,this.state.src,this.state.dest);
                     this.setState({query2: newState});
@@ -116,7 +117,7 @@ class Selection extends React.Component {
                                 <mwc-list-item class='Frequency' value='Gigahertz'>گیگاهرتز</mwc-list-item>
                                 {/* <!-- Length -->  */}
                                 <mwc-list-item class='Length' value='kilometre' >کیلومتر</mwc-list-item>
-                                <mwc-list-item class='Length'value='Meter' >متر</mwc-list-item>
+                                <mwc-list-item class='Length'value='Meter' selected>متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Centimeter'>سانتی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Millimetre'>میلی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='micrometres'>میکرو متر</mwc-list-item>
@@ -232,7 +233,7 @@ class Selection extends React.Component {
                                 {/* <!-- Length -->  */}
                                 <mwc-list-item class='Length' value='kilometre' >کیلومتر</mwc-list-item>
                                 <mwc-list-item class='Length'value='Meter' >متر</mwc-list-item>
-                                <mwc-list-item class='Length' value='Centimeter'>سانتی متر</mwc-list-item>
+                                <mwc-list-item class='Length' value='Centimeter'selected>سانتی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Millimetre'>میلی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='micrometres'>میکرو متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Nanometre'>نانو متر</mwc-list-item>

@@ -1,5 +1,5 @@
 import React  from "zarkit/react";
-const {formule} = require('../data/formule.js');
+const {formule} = require('../data/formula.js');
 import TemperatureFunc from "./Temperature ";
 function converterfunc(topselect,val,madeSelection_1,madeSelection_2) {
     var result,formulvalue;
