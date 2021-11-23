@@ -11,11 +11,10 @@ function App() {
 
    const [time, setTime] = useState();
    const [day, setDay] = useState();
-   const [today, setToday] = useState(date.getDate());
    const [dayStyle, setDayStyle] = useState();
+   const [today, setToday] = useState(date.getDate());
    const [monthNumber, setMonthNumber] = useState(thisMonth);
    const [toggle, setToggle] = useState();
-   const [showHide, setShowHide] = useState();
 
    // ________________________________________________dateTime
 
@@ -76,19 +75,13 @@ function App() {
 
    function goToToday() {
       setMonthNumber(thisMonth);
-      setDayStyle({ backgroundColor: 'rgb(200, 200, 200)' });
-      setTimeout(() => setDayStyle({ backgroundColor: 'transparent' }), 500);
+      setDayStyle('blink');
+      setTimeout(() => setDayStyle(''), 500);
    }
 
-   function occasionsShowHide() {
-      if (showHide !== 'active') {
-         setToggle('active');
-         setShowHide('active');
-      }
-      else {
-         setToggle('');
-         setShowHide('');
-      }
+   function occasionsToggle() {
+      if (toggle !== 'active') setToggle('active');
+      else setToggle('');
    }
 
    // ________________________________________________return
@@ -96,7 +89,7 @@ function App() {
    return (
       <div>
          <div id="day-time">
-            <div id="day" style={dayStyle}>{day}</div>
+            <div id="day" className={dayStyle}>{day}</div>
             <div id="time">{time}</div>
          </div>
          <mwc-button id="goToToday" onClick={goToToday}>برو به امروز</mwc-button>
@@ -127,8 +120,8 @@ function App() {
                </table>
             </div>
             <div id="mainOccasion">
-               <div id="occasion" onClick={occasionsShowHide}><h2 className={toggle}>مناسبت‌های این ماه</h2></div>
-               <div id="occasions" dangerouslySetInnerHTML={{ __html: months[monthNumber].occasions }} className={showHide}></div>
+               <div id="occasion" onClick={occasionsToggle}><h2 className={toggle}>مناسبت‌های این ماه</h2></div>
+               <div id="occasions" dangerouslySetInnerHTML={{ __html: months[monthNumber].occasions }} className={toggle}></div>
             </div>
             <div className="clear"></div>
          </div>
