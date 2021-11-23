@@ -15,9 +15,139 @@ import PressureFunc from "../Components/Pressure";
 import SpeedFunc from "../Components/Speed ";
 import TemperatureFunc from "../Components/Temperature ";
 import TimeFunc from "../Components/Time";
+// var data={
+//     Area: [
+//                 {
+//                     class:'area',
+//                     values: 'Square kilometer',
+//                     title: 'کیلومتر مربع'
+//                 },
+//                 {
+//                     class:'area',
+//                     values: 'Square meter',
+//                     title: 'متر مربع'
+//                 },
+//                 {
+//                     class:'area',
+//                     values: 'Square mile',
+//                     title: 'مایل مربع'
+//                 },
+//                 {
+//                     class:'area',
+//                     values: 'Square yard',
+//                     title: 'یارد مربع'
+//                 },
+//                 {
+//                     class:'area',
+//                     values: 'Square foot',
+//                     title: 'فوت مربع'
+//                 },
+//                 {
+//                     class:'area',
+//                     values: 'Square inch',
+//                     title: 'اینچ مربع'
+//                 },
+//                 {
+//                     class:'area',
+//                     values: 'Hectare',
+//                     title: 'هکتار'
+//                 },
+//                 {
+//                     class:'area',
+//                     values: 'Acre',
+//                     title: 'کیلومتر مربع'
+//                 }
+//              ] ,
+//     DataTransferRate: [
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'bit-per-second',
+//                     title: 'بیت در ثانیه'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'kilobit-per-second',
+//                     title: 'کیلوبیت در ثانیه'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'Kilobyte-per-second',
+//                     title: 'کیلوبایت در ثانیه'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 },
+//                 {
+//                     class:'data-Transfer-Rate',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 }
+//     ],
+//     Time: [
+//                 {
+//                     class:'Time',
+//                     values: 'Century',
+//                     title: 'قرن'
+//                 },
+//                 {
+//                     class:'Time',
+//                     values: 'dfg',
+//                     title: 'فارنهایت'
+//                 }
+//             ],
+//     Temperature: [
+//                 {
+//                     class:'Temperature',
+//                     values: 'Celsius',
+//                     title: 'سلیسیوس'
+//                 },
+//                 {
+//                     class:'Temperature',
+//                     values: 'Fahrenheit',
+//                     title: 'فارنهایت'
+//                 }
+//     ]        
+// }
 class Selection extends React.Component {
     constructor(props) {
-        super(props);
+    super(props);
 
     this.Lengthfunc = Lengthfunc.bind(this);
     this.AreaFunc = AreaFunc.bind(this);
@@ -31,14 +161,17 @@ class Selection extends React.Component {
     this.TemperatureFunc = TemperatureFunc.bind(this);
     this.TimeFunc = TimeFunc.bind(this);
 
-    this.state = {query1 : ' ' , query2 : ' ', src:'',dest:'',formule:''};
+    this.state = {query1 : ' 1' , query2 : ' 100', src:'Meter',dest:'Centimeter',formule:''};
+
     }
 
 
-    p= (e) =>  {
+    oninputfunc= (e) =>  {
             var src,des,valsrc,valdest,result,madeSelection_1,madeSelection_2,pin;
             var topselect=this.props.selectid;
             if (e.target.id==='value') {
+                
+                console.log(topselect);
                 if (topselect==='Length'){ 
                     const newState =this.Lengthfunc(e.target.value,this.state.src,this.state.dest);
                     this.setState({query2: newState.result});
@@ -119,27 +252,39 @@ class Selection extends React.Component {
             }
 
             }
-            // const mydata={
-            //     Area: [
-            //         {
-            //             values: 'Square kilometer',
-            //             title: 'کیلومتر مربع'
-            //         }
-            //     ]
-            // }
+
+
+    // z= (e) =>  { 
+    //     this.setState({src : e.target.value});
+    //     console.log('sds',this.state.query1);
+    //     console.log(data[1]);
+    // }   
+    // _renderObject(){
+    //     const p=-1;
+	// 	return Object.entries(data).map(([key, value], i) => {
+	// 		return (
+                
+    //             <mwc-list-item class={value[0].class} value={value[0].value}  >{value[0].title}</mwc-list-item>
+	// 		)
+	// 	})
+	// }  
 
     render () {
+
         return(
-            <div id='bottom' className='pic'>
+            <div  className='pic'>
             
-            <div id='left'>
-            <mwc-textfield  outlined type='number' id='value' placeholder='1' 
+            <div id='left' class= 'bottom-selections'>
+            <mwc-textfield   type='number' id='value' placeholder='1' 
             value={this.state.query1}
-            onInput={this.p}
+            onInput={this.oninputfunc}
             ></mwc-textfield>
-            <mwc-select outlined label="src" type="number"  selectid="Selection" value={this.state.src} onClick={e => this.setState({src : e.target.value})}>
+            <mwc-select  id='src' type="number"  selectid="Selection" value={this.state.src} onClick={e => this.setState({src : e.target.value})}
+            >
+                               
+                               {/* {this._renderObject()} */}
                                 {/* <!-- Area -->  */}
-                                <mwc-list-item class='Area' value='Square kilometer' selected >کیلومتر مربع</mwc-list-item>
+                                <mwc-list-item class='Area' value='Square kilometer'  >کیلومتر مربع</mwc-list-item>
                                 <mwc-list-item class='Area' value='Square meter'>متر مربع</mwc-list-item>
                                 <mwc-list-item class='Area' value='Square mile'>مایل مربع</mwc-list-item>
                                 <mwc-list-item class='Area' value='Square yard'>یارد مربع</mwc-list-item>
@@ -205,7 +350,7 @@ class Selection extends React.Component {
                                 <mwc-list-item class='Fuel Economy' value='Liter per 100 kilometers'>Liter per 100 kilometers</mwc-list-item> */}
                                 {/* <!-- Length -->  */}
                                 <mwc-list-item class='Length' value='kilometre' >کیلومتر</mwc-list-item>
-                                <mwc-list-item class='Length'value='Meter'>متر</mwc-list-item>
+                                <mwc-list-item class='Length'value='Meter' >متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Centimeter'>سانتی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Millimetre'>میلی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='micrometres'>میکرو متر</mwc-list-item>
@@ -258,7 +403,7 @@ class Selection extends React.Component {
                                 <mwc-list-item class='Time' value='Decade'>دهه</mwc-list-item>
                                 <mwc-list-item class='Time' value='Century'>قرن</mwc-list-item>
                                 {/* <!-- Volume --> */}
-                                {/* <mwc-list-item class='Volume' value='US liquid gallon'>US liquid gallon</mwc-list-item>
+                                 <mwc-list-item class='Volume' value='US liquid gallon'>US liquid gallon</mwc-list-item>
                                 <mwc-list-item class='Volume' value='US liquid quart'>US liquid quart</mwc-list-item>
                                 <mwc-list-item class='Volume' value='US liquid pint'>US liquid pint</mwc-list-item>
                                 <mwc-list-item class='Volume' value='US legal cup'>US legal cup</mwc-list-item>
@@ -276,18 +421,19 @@ class Selection extends React.Component {
                                 <mwc-list-item class='Volume' value='Imperial tablespoon'>Imperial tablespoon</mwc-list-item>
                                 <mwc-list-item class='Volume' value='Imperial teaspoon'>Imperial teaspoon</mwc-list-item>
                                 <mwc-list-item class='Volume' value='Cubic foot'>Cubic foot</mwc-list-item>
-                                <mwc-list-item class='Volume' value='Cubic inch'>Cubic inch</mwc-list-item> */}
+                                <mwc-list-item class='Volume' value='Cubic inch'>Cubic inch</mwc-list-item> 
+
                             </mwc-select>
             </div>
             <div id='center'>=</div> 
-            <div id='right'>
-            <mwc-textfield  outlined type={this.props.type} id='convertedOutput' placeholder='1' 
+            <div id='right' class= 'bottom-selections'>
+            <mwc-textfield   type='number' id='convertedOutput' placeholder='100' 
             value={this.state.query2}
-            onInput={this.p}
+            onInput={this.oninputfunc}
             ></mwc-textfield>
-            <mwc-select outlined type="number" id="convertedOutput" selectid="Selection2" value={this.state.dest} onClick={e => this.setState({dest : e.target.value})}>
+            <mwc-select  type="number" id="dest" selectid="Selection2" value={this.state.dest} onClick={e => this.setState({dest : e.target.value})}>
                                 {/* <!-- Area -->  */}
-                                <mwc-list-item class='Area' value='Square kilometer' selected >کیلومتر مربع</mwc-list-item>
+                                <mwc-list-item class='Area' value='Square kilometer'  >کیلومتر مربع</mwc-list-item>
                                 <mwc-list-item class='Area' value='Square meter'>متر مربع</mwc-list-item>
                                 <mwc-list-item class='Area' value='Square mile'>مایل مربع</mwc-list-item>
                                 <mwc-list-item class='Area' value='Square yard'>یارد مربع</mwc-list-item>
@@ -354,7 +500,7 @@ class Selection extends React.Component {
                                 {/* <!-- Length -->  */}
                                 <mwc-list-item class='Length' value='kilometre' >کیلومتر</mwc-list-item>
                                 <mwc-list-item class='Length'value='Meter'>متر</mwc-list-item>
-                                <mwc-list-item class='Length' value='Centimeter'>سانتی متر</mwc-list-item>
+                                <mwc-list-item class='Length' value='Centimeter' selected>سانتی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Millimetre'>میلی متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='micrometres'>میکرو متر</mwc-list-item>
                                 <mwc-list-item class='Length' value='Nanometre'>نانو متر</mwc-list-item>

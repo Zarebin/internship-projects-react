@@ -2,13 +2,11 @@ import React from "zarkit/react";
 function OnclickFunc(){
             var x,x1,list,notlist,notlis,note, index,onlist,testElement;
             x1 = document.querySelector('#myselect').value;
-            console.log('xalan',x1);
             list = document.getElementsByClassName(x1);
             notlist=document.querySelectorAll('.pic mwc-list-item');
-            console.log(list.length);
-            console.log(notlist.length);
+            document.getElementById('src').value=list[0].value;
+            document.getElementById('dest').value=list[1].value;
             notlis = Object.values(notlist).filter(val => val.className!==x1);
-            console.log(notlis.length);
             for (index = 0; index < notlis.length; ++index) {
                 notlis[index].style.cssText += 'display:none;';
             }
