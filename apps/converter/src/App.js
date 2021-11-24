@@ -6,7 +6,7 @@ import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-textfield';
 import OnclickFunc from "./OnclickFunc";
 import Selection from "./selections";
-
+import "./style.scss";
 class App extends React.Component {
     constructor(props) {
         super(props);

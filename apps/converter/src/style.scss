@@ -24,33 +24,37 @@ body{
 .pic mwc-list-item:not(.Length)  {
     display: none;
 }
+#full {
+    display: flex;
+    flex-direction: column;
+}
+.pic {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 463px;
+}
 mwc-select {
     border: 1px solid #dadce0;
 }
 #header  mwc-select{
     color: #000;
     background-position-x: 98%;
-    width: 449px;
+    width: 463px;
     margin-bottom: 10px;
-    padding: 5px 5px 5px 5px;
-    // height: 10px;
-
-    
 }
 
 .bottom-selections {
-    display: inline-block;
-    width: 220px;
+    width: 200px;
     padding-top: 10px;
     align-items: center;
 }
 mwc-textfield {
-    background-color: #fff;
+    --mdc-text-field-fill-color:white;
     border: 1px solid #dadce0;
     border-radius: 2px 2px 0 0;
-    // padding: 1px 6px;
     text-align: center;
-    width: 201px;
+    width: 200px;
 
 }
 
@@ -59,21 +63,16 @@ mwc-textfield {
     border: 1px solid #dadce0;
     border-radius: 0 0 2px 2px;
     color: #202124;
-    width: 201px;
+    width: 200px;
     margin-top: -1px;
-    // padding: 5px 7px 5px 5px;
 
 }
 #center {
-    display: inline-block;
     line-height: 44px;
-    width: 27px;
+    width: 20px;
     text-align: center;
     font-size: 26px;
     color: #70757a;
-    padding: 10px 13px 0 0;
-    // padding-top: 10px;
     vertical-align: top;
-    // margin-left: -4px;
-    // margin-right: -4px;
+    padding-top: 6px;
 }
