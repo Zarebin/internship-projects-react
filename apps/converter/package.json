@@ -8,7 +8,7 @@
     "start": "concurrently \"npm run webpack\" \"npm run serve\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Zahra Ghorbani <z.ghorbani476@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@material/mwc-button": "^0.25.3",

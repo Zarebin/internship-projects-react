@@ -688,6 +688,12 @@ var formule={
         Decade:{
             Century: 1/(10),
         },
+    },
+    Temperature:{
+        Celsius:{
+            Fahrenheit: (9.5)+32,
+            Kelvin:(273.15)
+        }
     }
 
 }

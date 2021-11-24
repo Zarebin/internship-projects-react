@@ -16,8 +16,9 @@ class App extends React.Component {
     
 
     selectfunc=(e)=> {
-        this.setState({topselectvalue : e.target.value});
+        
         {OnclickFunc()}
+        this.setState({topselectvalue : e.target.value});
     }
 
     
