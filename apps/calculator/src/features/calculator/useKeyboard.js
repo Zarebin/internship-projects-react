@@ -1,6 +1,6 @@
 import { useDispatch } from 'zarkit/react-redux';
 import { solveExpression } from './calculatorSlice';
-import buttonsDataList from './buttonsDataList';
+import mainButtonsDataList from './mainButtonsDataList';
 
 // A custom hook returns a function that gets an event and handles any valid keyboard event
 export default function useKeyboard() {
@@ -12,7 +12,7 @@ export default function useKeyboard() {
             e.preventDefault();
             dispatch(solveExpression({ id: "equals", label: "=" }));
         } else {
-            const buttons = buttonsDataList.filter(button => button.keyboardEventKey === e.key);
+            const buttons = mainButtonsDataList.filter(button => button.keyboardEventKey === e.key);
             if (buttons.length > 0) {
                 const button = buttons[0];
                 dispatch(button.createAction());

@@ -1,4 +1,6 @@
 import { addToExpression, solveExpression, addCloseParenthesis, clearEntry } from './calculatorSlice';
+
+// This file exports an array that holds data of all buttons which there are in the MainPanel Component
 export default [
     {
         payload: { id: "open-parenthesis", type: "function", value: "()", monitorValue: "()" },

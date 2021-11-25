@@ -1,7 +1,7 @@
 import React from 'zarkit/react';
 import '@material/mwc-button';
 import { useDispatch } from 'zarkit/react-redux';
-import buttonsDataList from './buttonsDataList';
+import mainButtonsDataList from './mainButtonsDataList';
 
 // This Component returns all Main buttons includes their configuration
 function MainPanel() {
@@ -10,7 +10,7 @@ function MainPanel() {
 
     return (
         <div id='main-panel'>
-            {buttonsDataList.map(button => {
+            {mainButtonsDataList.map(button => {
                 return (
                     <mwc-button
                         key={button.payload.id}

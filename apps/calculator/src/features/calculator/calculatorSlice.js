@@ -2,14 +2,26 @@ import { createSlice } from 'zarkit/@reduxjs/toolkit';
 import { create, all } from 'mathjs';
 const math = create(all);
 
+const CONSTANTS = {
+    NUMBER_PRECISION: 11
+};
+
 const initialState = {
+    // Store history of entries
     expressionHistory: [],
+    // Store value of ans Entry
     ans: 0,
+    // Store matematical expression that must evaluates and returns result
     expression: '',
+    // Store a cursor for expression
     cursor: 0,
+    // Store a user-friendly representation for mathematical expression that shows to the app users
     monitorExpression: '',
+    // Store a cursor for monitorExpression
     monitorCursor: 0,
+    // Store value that shows in the primary monitor
     primaryMonitor: '',
+    // Store value that shows in the secondary monitor
     secondaryMonitor: '',
 };
 
@@ -20,23 +32,19 @@ export const calculatorSlice = createSlice({
         // A reducer function that handles adding an entry to expression
         addToExpression(state, action) {
             performSmartAddition(state, action);
-            exceptionalFeatueresAddition(state, action);
 
             // Checks if addition is valid then adds the entry to expression and works on the related state changes
             if (isValidOperation(state, action)) {
                 addEntry(state, action);
             }
         },
-
         // A reducer function that solves the entry expression and shows the result to the user
         solveExpression(state, action) {
-            const lastEntry = getLastEntry(state);
-            const currentEntry = getCurrentEntry(action);
-
             // Checks if request to solve expression is valid then solve the expression and works on the related state changes and if an error occurred shows "Error" to user
             if (isValidOperation(state, action)) {
                 try {
-                    const result = Number(math.evaluate(state.expression ? state.expression : '0').toFixed(11));
+                    // Evaluate expression mathematically and store its result
+                    const result = Number(math.evaluate(state.expression ? state.expression : '0').toFixed(CONSTANTS.NUMBER_PRECISION));
                     if (!Number.isNaN(result)) {
                         state.secondaryMonitor = state.monitorExpression + '=';
                         state.ans = result;
@@ -57,7 +65,6 @@ export const calculatorSlice = createSlice({
                 }
             };
         },
-
         // A reducer function that adds close parenthesis to expression
         addCloseParenthesis(state, action) {
             const lastEntry = getLastEntry(state);
@@ -77,9 +84,7 @@ export const calculatorSlice = createSlice({
             const lastEntry = getLastEntry(state);
             state.secondaryMonitor = 'Ans' + '=' + state.ans;
             if (lastEntry !== undefined) {
-                if (lastEntry.type === 'operand' || lastEntry.type === 'operator' || lastEntry.type === 'function') {
-                    removeEntry(state, action);
-                } else if (lastEntry.id === 'equals') {
+                if (lastEntry.id === 'equals') {
                     state.expression = '';
                     state.cursor = 0;
                     state.monitorExpression = '';
@@ -89,6 +94,8 @@ export const calculatorSlice = createSlice({
                     state.expressionHistory.pop();
                     state.cursor--;
                     state.monitorCursor--;
+                } else if (lastEntry.type === 'operand' || lastEntry.type === 'operator' || lastEntry.type === 'function') {
+                    removeEntry(state, action);
                 }
             }
             state.primaryMonitor = state.monitorExpression.length === 0 ? 0 : state.monitorExpression;
@@ -114,12 +121,21 @@ export default calculatorSlice.reducer;
 
 // Creates current entry object from action parameter and return it
 function getCurrentEntry(action) {
-    return {
+    const currentEntry =  {
         id: action.payload.id,
         type: action.payload.type,
         value: action.payload.value,
         monitorValue: action.payload.monitorValue,
     };
+    switch (currentEntry.id) {
+        case 'ans':
+            currentEntry.value = state.ans;
+            currentEntry.monitorValue = 'Ans';
+            break;
+        default:
+            break;
+    }
+    return currentEntry;
 }
 
 // Read last entry object from state parameter and return it
@@ -127,6 +143,7 @@ function getLastEntry(state) {
     return state.expressionHistory[state.expressionHistory.length - 1];
 }
 
+// This function adds the current entry to the expression
 function addEntry(state, action) {
     let currentEntry = getCurrentEntry(action);
 
@@ -150,6 +167,7 @@ function addEntry(state, action) {
 
 }
 
+// This function removes the last entry from the expression
 function removeEntry(state, action) {
     let expressionHistory = state.expressionHistory;
     const lastEntry = expressionHistory[expressionHistory.length - 1];
@@ -171,76 +189,91 @@ function removeEntry(state, action) {
     }
 }
 
-// Gets lastEntry and currentEntry as a parameter and returns a boolean that determines current operation is valid or not
+// This function returns a boolean that determines current operation is valid or not
 function isValidOperation(state, action) {
     let lastEntry = getLastEntry(state);
     let currentEntry = getCurrentEntry(action);
 
-    if (currentEntry.id === 'close-parenthesis') {
-        if (lastEntry !== undefined) {
-            if (lastEntry.id === 'open-parenthesis' || lastEntry.id === 'close-parenthesis' || lastEntry.type === 'operator') {
+    switch (currentEntry.id) {
+        case 'close-parenthesis':
+            if (lastEntry !== undefined) {
+                if (lastEntry.id === 'open-parenthesis' || lastEntry.id === 'close-parenthesis' || lastEntry.type === 'operator') {
+                    return false;
+                } else if (lastEntry.id === 'point') {
+                    return false;
+                }
+            }
+            break;
+        case 'equals':
+            if (lastEntry !== undefined) {
+                if (lastEntry.type === 'function' || lastEntry.type === 'operator') {
+                    return false;
+                } else if (lastEntry.id === 'equals') {
+                    return false;
+                } else if (lastEntry.id === 'point') {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+            break;
+        case 'percentage':
+            if (lastEntry === undefined) {
+                return false;
+            } else if (lastEntry.type === 'function' || lastEntry.type === 'operator') {
                 return false;
             } else if (lastEntry.id === 'point') {
                 return false;
             }
-        }
-    } else if (currentEntry.type === 'operator') {
-        if (lastEntry === undefined) {
-            if (currentEntry.id !== 'plus' && currentEntry.id !== 'minus') {
-                return false;
+            break;
+        case 'point':
+            if (lastEntry !== undefined) {
+                if (lastEntry.id === 'close-parenthesis') {
+                    return false;
+                } else if (lastEntry.id === 'point') {
+                    return false
+                } else if (lastEntry.id === 'percentage') {
+                    return false
+                }
             }
-        } else if (lastEntry.type === 'function') {
-            if (currentEntry.id !== 'plus' && currentEntry.id !== 'minus') {
-                return false;
-            }
-        } else if (lastEntry.id === 'point') {
-            return false;
-        }
-    } else if (currentEntry.id === 'equals') {
-        if (lastEntry !== undefined) {
-            if (lastEntry.type === 'function' || lastEntry.type === 'operator') {
-                return false;
-            } else if (lastEntry.id === 'equals') {
-                return false;
+            break;
+        default:
+            break;
+    }
+
+    switch (currentEntry.type) {
+        case 'operator':
+            if (lastEntry === undefined) {
+                if (currentEntry.id !== 'plus' && currentEntry.id !== 'minus') {
+                    return false;
+                }
+            } else if (lastEntry.type === 'function') {
+                if (currentEntry.id !== 'plus' && currentEntry.id !== 'minus') {
+                    return false;
+                }
             } else if (lastEntry.id === 'point') {
                 return false;
             }
-        }
-        else{
-            return false;
-        }
-    } else if (currentEntry.id === 'percentage') {
-        if (lastEntry === undefined) {
-            return false;
-        } else if (lastEntry.type === 'function' || lastEntry.type === 'operator') {
-            return false;
-        } else if (lastEntry.id === 'point') {
-            return false;
-        }
-    } else if (currentEntry.id === 'point') {
-        if (lastEntry !== undefined) {
-            if (lastEntry.id === 'close-parenthesis') {
-                return false;
-            } else if (lastEntry.id === 'point') {
-                return false
-            } else if (lastEntry.id === 'percentage') {
-                return false
+            break;
+        case 'operand':
+            if (lastEntry !== undefined) {
+                if (lastEntry.id === 'percentage') {
+                    return false;
+                }
             }
-        }
-    } else if (currentEntry.type === 'operand') {
-        if (lastEntry !== undefined) {
-            if (lastEntry.id === 'percentage') {
-                return false;
+            break;
+        case 'function':
+            if (lastEntry !== undefined) {
+                if (lastEntry.id === 'percentage') {
+                    return false;
+                } else if (lastEntry.id === 'point') {
+                    return false;
+                }
             }
-        }
-    } else if (currentEntry.type === 'function') {
-        if (lastEntry !== undefined) {
-            if (lastEntry.id === 'percentage') {
-                return false;
-            } else if (lastEntry.id === 'point') {
-                return false;
-            }
-        }
+            break;
+        default:
+            break;
     }
     return true;
 }
@@ -250,8 +283,8 @@ function performSmartAddition(state, action) {
     let lastEntry = getLastEntry(state);
     let currentEntry = getCurrentEntry(action);
 
-    // Reset most of the state when gets equal as last entry except when gets an operator or percentage after that
     if (lastEntry !== undefined) {
+        // Reset most of the state when gets equals as last entry except when gets an operator or percentage after that
         if (lastEntry.id === 'equals' && !(currentEntry.type === 'operator' || currentEntry.id === 'percentage')) {
             state.expression = '';
             state.monitorExpression = '';
@@ -259,22 +292,9 @@ function performSmartAddition(state, action) {
             state.monitorCursor = 0;
             state.expressionHistory = [];
         }
-    }
-
-    // Checks if last entry is an operator and gets another operator after it then replaces last entry with the new operator
-    if (lastEntry !== undefined) {
-        if (currentEntry.type === 'operator' && lastEntry.type === 'operator') {
+        // Checks if last entry is an operator and gets another operator after it then replaces last entry with the new operator
+        else if (lastEntry.type === 'operator' && currentEntry.type === 'operator') {
             removeEntry(state, action);
         }
-    }
-}
-
-// Some entries (most of the advanced entries) need extra works in addition. this function provides this extra works.
-function exceptionalFeatueresAddition(state, action) {
-    let currentEntry = getCurrentEntry(action);
-
-    if (currentEntry.id === 'ans') {
-        currentEntry.value = state.ans;
-        currentEntry.monitorValue = 'Ans';
     }
 }
