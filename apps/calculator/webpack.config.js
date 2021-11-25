@@ -21,18 +21,10 @@ module.exports = {
       ".js",
       ".json",
       ".css",
-      ".scss",
-      ".jpg",
-      "jpeg",
-      "png",
     ],
   },
   module: {
     rules: [
-      {
-        test: /\.(jpg|png|gif|jpeg)$/,
-        loader: "url-loader",
-      },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
@@ -58,11 +50,9 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'calculatorApp',
       filename: 'remoteEntry.js',
-
       exposes: {
-        './Calculator': './src/features/calculator/Calculator',
+        './RemoteApp': './src/RemoteWrapper',
       },
-
       remotes: {
         "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
       },

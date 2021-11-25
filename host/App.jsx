@@ -2,7 +2,7 @@ import React from 'zarkit/react';
 import { Button } from 'zarkit/Button'
 import Timer from 'timerApp/RemoteApp';
 import PairMatching from 'pairMatchingApp/RemoteApp';
-import Calculator from 'calculatorApp/Calculator';
+import Calculator from 'calculatorApp/RemoteApp';
 
 export default class App extends React.Component {
 

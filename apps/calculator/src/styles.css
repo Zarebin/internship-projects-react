@@ -67,3 +67,7 @@ mwc-button {
 .small-font-button {
     --mdc-typography-button-font-size: 14px;
 }
+
+.bold-font-button {
+    --mdc-typography-button-font-weight: 700;
+}
