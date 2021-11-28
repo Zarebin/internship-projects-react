@@ -11,7 +11,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-    this.state = {topselectvalue : 'Length' }
+    this.state = {topselectvalue : 'length' }
     }
     
 
@@ -29,21 +29,17 @@ class App extends React.Component {
                         <div id='full'>
                             <div id='header'>
                             <mwc-select  id='myselect' value={this.state.topselectvalue} onClick={this.selectfunc}>
-                                        {/* <mwc-list-item selected>Select unit</mwc-list-item> */}
-                                        <mwc-list-item value="Area">مساحت</mwc-list-item>
-                                        <mwc-list-item value="DataTransferRate" > انتقال داده</mwc-list-item>
-                                        <mwc-list-item value="DigitalStorage"  >ذحیره دیجیتال </mwc-list-item>
-                                        <mwc-list-item value="Energy">انرژی</mwc-list-item>
-                                        <mwc-list-item value="Frequency">فرکانس</mwc-list-item>
-                                        {/* <mwc-list-item value="Fuel Economy">Fuel Economy</mwc-list-item> */}
-                                        <mwc-list-item value="Length" selected>طول</mwc-list-item>
-                                        <mwc-list-item value="Mass">جرم</mwc-list-item>
-                                        {/* <mwc-list-item value="Plane Angle">Plane Angle</mwc-list-item> */}
-                                        <mwc-list-item value="Pressure">فشار</mwc-list-item>
-                                        <mwc-list-item value="Speed">سرعت</mwc-list-item>
-                                        <mwc-list-item value="Temperature">دما</mwc-list-item>
-                                        <mwc-list-item value="Time">زمان</mwc-list-item>
-                                        {/* <mwc-list-item value="Volume">Volume</mwc-list-item> */}
+                                        <mwc-list-item value="area">مساحت</mwc-list-item>
+                                        <mwc-list-item value="datatransferrate" > انتقال داده</mwc-list-item>
+                                        <mwc-list-item value="digitalstorage"  >ذخیره دیجیتال </mwc-list-item>
+                                        <mwc-list-item value="energy">انرژی</mwc-list-item>
+                                        <mwc-list-item value="frequency">فرکانس</mwc-list-item>
+                                        <mwc-list-item value="length" selected>طول</mwc-list-item>
+                                        <mwc-list-item value="mass">جرم</mwc-list-item>
+                                        <mwc-list-item value="pressure">فشار</mwc-list-item>
+                                        <mwc-list-item value="speed">سرعت</mwc-list-item>
+                                        <mwc-list-item value="temperature">دما</mwc-list-item>
+                                        <mwc-list-item value="time">زمان</mwc-list-item>
                             </mwc-select>
                             </div>
 

@@ -21,7 +21,7 @@ body{
     width: 618px;
 
 }
-.pic mwc-list-item:not(.Length)  {
+.pic mwc-list-item:not(.length)  {
     display: none;
 }
 #full {
@@ -37,6 +37,7 @@ body{
 mwc-select {
     border: 1px solid #dadce0;
 }
+
 #header  mwc-select{
     color: #000;
     background-position-x: 98%;
@@ -63,10 +64,14 @@ mwc-textfield {
     border: 1px solid #dadce0;
     border-radius: 0 0 2px 2px;
     color: #202124;
-    width: 200px;
+
     margin-top: -1px;
 
+
 }
+
+
+
 #center {
     line-height: 44px;
     width: 20px;

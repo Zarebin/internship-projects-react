@@ -5,26 +5,26 @@ function TemperatureFunc(val,madeSelection_1,madeSelection_2) {
     val=parseInt(val);
     if (madeSelection_1 === madeSelection_2 ) {
           result=val;
-    }else if (madeSelection_1 ==='Celsius' && madeSelection_2==='Fahrenheit') {
+    }else if (madeSelection_1 ==='celsius' && madeSelection_2==='fahrenheit') {
         result= (val * (9.5)+32);
                 
-    }else if (madeSelection_1 ==='Celsius' && madeSelection_2==='Kelvin') {
+    }else if (madeSelection_1 ==='celsius' && madeSelection_2==='kelvin') {
         result= (val + (273.15));
                 
     }
-    //Fahrenheit to ...
-    else if (madeSelection_1 ==='Fahrenheit' && madeSelection_2==='Celsius') {
+    //fahrenheit to ...
+    else if (madeSelection_1 ==='fahrenheit' && madeSelection_2==='celsius') {
         result= (val -(32))* 5.9;
                 
-    }else if (madeSelection_1 ==='Fahrenheit' && madeSelection_2==='Kelvin') {
+    }else if (madeSelection_1 ==='fahrenheit' && madeSelection_2==='kelvin') {
         result= ((val - (32))* 5.9)+273.15;
                 
     }
-    //Kelvin to ..
-    else if (madeSelection_1 ==='Kelvin' && madeSelection_2==='Celsius') {
+    //kelvin to ..
+    else if (madeSelection_1 ==='kelvin' && madeSelection_2==='celsius') {
         result= (val -(273.15));
                 
-    }else if (madeSelection_1 ==='Kelvin' && madeSelection_2==='Fahrenheit') {
+    }else if (madeSelection_1 ==='kelvin' && madeSelection_2==='fahrenheit') {
         result= ((val - (273.15))* 9.5)+32;
                 
     }
