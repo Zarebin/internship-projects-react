@@ -7,7 +7,7 @@ body{
     --mdc-typography-font-family : 'Yekan' ;
 }
 #root {
-    width: 600px;
+    min-width: 600px;
     margin-top: 0;
     margin-bottom: 30px;
 }
@@ -18,7 +18,7 @@ body{
     position: relative;
     padding: 20px 16px 24px;
     background-color: #fff;
-    width: 618px;
+    min-width: 618px;
 
 }
 .pic mwc-list-item:not(.length)  {
