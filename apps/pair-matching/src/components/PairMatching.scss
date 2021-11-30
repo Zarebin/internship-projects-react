@@ -18,16 +18,24 @@ $secondary: #ff9100;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: IranYekan, sans-serif;
 }
 
 body {
   direction: rtl;
+
   --mdc-theme-primary: #651fff;
-  --mdc-typography-font-family: IranYekan;
+  --mdc-typography-font-family: 'IranYekan';
   --mdc-typography-letter-spacing: 0;
 }
 
-mwc-button{
+.pair-matching mwc-list-item {
+  height: 26px;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+.pair-matching mwc-button {
   --mdc-typography-button-letter-spacing: 0;
 }
 
@@ -35,14 +43,9 @@ mwc-button{
   padding: 1rem 30%;
 }
 
-.pair-matching * {
-  font-family: IranYekan, sans-serif;
-}
-
 .pair-matching .game {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   gap: 1%;
   position: relative;
 }
@@ -54,14 +57,15 @@ mwc-button{
 .pair-matching .game .card {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform .3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   border-radius: 4px;
-  box-shadow: 0 0 .5rem $whitesmoke;
+  box-shadow: 0 0 0.5rem $whitesmoke;
   margin-bottom: 1%;
   cursor: pointer;
 }
 
-.pair-matching .game .card .front, .pair-matching .game .card .back {
+.pair-matching .game .card .front,
+.pair-matching .game .card .back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -87,13 +91,14 @@ mwc-button{
 
 .pair-matching .game .card.solved {
   transform: rotateY(180deg);
-  opacity: .3;
+  opacity: 0.3;
 }
 
 .pair-matching .game .card.solved .front {
   z-index: -1;
 }
-.pair-matching .game .card.solved .front svg{
+
+.pair-matching .game .card.solved .front svg {
   width: 100%;
 }
 
@@ -111,8 +116,9 @@ mwc-button{
   width: 15.8%;
   padding-top: 15.8%;
 }
-.pair-matching .game.size6 .card .back{
-  padding: .5em;
+
+.pair-matching .game.size6 .card .back {
+  padding: 0.5em;
 }
 
 .pair-matching .settings {
@@ -149,7 +155,7 @@ mwc-button{
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, .5);
+  background: rgb(255 255 255 / 50%);
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -163,19 +169,21 @@ mwc-button{
 }
 
 @media screen and (max-width: 1024px) {
-  .wrapper{
+  .wrapper {
     padding: 1rem 10%;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .wrapper{
+  .wrapper {
     padding: 1rem;
   }
-  .pair-matching .settings{
+
+  .pair-matching .settings {
     flex-direction: column;
   }
-  .pair-matching .game .card .back{
-    padding: .2rem;
+
+  .pair-matching .game .card .back {
+    padding: 0.2rem;
   }
 }
