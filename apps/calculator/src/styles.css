@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+    font-family: "Roboto", "Helvetica Neue", "Arial", "sans-serif";
+}
+
+#container {
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 450px;
+}
+
+#monitor {
+    border: 1px solid #dadce0;
+    border-radius: 5px;
+    text-align: right;
+    padding: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: xx-large;
+    color: #4d5156;
+    margin-bottom: 10px;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+#primary-monitor {
+    margin-top: 7px;
+}
+
+#secondary-monitor {
+    font-size: small;
+    color: #666;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+#main-panel {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+mwc-button {
+    --mdc-typography-button-text-transform: none;
+    --mdc-typography-button-font-family: "Roboto", "Helvetica Neue", "Arial", "sans-serif";
+    --mdc-typography-button-font-weight: 400;
+    --mdc-typography-button-font-size: 15px;
+    --mdc-theme-primary: #f1f3f4;
+    --mdc-theme-on-primary: #000;
+    width: 25%;
+    padding: 1%;
+}
+
+.gray-button {
+    --mdc-theme-primary: #dadce0;
+    --mdc-theme-on-primary: #000;
+}
+
+.blue-button {
+    --mdc-theme-primary: #651fff;
+    --mdc-theme-on-primary: #fff;
+}
+
+.big-font-button {
+    --mdc-typography-button-font-size: 20px;
+}
+
+.small-font-button {
+    --mdc-typography-button-font-size: 14px;
+}
+
+.bold-font-button {
+    --mdc-typography-button-font-weight: 700;
+}
