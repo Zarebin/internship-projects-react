@@ -319,4 +319,4 @@ const items = {
   ],
 
 };
-export { items };
+export default items;

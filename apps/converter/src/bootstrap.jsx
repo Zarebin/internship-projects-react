@@ -1,12 +1,9 @@
 import React from 'zarkit/react';
 import ReactDOM from 'zarkit/react-dom';
 import App from './App';
-import "./style.scss";
+import './style.scss';
 
 ReactDOM.render(
-
-      <App />,
-
-  document.getElementById('root')
+  <App />,
+  document.getElementById('root'),
 );
-
