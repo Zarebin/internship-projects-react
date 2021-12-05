@@ -4,15 +4,12 @@
 }
 
 #container {
-    display: grid;
-    grid-template-columns: auto;
-    gap: 10px;
+    display: flex;
+    flex-flow: column nowrap;
     max-width: 450px;
 }
 
 #monitor {
-    display: grid;
-    grid-template-columns: auto;
     border: 1px solid #dadce0;
     border-radius: 5px;
     text-align: right;
@@ -21,6 +18,9 @@
     padding-bottom: 6px;
     font-size: xx-large;
     color: #4d5156;
+    margin-bottom: 10px;
+    margin-right: 1%;
+    margin-left: 1%;
 }
 
 #primary-monitor {
@@ -35,9 +35,8 @@
 }
 
 #main-panel {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 10px;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 mwc-button {
@@ -47,7 +46,8 @@ mwc-button {
     --mdc-typography-button-font-size: 15px;
     --mdc-theme-primary: #f1f3f4;
     --mdc-theme-on-primary: #000;
-    min-width: 0px;
+    width: 25%;
+    padding: 1%;
 }
 
 .gray-button {
