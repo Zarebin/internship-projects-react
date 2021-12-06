@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import Pallete from '../pallete';
+import Palette from '../palette';
 import './panel.scss';
 
 const Panel = () => {
     const [currentColor, setCurrentColor] = useState("#ff0000");
-    const [palletColor, setPalletColor] = useState("#ff0000")
+    const [paletteColor, setPaletteColor] = useState("#ff0000")
 
     return ( 
         <div className="panel">
             {/* <div className="title">Color Picker</div> */}
-            <div className="palletWrapper">
+            <div className="paletteWrapper">
                 <div className="wrapperLeft" style={{backgroundColor: `${currentColor}`}} />
                 <div className="wrapperRight">
-                    <Pallete color={currentColor} 
-                        palletColor={palletColor} 
+                    <Palette color={currentColor} 
+                        paletteColor={paletteColor} 
                         setCurrent={setCurrentColor} 
-                        setPalletColor={setPalletColor} />
+                        setPalletColor={setPaletteColor} />
                 </div>
                 
             </div>

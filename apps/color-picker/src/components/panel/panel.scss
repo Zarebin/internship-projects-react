@@ -2,7 +2,7 @@
     width: 650px;
     border: 1px solid rgba(33, 33, 33,0.08);
     border-radius: 10px;
-    .palletWrapper{
+    .paletteWrapper{
         display: flex;
         flex-wrap: nowrap;
         .wrapperRight{
@@ -12,5 +12,4 @@
             flex-basis: 32%;
         }
     }
-
 }

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState} from 'react';
 import Pointer from "../pointer";
-import './pallete.scss';
+import './palette.scss';
 
-const Pallete = ({color, palletColor, setCurrent}) => {
+const Palette = ({color, paletteColor, setCurrent}) => {
     const colorCanvas = useRef(null)
 
     const [offset, setOffset] = useState({
@@ -27,7 +27,7 @@ const Pallete = ({color, palletColor, setCurrent}) => {
         
         const gradientH = ColorCtx.createLinearGradient(0, 0, ColorCtx.canvas.width, 0);
         gradientH.addColorStop(0, '#fff');
-        gradientH.addColorStop(1, palletColor);
+        gradientH.addColorStop(1, paletteColor);
         ColorCtx.fillStyle = gradientH;
         ColorCtx.fillRect(0, 0, ColorCtx.canvas.width, ColorCtx.canvas.height);
 
@@ -47,7 +47,7 @@ const Pallete = ({color, palletColor, setCurrent}) => {
     }, [offset])
 
     return ( 
-        <div className="pallete">
+        <div className="palette">
                     
             <Pointer color={color} offset={offset} setOffset={setOffset} />
 
@@ -58,4 +58,4 @@ const Pallete = ({color, palletColor, setCurrent}) => {
      );
 }
  
-export default Pallete;
+export default Palette;
