@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef} from "react";
 import './pointer.scss'
 
 const Pointer = ({color, offset, setOffset}) => {
@@ -9,8 +9,19 @@ const Pointer = ({color, offset, setOffset}) => {
     let mousedown = false; 
     let stateOffsetX = offset.offsetX
     let stateOffsetY = offset.offsetY
+    
+    useEffect(()=>{
+        const initialXPos = 
+            Math.floor(Math.random() * pointer.current.parentElement.clientWidth) + 1
+        const initialYPos = 
+            Math.floor(Math.random() * pointer.current.parentElement.clientHeight) + 1
 
-    const move=e=>
+        pointer.current.style.left = `${initialXPos}px`
+        pointer.current.style.top = `${initialYPos}px`
+        setOffset({offsetX:initialXPos, offsetY:initialYPos})
+    }, [])
+
+    const move= e =>
     {
         const inDivX = e.clientX-pointer.current.parentElement.offsetLeft;
         const inDivY = e.clientY-pointer.current.parentElement.offsetTop;
@@ -28,7 +39,8 @@ const Pointer = ({color, offset, setOffset}) => {
                 
             }
             else{
-                pointer.current.style.left = `${pointer.current.parentElement.clientWidth-offsetX}px` 
+                pointer.current.style.left = 
+                    `${pointer.current.parentElement.clientWidth-offsetX}px` 
                 stateOffsetX = pointer.current.parentElement.clientWidth -1;
 
             }
@@ -44,7 +56,8 @@ const Pointer = ({color, offset, setOffset}) => {
 
             }
             else{
-                pointer.current.style.top = `${pointer.current.parentElement.clientHeight-offsetY}px`
+                pointer.current.style.top = 
+                    `${pointer.current.parentElement.clientHeight-offsetY}px`
                 stateOffsetY = pointer.current.parentElement.clientHeight
             }
 
@@ -52,7 +65,7 @@ const Pointer = ({color, offset, setOffset}) => {
         }
     }
 
-    const add=e=>
+    const add= e =>
     {
         const inDivX = e.clientX-pointer.current.parentElement.offsetLeft;
         const inDivY = e.clientY-pointer.current.parentElement.offsetTop;
@@ -88,7 +101,7 @@ const Pointer = ({color, offset, setOffset}) => {
         style={{backgroundColor:`${color}`}}
         />
 
-     );
+    );
 }
  
 export default Pointer;

@@ -10,8 +10,10 @@ const Palette = ({color, paletteColor, setCurrent}) => {
         offsetY: 0
     })
 
+    
     const changeColor = () =>{
         const ColorCtx = colorCanvas.current.getContext('2d');
+        
         const imageData = ColorCtx.getImageData(offset.offsetX, offset.offsetY, 1, 1).data;
         const rgbaColor = `rgba(${imageData[0]},${imageData[1]},${imageData[2]},1)`;
         
@@ -37,8 +39,8 @@ const Palette = ({color, paletteColor, setCurrent}) => {
         ColorCtx.fillStyle = gradientV;
         ColorCtx.fillRect(0, 0, ColorCtx .canvas.width, 
         ColorCtx.canvas.height); 
-            
-    })
+
+    }, [paletteColor])
 
     useEffect(()=>{
 
