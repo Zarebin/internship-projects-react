@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React, { useState } from 'zarkit/react';
 import '@webcomponents/webcomponentsjs/webcomponents-loader';
 import '@material/mwc-button';
@@ -8,20 +9,21 @@ import OnclickFunc from './OnclickFunc';
 import Selection from './Selections';
 import './style.scss';
 
+// eslint-disable-next-line func-names
 const App = function () {
-  const [topselectvalue, settopselectvalue] = useState('length');
-  function selectfunc(e) {
+  const [topSelectValue, setTopSelectValue] = useState('length');
+  function selectFunc(e) {
     OnclickFunc();
-    settopselectvalue(e.target.value);
+    setTopSelectValue(e.target.value);
   }
   return (
     <div id="whole">
       <div id="full">
         <div id="header">
-          <mwc-select id="myselect" value={topselectvalue} onClick={selectfunc}>
+          <mwc-select id="mySelect" value={topSelectValue} onClick={selectFunc}>
             <mwc-list-item value="area">مساحت</mwc-list-item>
-            <mwc-list-item value="datatransferrate"> انتقال داده</mwc-list-item>
-            <mwc-list-item value="digitalstorage">ذخیره دیجیتال </mwc-list-item>
+            <mwc-list-item value="dataTransferRate"> انتقال داده</mwc-list-item>
+            <mwc-list-item value="digitalStorage">ذخیره دیجیتال </mwc-list-item>
             <mwc-list-item value="energy">انرژی</mwc-list-item>
             <mwc-list-item value="frequency">فرکانس</mwc-list-item>
             <mwc-list-item value="length" selected>
@@ -36,9 +38,8 @@ const App = function () {
         </div>
 
         <div id="bottom">
-          <Selection id="value" selectid={topselectvalue} />
+          <Selection id="value" selectId={topSelectValue} />
         </div>
-        <div>زهرا</div>
       </div>
     </div>
   );

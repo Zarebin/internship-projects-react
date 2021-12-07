@@ -1,136 +1,171 @@
 const items = {
   area: [
     {
-      value: 'squarekilometer',
+      value: 'squareKiloMeter',
       title: 'کیلومتر مربع',
     },
     {
-      value: 'squaremeter',
+      value: 'squareMeter',
       title: 'متر مربع',
-    }, {
-      value: 'squaremile',
+    },
+    {
+      value: 'squareMile',
       title: 'مایل مربع',
-    }, {
-      value: 'squareyard',
+    },
+    {
+      value: 'squareYard',
       title: 'یارد مربع',
-    }, {
-      value: 'squarefoot',
+    },
+    {
+      value: 'squareFoot',
       title: 'فوت مربع',
-    }, {
-      value: 'squareinch',
+    },
+    {
+      value: 'squareInch',
       title: 'اینچ مربع',
-    }, {
+    },
+    {
       value: 'hectare',
       title: 'هکتار',
     },
   ],
-  datatransferrate: [
+  dataTransferRate: [
     {
-      value: 'bitpersecond',
+      value: 'bitPerSecond',
       title: 'بیت بر ثانیه',
-    }, {
-      value: 'kilobitpersecond',
+    },
+    {
+      value: 'kiloBitPerSecond',
       title: 'کیلوبیت بر ثانیه',
-    }, {
-      value: 'Kilobytepersecond',
+    },
+    {
+      value: 'kiloBytePerSecond',
       title: 'کیلوبایت بر ثانیه',
     },
     {
-      value: 'Kibibitpersecond',
+      value: 'kibiBitPerSecond',
       title: 'کیبی بیت بر ثانیه',
     },
     {
-      value: 'megabitpersecond',
+      value: 'megaBitPerSecond',
       title: 'مگابیت بر ثانیه',
-    }, {
-      value: 'megabytepersecond',
+    },
+    {
+      value: 'megaBytePerSecond',
       title: 'مگابایت بر ثانیه',
-    }, {
-      value: 'mebibitpersecond',
+    },
+    {
+      value: 'mebiBitPerSecond',
       title: 'مبی بیت بر ثانیه',
-    }, {
-      value: 'gigabitpersecond',
+    },
+    {
+      value: 'gigaBitPerSecond',
       title: 'گیگابیت بر ثانیه',
-    }, {
-      value: 'gibibitpersecond',
+    },
+    {
+      value: 'gibiBitPerSecond',
       title: 'گیبی بیت بر ثانیه',
-    }, {
-      value: 'terabitpersecond',
+    },
+    {
+      value: 'teraBitPerSecond',
       title: 'ترابیت بر ثانیه',
-    }, {
-      value: 'terabytepersecond',
+    },
+    {
+      value: 'teraBytePerSecond',
       title: 'ترابایت بر ثانیه',
-    }, {
-      value: 'tebibitpersecond',
+    },
+    {
+      value: 'tebiBitPerSecond',
       title: 'تبی بیت بر ثانیه',
     },
   ],
-  digitalstorage: [
+  digitalStorage: [
     {
       value: 'bit',
       title: 'بیت',
-    }, {
-      value: 'kilobit',
+    },
+    {
+      value: 'kiloBit',
       title: 'کیلوبیت',
-    }, {
-      value: 'Kibibit',
+    },
+    {
+      value: 'kibiBit',
       title: 'کیبی بیت',
-    }, {
-      value: 'megabit',
+    },
+    {
+      value: 'megaBit',
       title: 'مگابیت',
-    }, {
-      value: 'mebibit',
+    },
+    {
+      value: 'mebiBit',
       title: 'مبی بیت',
-    }, {
-      value: 'gigabit',
+    },
+    {
+      value: 'gigaBit',
       title: 'گیگابیت',
-    }, {
-      value: 'gibibit',
+    },
+    {
+      value: 'gibiBit',
       title: 'گیبی بیت',
-    }, {
-      value: 'terabit',
+    },
+    {
+      value: 'teraBit',
       title: 'ترابیت',
-    }, {
-      value: 'tebibit',
+    },
+    {
+      value: 'tebiBit',
       title: 'تبی بیت',
-    }, {
-      value: 'petabit',
+    },
+    {
+      value: 'petaBit',
       title: 'پتابیت',
-    }, {
-      value: 'Pebibit',
+    },
+    {
+      value: 'pebiBit',
       title: 'پبی بیت',
-    }, {
+    },
+    {
       value: 'byte',
       title: 'بایت',
-    }, {
-      value: 'kilobyte',
+    },
+    {
+      value: 'kiloByte',
       title: 'کیلوبایت',
-    }, {
-      value: 'kibibyte',
+    },
+    {
+      value: 'kibiByte',
       title: 'کیبی بایت',
-    }, {
-      value: 'megabyte',
+    },
+    {
+      value: 'megaByte',
       title: 'مگابایت',
-    }, {
-      value: 'mebibyte',
+    },
+    {
+      value: 'mebiByte',
       title: 'مبی بایت',
-    }, {
-      value: 'gigabyte',
+    },
+    {
+      value: 'gigaByte',
       title: 'گیگابایت',
-    }, {
-      value: 'gibibyte',
+    },
+    {
+      value: 'gibiByte',
       title: 'گیبی بایت',
-    }, {
-      value: 'terabyte',
+    },
+    {
+      value: 'teraByte',
       title: 'ترابایت',
-    }, {
-      value: 'tebibyte',
+    },
+    {
+      value: 'tebiByte',
       title: 'تبی بایت',
-    }, {
-      value: 'petabyte',
+    },
+    {
+      value: 'petaByte',
       title: 'پتا بایت',
-    }, {
-      value: 'pebibyte',
+    },
+    {
+      value: 'pebiByte',
       title: 'پبی بایت',
     },
   ],
@@ -138,26 +173,33 @@ const items = {
     {
       value: 'joule',
       title: 'ژول',
-    }, {
-      value: 'kilojoule',
+    },
+    {
+      value: 'kiloJoule',
       title: 'کیلوژول',
-    }, {
-      value: 'gramcalorie',
+    },
+    {
+      value: 'gramCalorie',
       title: 'گرم کالری',
-    }, {
-      value: 'kilocalorie',
+    },
+    {
+      value: 'kiloCalorie',
       title: 'کیلو کالری',
-    }, {
-      value: 'watthour',
+    },
+    {
+      value: 'wattHour',
       title: 'وات ساعت',
-    }, {
-      value: 'kilowatthour',
+    },
+    {
+      value: 'kiloWattHour',
       title: 'کیلو وات ساعت',
-    }, {
-      value: 'electronvolt',
+    },
+    {
+      value: 'electronVolt',
       title: 'الکترون ولت',
-    }, {
-      value: 'footpound',
+    },
+    {
+      value: 'footPound',
       title: 'پوند-فوت',
     },
   ],
@@ -165,46 +207,58 @@ const items = {
     {
       value: 'hertz',
       title: 'هرتز',
-    }, {
-      value: 'kilohertz',
+    },
+    {
+      value: 'kiloHertz',
       title: 'کیلوهرتز',
-    }, {
-      value: 'megahertz',
+    },
+    {
+      value: 'megaHertz',
       title: 'مگاهرتز',
-    }, {
-      value: 'gigahertz',
+    },
+    {
+      value: 'gigaHertz',
       title: 'گیگاهرتز',
     },
   ],
   length: [
     {
-      value: 'kilometre',
+      value: 'kiloMetre',
       title: 'کیلومتر',
-    }, {
+    },
+    {
       value: 'meter',
       title: 'متر',
-    }, {
-      value: 'centimeter',
+    },
+    {
+      value: 'centiMeter',
       title: 'سانتی متر',
-    }, {
-      value: 'millimetre',
+    },
+    {
+      value: 'milliMetre',
       title: 'میلی متر',
-    }, {
-      value: 'micrometres',
+    },
+    {
+      value: 'microMetres',
       title: 'میکرومتر',
-    }, {
-      value: 'nanometre',
+    },
+    {
+      value: 'nanoMetre',
       title: 'نانومتر',
-    }, {
+    },
+    {
       value: 'mile',
       title: 'مایل',
-    }, {
+    },
+    {
       value: 'yard',
       title: 'یارد',
-    }, {
+    },
+    {
       value: 'foot',
       title: 'فوت',
-    }, {
+    },
+    {
       value: 'inch',
       title: 'اینچ',
     },
@@ -213,22 +267,28 @@ const items = {
     {
       value: 'tonne',
       title: 'تن',
-    }, {
-      value: 'kilogram',
+    },
+    {
+      value: 'kiloGram',
       title: 'کیلوگرم',
-    }, {
+    },
+    {
       value: 'gram',
       title: 'گرم',
-    }, {
-      value: 'milligram',
+    },
+    {
+      value: 'milliGram',
       title: 'میلی گرم',
-    }, {
-      value: 'microgram',
+    },
+    {
+      value: 'microGram',
       title: 'میکروگرم',
-    }, {
+    },
+    {
       value: 'pound',
       title: 'پوند',
-    }, {
+    },
+    {
       value: 'ounce',
       title: 'اونس',
     },
@@ -237,34 +297,42 @@ const items = {
     {
       value: 'bar',
       title: 'بار',
-    }, {
+    },
+    {
       value: 'pascal',
       title: 'پاسکال',
-    }, {
-      value: 'poundpersquareinch',
+    },
+    {
+      value: 'poundPerSquareInch',
       title: 'پوند در اینچ مربع',
-    }, {
-      value: 'standardatmosphere',
+    },
+    {
+      value: 'standardAtmosphere',
       title: 'اتمسفر استاندارد',
-    }, {
+    },
+    {
       value: 'torr',
       title: 'تور',
     },
   ],
   speed: [
     {
-      value: 'milesperhour',
+      value: 'milesPerHour',
       title: 'مایل در ساعت',
-    }, {
-      value: 'footpersecond',
+    },
+    {
+      value: 'footPerSecond',
       title: 'فوت در ثانیه',
-    }, {
-      value: 'meterpersecond',
+    },
+    {
+      value: 'meterPerSecond',
       title: 'متردر ثانیه',
-    }, {
-      value: 'kilometerperhour',
+    },
+    {
+      value: 'kiloMeterPerHour',
       title: 'کیلومتر در ساعت',
-    }, {
+    },
+    {
       value: 'knot',
       title: 'گره',
     },
@@ -273,50 +341,61 @@ const items = {
     {
       value: 'celsius',
       title: 'سلسیوس',
-    }, {
+    },
+    {
       value: 'fahrenheit',
       title: 'فارنهایت',
-    }, {
+    },
+    {
       value: 'kelvin',
       title: 'کلوین',
     },
   ],
   time: [
     {
-      value: 'nanosecond',
+      value: 'nanoSecond',
       title: 'نانوثانیه',
-    }, {
-      value: 'microsecond',
+    },
+    {
+      value: 'microSecond',
       title: 'میکروثانیه',
-    }, {
-      value: 'millisecond',
+    },
+    {
+      value: 'milliSecond',
       title: 'میلی ثانیه',
-    }, {
+    },
+    {
       value: 'second',
       title: 'ثانیه',
-    }, {
+    },
+    {
       value: 'minute',
       title: 'دقیقه',
-    }, {
+    },
+    {
       value: 'hour',
       title: 'ساعت',
-    }, {
+    },
+    {
       value: 'day',
       title: 'روز',
-    }, {
+    },
+    {
       value: 'week',
       title: 'هفته',
-    }, {
+    },
+    {
       value: 'month',
       title: 'ماه',
-    }, {
+    },
+    {
       value: 'decade',
       title: 'دهه',
-    }, {
+    },
+    {
       value: 'century',
       title: 'قرن',
     },
   ],
-
 };
 export default items;

@@ -1,6 +1,6 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const path= require('path');
+
 module.exports = {
   entry: './src/index.js',
   cache: false,
@@ -11,7 +11,7 @@ module.exports = {
     minimize: false,
   },
   output: {
-    publicPath: 'http://localhost:3005/',
+    // publicPath: 'http://localhost:3005/',
   },
   resolve: {
     extensions: [

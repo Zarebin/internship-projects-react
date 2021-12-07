@@ -1,13 +1,15 @@
-
 import formule from '../data/formula';
 
-function Converterfunc(topselect, val, madeselection1, madeselection2) {
+function ConverterFunc(topSelect, val, madeSelection1, madeSelection2) {
   let result;
-  if (madeselection1 === madeselection2) { result = val * 1; } 
-  else if (topselect === 'temperature') { result = formule[topselect][madeselection1][madeselection2](val) } 
-  else {
-    result = val * (formule[topselect][madeselection1] / formule[topselect][madeselection2]);
+  const value = Number(val);
+  if (madeSelection1 === madeSelection2) {
+    result = value * 1;
+  } else if (typeof formule[topSelect][madeSelection1][madeSelection2] === 'function') {
+    result = formule[topSelect][madeSelection1][madeSelection2](value);
+  } else {
+    result = value * (formule[topSelect][madeSelection1] / formule[topSelect][madeSelection2]);
   }
   return result;
 }
-export default Converterfunc;
+export default ConverterFunc;
