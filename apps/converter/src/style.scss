@@ -1,19 +1,24 @@
+
 @font-face {
-    font-family: Yekan;
-    src: url(../font/Yekan.ttf) format('ttf');
+    font-family: "IRANYekan";
+    src: url(../font/IRANYekanWebRegular.woff2) format('woff2');
   }
-body{
-    --mdc-theme-primary: #651fff;
-    --mdc-typography-font-family : 'Yekan' ;
-}
+@font-face {
+    font-family: "IRANYekanNum";
+    src: url('../font/IRANYekanRegularFaNum.a5649ebc.ttf') format('truetype');
+  }
 #root {
     min-width: 600px;
     margin-top: 0;
     margin-bottom: 30px;
+    --mdc-theme-primary: #651fff;
+    --mdc-typography-font-family : "IRANYekan" , tahoma;
+    direction: rtl;
+    font-family : "IRANYekan" , tahoma;
 }
 #whole {
     border-radius: 8px;
-    border: 1px solid #dfe1e5;
+    border: 1px solid #dadce0;
     box-shadow: none;
     position: relative;
     padding: 20px 16px 24px;
@@ -54,8 +59,8 @@ mwc-textfield {
     --mdc-text-field-fill-color:white;
     border: 1px solid #dadce0;
     border-radius: 2px 2px 0 0;
-    text-align: center;
     width: 200px;
+    --mdc-typography-font-family : "IRANYekanNum";
 
 }
 
@@ -79,5 +84,5 @@ mwc-textfield {
     font-size: 26px;
     color: #70757a;
     vertical-align: top;
-    padding-top: 6px;
+    padding-top:20px;
 }
