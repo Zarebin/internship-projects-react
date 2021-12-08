@@ -2,6 +2,12 @@
     width: 650px;
     border: 1px solid rgba(33, 33, 33,0.08);
     border-radius: 10px;
+    padding: 1rem 0;
+    .title{
+        text-align: right;
+        margin: 0 1rem 1rem 0;
+        color: rgb(85, 85, 85);
+    }
     .paletteWrapper{
         display: flex;
         flex-wrap: nowrap;
@@ -12,4 +18,28 @@
             flex-basis: 32%;
         }
     }
+
+    .sliderWrapper{
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    // .dataWrapper{
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     font-size: small;
+    //     align-items: center;
+    //     margin: 0 1rem;
+    //     .hex{
+    //         flex-basis: 100%;
+    //         text-align: center;
+    //     }
+    //     .rgbAndOthers{
+    //         flex-basis: 23%;
+    //     }
+    //     .cmyk{
+    //         flex-basis: 30%;
+    //     }
+    // }
 }

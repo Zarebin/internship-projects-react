@@ -1,7 +1,7 @@
 import React, { useEffect, useRef} from "react";
 import './pointer.scss'
 
-const Pointer = ({color, offset, setOffset}) => {
+const Pointer = ({color, offset, setOffset, horizontal = false}) => {
     const pointer = useRef(null)
 
     let offsetX;
@@ -13,11 +13,21 @@ const Pointer = ({color, offset, setOffset}) => {
     useEffect(()=>{
         const initialXPos = 
             Math.floor(Math.random() * pointer.current.parentElement.clientWidth) + 1
-        const initialYPos = 
-            Math.floor(Math.random() * pointer.current.parentElement.clientHeight) + 1
-
+            
         pointer.current.style.left = `${initialXPos}px`
-        pointer.current.style.top = `${initialYPos}px`
+
+        let initialYPos;
+
+        if(!horizontal){
+            initialYPos = 
+                Math.floor(Math.random() * pointer.current.parentElement.clientHeight) + 1
+
+            pointer.current.style.top = `${initialYPos}px`
+        }
+        else{
+            initialYPos = 0
+            pointer.current.style.top = `${0}px`
+        }
         setOffset({offsetX:initialXPos, offsetY:initialYPos})
     }, [])
 
@@ -45,23 +55,28 @@ const Pointer = ({color, offset, setOffset}) => {
 
             }
             
-            if(inDivY<= pointer.current.parentElement.clientHeight){
-                if(inDivY >=0){
-                    pointer.current.style.top = `${inDivY-offsetY}px`;
-                    stateOffsetY = inDivY
-                }else{
-                    pointer.current.style.top = `${-offsetY}px`;
-                    stateOffsetY = 0
+            if(!horizontal){
+                if(inDivY<= pointer.current.parentElement.clientHeight){
+                    if(inDivY >=0){
+                        pointer.current.style.top = `${inDivY-offsetY}px`;
+                        stateOffsetY = inDivY
+                    }else{
+                        pointer.current.style.top = `${-offsetY}px`;
+                        stateOffsetY = 0
+                    }
+    
                 }
-
-            }
-            else{
-                pointer.current.style.top = 
-                    `${pointer.current.parentElement.clientHeight-offsetY}px`
-                stateOffsetY = pointer.current.parentElement.clientHeight
+                else{
+                    pointer.current.style.top = 
+                        `${pointer.current.parentElement.clientHeight-offsetY}px`
+                    stateOffsetY = pointer.current.parentElement.clientHeight
+                }
+            }else{
+                stateOffsetY = 0
             }
 
             setOffset({ offsetX: stateOffsetX, offsetY: stateOffsetY})
+            // console.log(offset.offsetX)
         }
     }
 
@@ -80,7 +95,9 @@ const Pointer = ({color, offset, setOffset}) => {
         offsetY = pointer.current.clientHeight/2;
 
         pointer.current.style.left = `${inDivX-8}px`
-        pointer.current.style.top = `${inDivY-8}px`
+        if(!horizontal){
+            pointer.current.style.top = `${inDivY-8}px`
+        }
 
         window.addEventListener('mousemove',move)
         
