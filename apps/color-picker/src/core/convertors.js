@@ -53,7 +53,9 @@ export function RGBtoHSL( rgbArray ){
     s = +(s * 100).toFixed(1);
     l = +(l * 100).toFixed(1);
 
-    return [h,s,l];
+    const degree = "\u00B0"
+
+    return `${h}${degree}, ${s}%, ${l}%`;
 }
 
 
@@ -94,7 +96,9 @@ export function RGBtoHSV(rgbArray){
     s = +(s * 100).toFixed(1);
     v = +(v * 100).toFixed(1);
 
-    return [ h, s, v ];
+    const degree = "\u00B0"
+
+    return `${h}${degree}, ${s}%, ${v}%`;
       
 }
 

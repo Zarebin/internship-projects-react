@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Palette from '../palette';
 import Slider from '../slider';
 import * as convertors  from '../../core/convertors';
+import '@webcomponents/webcomponentsjs/webcomponents-loader'
+import '@material/mwc-textfield'
 import './panel.scss';
 
 const Panel = () => {
@@ -13,7 +15,9 @@ const Panel = () => {
         <div className="panel">
             <h3 className="title">انتخاب رنگ</h3>
             <div className="paletteWrapper">
-                <div className="wrapperLeft" style={{backgroundColor: `${currentColor}`}} />
+                <div className="wrapperLeft" 
+                    style={{backgroundColor: `${currentColor}`}} 
+                />
                 <div className="wrapperRight">
                     <Palette color={currentColor} 
                         paletteColor={paletteColor} 
@@ -26,24 +30,48 @@ const Panel = () => {
             </div>
 
             <div className="sliderWrapper">
-                <Slider setPaletteColor={setPaletteColor} paletteColor={paletteColor} />
+                <Slider 
+                    setPaletteColor={setPaletteColor} 
+                    paletteColor={paletteColor} />
             </div>
 
             <div className="dataWrapper">
-
-                <p className="hex">HEX:  {convertors.RGBtoHex(rgbArray)}</p>
-                <p className="rgbAndOthers">RGB:  {currentColor}</p>
-                <p className="cmyk">CMYK:  {convertors.RGBtoCMYK(rgbArray)}</p>
-                <p className="rgbAndOthers">HSV:  {convertors.RGBtoHSV(rgbArray)[0]}
-                    <span>&#176;</span>, {" "}
-                    {convertors.RGBtoHSV(rgbArray)[1]}%, {" "}
-                    {convertors.RGBtoHSV(rgbArray)[2]}%
-                </p>
-                <p className="rgbAndOthers">HSL:  {convertors.RGBtoHSL(rgbArray)[0]}
-                    <span>&#176;</span>, {" "}
-                    {convertors.RGBtoHSL(rgbArray)[1]}%, {" "}
-                    {convertors.RGBtoHSL(rgbArray)[2]}%
-                </p>
+                <div className="hex">
+                    <mwc-textfield  
+                        label="HEX" 
+                        outlined 
+                        value={convertors.RGBtoHex(rgbArray)}
+                    />
+                </div >
+                <div className="rgbAndOthers">
+                    <mwc-textfield 
+                        label="RGB" 
+                        outlined 
+                        value={`${rgbArray[0]}, ${rgbArray[1]}, ${rgbArray[2]}`}
+                    />
+                </div>
+                <div className="rgbAndOthers">
+                    <mwc-textfield 
+                        label="CMYK" 
+                        outlined 
+                        value={convertors.RGBtoCMYK(rgbArray)}
+                    />
+                </div>
+                
+                <div className="rgbAndOthers">
+                    <mwc-textfield 
+                        label="HSV" 
+                        outlined 
+                        value={convertors.RGBtoHSV(rgbArray)}
+                    />
+                </div>
+                <div className="rgbAndOthers">
+                    <mwc-textfield 
+                        label="HSL" 
+                        outlined 
+                        value={convertors.RGBtoHSL(rgbArray)}
+                    />
+                </div>
             </div>
         </div>
      );
