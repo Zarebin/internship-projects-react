@@ -1,8 +1,10 @@
-import React from "zarkit/react";
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/jsx-filename-extension */
+import React from 'zarkit/react';
 import ReactDOM from 'zarkit/react-dom';
-import App from "./App";
+import App from './App';
 
 ReactDOM.render(
-   <App />,
-   document.getElementById('calendar-app')
+  <App />,
+  document.getElementById('calendar-app'),
 );

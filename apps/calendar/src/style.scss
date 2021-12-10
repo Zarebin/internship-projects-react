@@ -1,14 +1,25 @@
 @font-face {
-   font-family: "IRANYekan";
-   src: url("fonts/IRANYekanWebRegular.woff2") format("woff");
+  font-family: "IRANYekan";
+  src: url("fonts/IRANYekanWebRegular.woff2") format("woff2");
+}
+
+#main-calendar-app * {
+  box-sizing: border-box;
+}
+
+#main-calendar-app {
+  min-width: 320px;
+  max-width: 720px;
 }
 
 $zarebi-purple: #651fff;
-$zarebin-grey: rgb(200, 200, 200);
+$zarebin-grey: rgb(105 103 109 / 35%);
 
 :root {
-   font-family: "IRANYekan", tahoma;
-   direction: rtl;
+  --mdc-typography-font-family: "IRANYekan", tahoma;
+  --mdc-typography-button-letter-spacing: 0;
+  font-family: "IRANYekan", tahoma;
+  direction: rtl;
 }
 
 h1,
@@ -16,196 +27,214 @@ h2,
 h3,
 h4,
 h5 {
-   margin: 0;
-}
-
-#calendar-app {
-   margin: 20px;
+  margin: 0;
 }
 
 #day-time {
-   display: flex;
-   justify-content: space-between;
-   width: 600px;
-   margin-right: 10px;
-   font-size: 24px;
+  font-size: 12px;
 }
 
 #time {
-   text-align: center;
-   margin: 20px 10px;
-   padding: 5px;
+  text-align: center;
+  letter-spacing: 2px;
 }
 
-#day {
-   text-align: center;
-   margin: 20px 10px;
-   border-radius: 5px;
-   padding: 5px;
-   &.blink {
-      background-color: $zarebin-grey;
-   }
+#jalali-day {
+  text-align: center;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 5px 0;
+  &.blink {
+    background-color: $zarebin-grey;
+  }
+}
+
+#hijri-day {
+  text-align: center;
+  opacity: 0.7;
+}
+
+#gregorian-day {
+  text-align: center;
+  padding: 5px 0 0 0;
+  opacity: 0.5;
 }
 
 #month {
-   font-size: 18px;
-   padding-bottom: 20px;
-   text-align: center;
-   line-height: 1.5;
+  font-size: 12px;
+  padding-bottom: 10px;
+  text-align: center;
+  line-height: 1.5;
 }
 
-#mainCalendar {
-   width: 600px;
-   float: right;
-   padding: 10px;
-   box-shadow: 0 0 20px 5px $zarebin-grey;
-   margin: 0 0 30px 30px;
-   border-radius: 1%;
+mwc-select {
+  width: 170px;
+  margin: -10px 0 10px 0;
+  --mdc-menu-item-height: 30px;
+  --mdc-menu-item-text-align: center;
+  --mdc-theme-surface: white;
+  --mdc-select-fill-color: transparent;
+}
+
+mwc-list-item {
+  font-size: 14px;
+  --mdc-list-side-padding: 10px;
+}
+
+#month-hijri {
+  opacity: 0.7;
+}
+
+#month-gregorian {
+  padding-top: 5px;
+  opacity: 0.5;
+}
+
+#main-calendar {
+  padding: 2%;
+  margin: 20px 0;
+  border-radius: 4px;
+  box-shadow: 0 0 6px 0 $zarebin-grey;
+}
+
+table {
+  width: 100%;
+  height: 100%;
 }
 
 table,
 th,
 td {
-   border-collapse: collapse;
-   text-align: center;
-   table-layout: fixed;
-}
-
-table {
-   width: 100%;
-   height: 100%;
-}
-
-thead {
-   height: 50px;
-   background-color: $zarebin-grey;
-   text-align: center;
-   font-size: 16px;
+  border-spacing: 3px;
+  text-align: center;
+  table-layout: fixed;
 }
 
 td {
-   padding: 5px;
+  padding: 0 5px;
+  border-radius: 5%;
+  border: solid $zarebin-grey 0.7px;
+}
+
+thead {
+  height: 40px;
+  background-color: $zarebin-grey;
+  font-size: 10px;
+  td {
+    padding: 0;
+  }
 }
 
 .today {
-   border-radius: 5%;
-   color: $zarebi-purple;
-   box-shadow: 0 0 0 2px $zarebi-purple;
+  border-radius: 5%;
+  color: $zarebi-purple;
+  box-shadow: 0 0 3px 1px $zarebi-purple;
 }
 
 td:nth-child(7),
 .holiday.holiday {
-   color: red;
+  color: red;
 }
 
 .other-month {
-   opacity: 0.2;
-}
-
-#monthHijri {
-   opacity: 0.7;
-}
-
-#monthGregorian {
-   padding-top: 5px;
-   opacity: 0.5;
-}
-
-#nextMonth {
-   float: left;
-   padding-bottom: 3px;
-   border-bottom: $zarebin-grey solid 2px;
-   --mdc-typography-button-font-size: 16px;
-   &:active {
-      opacity: 0.2;
-   }
-}
-
-#perviousMonth {
-   float: right;
-   padding-bottom: 3px;
-   border-bottom: $zarebin-grey solid 2px;
-   --mdc-typography-button-font-size: 16px;
-   &:active {
-      opacity: 0.2;
-   }
-}
-
-#goToToday {
-   width: 600px;
-   margin: 0 10px 30px 0;
-   padding-bottom: 3px;
-   border-radius: 5px;
-   box-shadow: 0 0 10px 1px $zarebin-grey;
-   --mdc-typography-button-font-size: 26px;
-   &:active {
-      opacity: 0.2;
-   }
-}
-
-.jalali {
-   font-size: 25px;
-   margin-bottom: 5px;
-}
-
-.gregorian {
-   font-size: 17px;
-   float: right;
-   margin-right: 5px;
-   opacity: 0.7;
-}
-
-.hijri {
-   font-size: 17px;
-   float: left;
-   margin-left: 5px;
-   opacity: 0.7;
-}
-
-#mainOccasion {
-   width: 620px;
-   float: right;
-   padding-bottom: 20px;
-}
-
-#occasion {
-   font-size: 18px;
-   padding-bottom: 10px;
-   border-bottom: black solid 1px;
-   h2 {
-      &::before {
-         content: "+   ";
-      }
-      &.active::before {
-         content: "ــ   ";
-      }
-   }
-}
-
-#occasions {
-   font-size: 18px;
-   line-height: 1.8;
-   opacity: 0;
-   height: 0;
-   padding: 0;
-   transition: all 0.5s;
-   &.active {
-      opacity: 1;
-      padding: 20px 0;
-      height: auto;
-      border-bottom: black solid 1px;
-   }
-}
-
-.clear {
-   clear: both;
+  opacity: 0.2;
 }
 
 mwc-button {
-   background-color: transparent;
-   border: none;
-   --mdc-typography-font-family: "IRANYekan", tahoma;
-   --mdc-ripple-color: transparent;
-   --mdc-typography-button-letter-spacing: 0;
-   --mdc-theme-primary: black;
+  border: none;
+  --mdc-ripple-color: transparent;
+  --mdc-theme-primary: black;
+}
+
+#next-month {
+  float: left;
+  border-bottom: $zarebin-grey solid 1px;
+  --mdc-typography-button-font-size: 12px;
+  &:active {
+    opacity: 0.2;
+  }
+}
+
+#pervious-month {
+  float: right;
+  border-bottom: $zarebin-grey solid 1px;
+  --mdc-typography-button-font-size: 12px;
+  &:active {
+    opacity: 0.2;
+  }
+}
+
+.jalali {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.foreign-calendar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.hijri {
+  float: right;
+}
+
+.gregorian {
+  float: left;
+  font-size: 0.6rem;
+  line-height: 1.2;
+}
+
+#go-to-today {
+  width: 100%;
+  margin: 15px 0 0 0;
+  vertical-align: middle;
+  border-radius: 4px;
+  box-shadow: 0 0 6px 0 $zarebin-grey;
+  --mdc-typography-button-font-size: 18px;
+  &:active {
+    opacity: 0.2;
+  }
+}
+
+#main-occasion {
+  padding-bottom: 10px;
+}
+
+#occasion {
+  line-height: 2;
+  text-align: center;
+  border-bottom: $zarebin-grey solid 1px;
+  --mdc-typography-button-font-size: 16px;
+  &::before,
+  &::after {
+    content: "\25BC";
+  }
+  &.active::before {
+    content: "\25C0";
+  }
+  &.active::after {
+    content: "\25B6";
+  }
+}
+
+#occasions {
+  font-size: 12px;
+  line-height: 1.8;
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  transition: all 0.3s;
+  &.active {
+    opacity: 1;
+    padding: 10px 0;
+    height: auto;
+    border-bottom: $zarebin-grey solid 1px;
+  }
+}
+
+.clear {
+  clear: both;
 }
