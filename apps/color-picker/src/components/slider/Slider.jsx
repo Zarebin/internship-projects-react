@@ -32,15 +32,15 @@ const Slider = ({setPaletteColor, paletteColor}) => {
     useEffect(() => {
         const ColorCtx = sliderConvas.current.getContext('2d')
         ColorCtx.rect(0, 0, 580, 10);
-        const grd1 = ColorCtx.createLinearGradient(0, 0, 580, 0);
-        grd1.addColorStop(0, 'rgba(255, 0, 0, 1)');
-        grd1.addColorStop(0.17, 'rgba(255, 255, 0, 1)');
-        grd1.addColorStop(0.34, 'rgba(0, 255, 0, 1)');
-        grd1.addColorStop(0.51, 'rgba(0, 255, 255, 1)');
-        grd1.addColorStop(0.68, 'rgba(0, 0, 255, 1)');
-        grd1.addColorStop(0.85, 'rgba(255, 0, 255, 1)');
-        grd1.addColorStop(1, 'rgba(255, 0, 0, 1)');
-        ColorCtx.fillStyle = grd1;
+        const grd = ColorCtx.createLinearGradient(0, 0, 580, 0);
+        grd.addColorStop(0, 'rgba(255, 0, 0, 1)');
+        grd.addColorStop(0.17, 'rgba(255, 255, 0, 1)');
+        grd.addColorStop(0.34, 'rgba(0, 255, 0, 1)');
+        grd.addColorStop(0.51, 'rgba(0, 255, 255, 1)');
+        grd.addColorStop(0.68, 'rgba(0, 0, 255, 1)');
+        grd.addColorStop(0.85, 'rgba(255, 0, 255, 1)');
+        grd.addColorStop(1, 'rgba(255, 0, 0, 1)');
+        ColorCtx.fillStyle = grd;
         ColorCtx.fill();
 
     },[])

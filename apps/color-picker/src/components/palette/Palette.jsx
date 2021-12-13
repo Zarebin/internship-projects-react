@@ -1,22 +1,30 @@
-import { useEffect, useRef, useState} from 'react';
+import { useEffect, useRef} from 'react';
 import Pointer from "../pointer";
 import './palette.scss';
 
-const Palette = ({color, paletteColor, setCurrent, setRgbArray}) => {
+// const usePrevious = (value) => {
+//     const ref = useRef();
+//     ref.current = value
+//     useEffect(() => {
+//       ref.current = value;
+//       console.log(ref)
+//     });
+//     return ref.current;
+// };
+
+const Palette = ({color, paletteColor, setCurrent, setRgbArray,offset, setOffset}) => {
+    
+    // const prevOffset = usePrevious(offset);
+    // console.log(prevOffset)
     const colorCanvas = useRef(null)
-
-    const [offset, setOffset] = useState({
-        offsetX: 0,
-        offsetY: 0
-    })
-
+    
     
     const changeColor = () =>{
 
         const ColorCtx = colorCanvas.current.getContext('2d');
         const imageData = ColorCtx.getImageData(offset.offsetX, offset.offsetY, 1, 1).data;
         const rgbColor = `rgb(${imageData[0]},${imageData[1]},${imageData[2]})`;
-        
+        // console.log(offset)
         setCurrent(rgbColor)
         setRgbArray(imageData)
     }
@@ -29,6 +37,7 @@ const Palette = ({color, paletteColor, setCurrent, setRgbArray}) => {
         
         const gradientH = ColorCtx.createLinearGradient(0, 0, ColorCtx.canvas.width, 0);
         gradientH.addColorStop(0, '#fff');
+        // console.log(paletteColor)
         gradientH.addColorStop(1, paletteColor);
         ColorCtx.fillStyle = gradientH;
         ColorCtx.fillRect(0, 0, ColorCtx.canvas.width, ColorCtx.canvas.height);
@@ -38,6 +47,13 @@ const Palette = ({color, paletteColor, setCurrent, setRgbArray}) => {
         gradientV.addColorStop(1, '#000');
         ColorCtx.fillStyle = gradientV;
         ColorCtx.fillRect(0, 0, ColorCtx .canvas.width, ColorCtx.canvas.height); 
+
+        // console.log(co)
+        // if(prevOffset.offsetX === offset.offsetX && prevOffset.offsetY === offset.offsetY){
+        //     console.log(paletteColor)
+        // }else{
+        //     changeColor()
+        // }
 
         changeColor()
 

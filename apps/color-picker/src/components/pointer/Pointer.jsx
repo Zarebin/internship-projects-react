@@ -9,8 +9,15 @@ const Pointer = ({color, offset, setOffset, horizontal = false}) => {
     let mousedown = false; 
     let stateOffsetX = offset.offsetX
     let stateOffsetY = offset.offsetY
+    useEffect(()=>{
+        if(!horizontal){
+            pointer.current.style.top = `${offset.offsetY-10}px`
+            pointer.current.style.left = `${offset.offsetX-10}px`
+        }
+    },[offset])
     
     useEffect(()=>{
+        
         const initialXPos = 
             Math.floor(Math.random() * pointer.current.parentElement.clientWidth) + 1
             
