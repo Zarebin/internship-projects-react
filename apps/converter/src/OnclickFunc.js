@@ -1,6 +1,6 @@
 import formule from '../data/formula';
 
-function OnclickFunc() {
+function onClickFunc() {
   let index;
   const topSelectionVal = document.querySelector('#mySelect').value;
   const list = document.getElementsByClassName(topSelectionVal);
@@ -25,4 +25,4 @@ function OnclickFunc() {
   }
 }
 
-export default OnclickFunc;
+export default onClickFunc;

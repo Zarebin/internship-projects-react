@@ -1,4 +1,4 @@
-const { ModuleFederationPlugin } = require("webpack").container;
+const { ModuleFederationPlugin } = require('webpack').container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -10,49 +10,30 @@ module.exports = {
   optimization: {
     minimize: false,
   },
-  output: {
-    // publicPath: 'http://localhost:3005/',
-  },
+  output: {},
   resolve: {
-    extensions: [
-      ".jsx",
-      ".js",
-      ".json",
-      ".css",
-      ".scss",
-      ".jpg",
-      "jpeg",
-      "png",
-    ],
+    extensions: ['.jsx', '.js', '.scss'],
   },
   module: {
     rules: [
       {
-        test: /\.(jpg|png|gif|jpeg)$/,
-        loader: "url-loader",
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          // MiniCssExtractPlugin.loader,
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+        ],
       },
-      {
-            test: /\.css$/i,
-            use: ["style-loader", "css-loader"],
-          },
-            {
-              test: /\.(sa|sc|c)ss$/,
-              use: [
-                // MiniCssExtractPlugin.loader,
-                "style-loader",
-                // Translates CSS into CommonJS
-                "css-loader",
-                // Compiles Sass to CSS
-                "sass-loader",
-              ],
-            },
 
       {
         test: /\.jsx?$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          presets: ["@babel/preset-react"],
+          presets: ['@babel/preset-react'],
         },
       },
     ],
@@ -65,11 +46,11 @@ module.exports = {
         './RemoteApp': './src/App',
       },
       remotes: {
-        "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
+        zarkit: 'zarkit@http://localhost:3002/remoteEntry.js',
       },
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-    })
+    }),
   ],
 };

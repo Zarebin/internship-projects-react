@@ -4,7 +4,7 @@ function ConverterFunc(topSelect, val, madeSelection1, madeSelection2) {
   let result;
   const value = Number(val);
   if (madeSelection1 === madeSelection2) {
-    result = value * 1;
+    result = value ;
   } else if (typeof formule[topSelect][madeSelection1][madeSelection2] === 'function') {
     result = formule[topSelect][madeSelection1][madeSelection2](value);
   } else {

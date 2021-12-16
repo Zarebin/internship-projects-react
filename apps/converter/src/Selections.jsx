@@ -30,13 +30,13 @@ const Selection = function (props) {
       setQuery2(newState);
   }, [src, dest]);
 
-  function oninputfunc1(e) {
+  function onInputFunc1(e) {
     setQuery1(e.target.value);
     const newState = ConverterFunc(selectId, e.target.value, src, dest);
     setQuery2(newState);
   }
 
-  function oninputfunc2(e) {
+  function onInputFunc2(e) {
     setQuery2(e.target.value);
     const newState = ConverterFunc(selectId, e.target.value, dest, src);
     setQuery1(newState);
@@ -64,7 +64,7 @@ const Selection = function (props) {
           id="valueSrc"
           placeholder="1"
           value={query1}
-          onInput={oninputfunc1}
+          onInput={onInputFunc1}
         />
 
         <mwc-select id="src" type="number" selectid="selection" value={src} ref={srcRef}>
@@ -78,7 +78,7 @@ const Selection = function (props) {
           id="valueDest"
           placeholder="100"
           value={query2}
-          onInput={oninputfunc2}
+          onInput={onInputFunc2}
         />
 
         <mwc-select type="number" id="dest" selectid="selection2" value={dest} ref={destRef}>

@@ -1,6 +1,6 @@
 {
   "name": "converter-app",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This is a converter project.",
   "scripts": {
     "webpack": "webpack --watch",
@@ -15,9 +15,7 @@
     "@material/mwc-list": "^0.25.3",
     "@material/mwc-select": "^0.25.3",
     "@material/mwc-textfield": "^0.25.3",
-    "@webcomponents/webcomponentsjs": "^2.6.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@webcomponents/webcomponentsjs": "^2.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

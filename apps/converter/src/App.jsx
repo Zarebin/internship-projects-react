@@ -5,7 +5,7 @@ import '@material/mwc-button';
 import '@material/mwc-select';
 import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-textfield';
-import OnclickFunc from './OnclickFunc';
+import onClickFunc from './OnclickFunc';
 import Selection from './Selections';
 import './style.scss';
 
@@ -13,7 +13,7 @@ import './style.scss';
 const App = function () {
   const [topSelectValue, setTopSelectValue] = useState('length');
   function selectFunc(e) {
-    OnclickFunc();
+    onClickFunc();
     setTopSelectValue(e.target.value);
   }
   return (
