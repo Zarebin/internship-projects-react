@@ -110,8 +110,7 @@ const App = function App() {
     setTimeout(() => setDayStyle(''), 500);
   }
   function occasionsToggle() {
-    if (toggle !== 'active') setToggle('active');
-    else setToggle('');
+    setToggle(toggle !== 'active' ? 'active' : '');
   }
 
   return (
