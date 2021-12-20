@@ -6,7 +6,6 @@ module.exports = {
   mode: "development",
   devtool: "hidden-source-map",
   output: {
-    publicPath: "http://localhost:3000/",
     clean: true,
   },
   resolve: {
@@ -35,23 +34,27 @@ module.exports = {
           presets: ["@babel/preset-react"],
         },
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.join(__dirname, "dist"),
     },
     compress: true,
-    port: 3000
+    port: 3000,
   },
   plugins: [
     new ModuleFederationPlugin({
       name: "mainApp",
       // I want to use two remoteApps {zarkit, timerApp} hosted in these ports
       remotes: {
-        "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
-        "timerApp": "timerApp@http://localhost:3001/remoteEntry.js",
-        "pairMatchingApp": "pairMatchingApp@http://localhost:3003/remoteEntry.js",
+        zarkit: "zarkit@http://localhost:3002/remoteEntry.js",
+        timerApp: "timerApp@http://localhost:3001/remoteEntry.js",
+        pairMatchingApp: "pairMatchingApp@http://localhost:3003/remoteEntry.js",
       },
     }),
     new HtmlWebpackPlugin({
