@@ -6,10 +6,6 @@ module.exports = {
   mode: "development",
   devtool: "hidden-source-map",
   output: {
-    // این همان نشانی هست که serve هم داخل فایل package.json عینش رو دریافت کرده
-    // خلاصه اینکه روی پورت ۳۰۰۲ من میام بالا
-    // و داخل package.json رو هم بری نگاه کنی این پورت به serve داده شده است که روش گوش کنه
-    publicPath: "http://localhost:3002/",
     clean: true,
   },
   module: {rules: [

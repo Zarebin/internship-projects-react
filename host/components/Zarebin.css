@@ -1,0 +1,260 @@
+@font-face {
+    font-family: IranYekan;
+    font-weight: normal;
+    src: url('../public/IRANYekanWebRegular.woff2');
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+.app * {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: IranYekan;
+}
+
+body {
+    direction: rtl;
+}
+
+.header-container {
+    display: flex;
+    box-shadow: 0 7px 6px -5px #dfe1e5;
+}
+
+.header {
+    flex: 1 1;
+}
+
+.header__logo-container--desktop{
+    justify-content: center;
+}
+
+@media screen and (min-width: 1024px) {
+
+    .header__search-box--desktop {
+        display: flex;
+        flex: 1 1;
+        align-items: center;
+        margin: 0.8rem 0;
+    }
+
+    .header__logo-container--desktop {
+        justify-content: flex-end;
+        width: 28rem;
+    }
+
+    .header__search-container--desktop {
+        max-width: 768px;
+    }
+
+    .search-navigation--desktop {
+        margin-right: 28rem;
+    }
+
+    .results-container--desktop {
+        margin-right: 280px;
+    }
+}
+
+.search-box {
+    border-radius: 16px;
+    width: auto;
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 14%);
+    position: relative;
+    padding: 0.8rem 1.6rem;
+    background-color: #fff;
+}
+
+.search-box-results__input {
+    flex: 1 1;
+    margin: 0 0.8rem;
+}
+
+.header__logo-container {
+    display: flex;
+    align-items: center;
+    height: 64px;
+}
+
+.header__logo {
+    padding: 4px 10px 0 28px;
+}
+
+
+.header__search-container {
+    margin: 0.8rem;
+    flex: 1 1;
+}
+
+
+.search-navigation {
+    padding-right: 1.1rem;
+    padding-left: 0.8rem;
+    height: 4rem;
+    display: flex;
+    align-items: stretch;
+    max-width: 100vw;
+}
+
+.search-navigation {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.search-navigation__tab--active {
+    border-bottom: 2px solid #651fff;
+    color: #651fff;
+    font-weight: 700;
+}
+
+.search-navigation__tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #202124;
+}
+
+.search-box [class*=input] input {
+    width: 100%;
+    height: 2.4rem;
+    flex: 1 1;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+}
+
+input[type=search] {
+    font-size: 1.4rem;
+    flex: 1 1;
+    outline: 0;
+}
+
+.search-box-results__input input {
+    text-overflow: ellipsis;
+}
+
+.results-container {
+    min-height: calc(100vh - 170px);
+    text-align: right;
+}
+
+.content {
+    max-width: 768px;
+    flex: 1 1;
+    font-size: 12px;
+}
+
+.card-container.rtl {
+    text-align: right;
+    direction: rtl;
+}
+
+.card-container {
+    background-color: #fff;
+    margin: 10px 0.8rem;
+    line-height: 2;
+    border-radius: 4px;
+}
+
+.card-container__inner-container {
+    padding: 1.6rem;
+}
+
+.card-container .link-container {
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-container .link-container>a.link {
+    flex: 1 1;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: #1558d6;
+}
+
+.card-container__formatted-url {
+    color: #202124;
+    margin-bottom: 0.8rem;
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 100%;
+    height: 20px;
+    font-size: 1rem;
+}
+
+.card-container__formatted-url {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.card-container .desc-container {
+    color: #70757a;
+    font-size: 1.2rem;
+}
+
+.card-container.rtl {
+    text-align: right;
+    direction: rtl;
+}
+
+.card-container__desc-row {
+    display: flex;
+}
+
+.card-container__formatted-url__addresses {
+    direction: ltr;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: inherit;
+    font-size: 1.2rem;
+    color: #58595b;
+}
+
+.not-found {
+    padding: 1.6rem;
+}
+
+.search-tools {
+    margin-top: 0.8rem;
+    padding: 0.8rem;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.zarebin-button {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    margin: 0 0.4rem;
+    padding: 6px 1.6rem 7px;
+    border-radius: 32px;
+    border: 1px solid #e4e1ed;
+    color: #69676d;
+}
+
+.zarebin-button.active {
+    background-color: #e4e1ed;
+}
