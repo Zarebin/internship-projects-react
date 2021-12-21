@@ -1,6 +1,7 @@
 const { ModuleFederationPlugin } = require("webpack").container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const deps = require('./package.json').dependencies;
+const path = require("path");
 
 module.exports = {
   entry: './src/index',
@@ -73,6 +74,13 @@ module.exports = {
         exclude: /node_modules/
       },
     ],
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 3001
   },
 
   plugins: [
