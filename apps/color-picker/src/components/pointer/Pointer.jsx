@@ -1,7 +1,8 @@
 import React, { useEffect, useRef} from "react";
 import './pointer.scss'
+import { HSVtoHSL } from "../../core/convertors";
 
-const Pointer = ({color, offset, setOffset, horizontal = false}) => {
+const Pointer = ({color, offset, setOffset, horizontal = false, clicked, setClicked, setCurrentColor}) => {
     const pointer = useRef(null)
 
     let offsetX;
@@ -9,33 +10,68 @@ const Pointer = ({color, offset, setOffset, horizontal = false}) => {
     let mousedown = false; 
     let stateOffsetX = offset.offsetX
     let stateOffsetY = offset.offsetY
+
     useEffect(()=>{
         if(!horizontal){
             pointer.current.style.top = `${offset.offsetY-10}px`
             pointer.current.style.left = `${offset.offsetX-10}px`
-        }
-    },[offset])
-    
-    useEffect(()=>{
-        
-        const initialXPos = 
-            Math.floor(Math.random() * pointer.current.parentElement.clientWidth) + 1
-            
-        pointer.current.style.left = `${initialXPos}px`
-
-        let initialYPos;
-
-        if(!horizontal){
-            initialYPos = 
-                Math.floor(Math.random() * pointer.current.parentElement.clientHeight) + 1
-
-            pointer.current.style.top = `${initialYPos}px`
+            setCurrentColor(HSVtoHSL([color.h,stateOffsetX/pointer.current.parentElement.clientWidth, 1-(stateOffsetY/pointer.current.parentElement.clientHeight)]))
         }
         else{
-            initialYPos = 0
-            pointer.current.style.top = `${0}px`
+            pointer.current.style.left = `${offset.offsetX-10}px`;
+            setCurrentColor({h:Math.round(stateOffsetX*360/580),s: color.s, l:color.l})
         }
-        setOffset({offsetX:initialXPos, offsetY:initialYPos})
+    },[offset])
+
+    useEffect(()=>{
+        if(!clicked){
+            if(horizontal){
+                pointer.current.style.left = `${color.h*580/360}px`
+            }
+        }
+
+    },[color.h])
+    
+    useEffect(()=>{
+        if(horizontal){
+            const initialXPos = 
+            Math.floor(Math.random() * pointer.current.parentElement.clientWidth) + 1
+            
+            pointer.current.style.left = `${initialXPos}px`
+            pointer.current.style.top = `${-7}px`
+            setCurrentColor({h:Math.round(initialXPos*360/580),s: color.s, l:color.l})
+            setOffset({offsetX:initialXPos, offsetY:0})
+        }
+        else{
+            setOffset({offsetX:441, offsetY:0})
+        }
+        
+        // const initialXPos = 
+        //     Math.floor(Math.random() * pointer.current.parentElement.clientWidth) + 1
+            
+        // pointer.current.style.left = `${initialXPos}px`
+
+        // let initialYPos;
+
+        // if(!horizontal){
+        //     initialYPos = 
+        //         Math.floor(Math.random() * pointer.current.parentElement.clientHeight) + 1
+
+        //     pointer.current.style.top = `${initialYPos}px`
+
+        //     setCurrentColor(
+        //         HSVtoHSL([color.h,
+        //             initialXPos/pointer.current.parentElement.clientWidth, 
+        //             1-(initialYPos/pointer.current.parentElement.clientHeight)])
+        //     )
+            
+        // }
+        // else{
+        //     initialYPos = 0
+        //     pointer.current.style.top = `${-7}px`
+        //     setCurrentColor({h:Math.round(initialXPos*360/580),s: color.s, l:color.l})
+        // }
+        // setOffset({offsetX:initialXPos, offsetY:initialYPos})
     }, [])
 
     const move= e =>
@@ -58,7 +94,7 @@ const Pointer = ({color, offset, setOffset, horizontal = false}) => {
             else{
                 pointer.current.style.left = 
                     `${pointer.current.parentElement.clientWidth-offsetX}px` 
-                stateOffsetX = pointer.current.parentElement.clientWidth -1;
+                stateOffsetX = pointer.current.parentElement.clientWidth;
 
             }
             
@@ -78,25 +114,25 @@ const Pointer = ({color, offset, setOffset, horizontal = false}) => {
                         `${pointer.current.parentElement.clientHeight-offsetY}px`
                     stateOffsetY = pointer.current.parentElement.clientHeight
                 }
+
+                // setCurrentColor(HSVtoHSL([color.h,stateOffsetX/pointer.current.parentElement.clientWidth, 1-(stateOffsetY/pointer.current.parentElement.clientHeight)]))
             }else{
                 stateOffsetY = 0
+                
             }
 
             setOffset({ offsetX: stateOffsetX, offsetY: stateOffsetY})
-            // console.log(offset.offsetX)
         }
     }
 
     const add= e =>
     {
+        mousedown=true;
+        setClicked(true)
         const inDivX = e.clientX-pointer.current.parentElement.offsetLeft;
         const inDivY = e.clientY-pointer.current.parentElement.offsetTop;
 
         setOffset({offsetX: inDivX, offsetY: inDivY})
-
-        mousedown=true;
-        // offsetX=e.clientX-pointer.current.getBoundingClientRect().left
-        // offsetY=e.clientY-pointer.current.getBoundingClientRect().top
 
         offsetX = pointer.current.clientWidth/2;
         offsetY = pointer.current.clientHeight/2;
@@ -122,7 +158,7 @@ const Pointer = ({color, offset, setOffset, horizontal = false}) => {
         ref={pointer}
         onMouseDown={add}
         onMouseUp={remove} 
-        style={{backgroundColor:`${color}`}}
+        style={{backgroundColor: !horizontal?`hsl(${color.h},${color.s}%, ${color.l}%)`: `hsl(${color.h},100%, 50%)` }}
         />
 
     );
