@@ -126,7 +126,6 @@ const formule = {
       celsius: (val) => val - 273.15,
       fahrenheit: (val) => (val - 273.15) * 9.5 + 32,
     },
-   
   },
 };
 

@@ -26,9 +26,6 @@
     min-width: 618px;
 
 }
-.pic mwc-list-item:not(.length)  {
-    display: none;
-}
 #full {
     display: flex;
     flex-direction: column;
@@ -42,14 +39,12 @@
 mwc-select {
     border: 1px solid #dadce0;
 }
-
 #header  mwc-select{
     color: #000;
     background-position-x: 98%;
     width: 463px;
     margin-bottom: 10px;
 }
-
 .bottomSelections {
     width: 200px;
     padding-top: 10px;
@@ -63,7 +58,6 @@ mwc-textfield {
     --mdc-typography-font-family : "IRANYekanNum";
 
 }
-
 #bottom mwc-select {
     background-position-x: 95%;
     border: 1px solid #dadce0;
@@ -74,9 +68,6 @@ mwc-textfield {
 
 
 }
-
-
-
 #center {
     line-height: 44px;
     width: 20px;
