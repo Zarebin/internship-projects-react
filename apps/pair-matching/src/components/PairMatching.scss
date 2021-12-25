@@ -29,14 +29,13 @@ body {
   --mdc-typography-letter-spacing: 0;
 }
 
-.pair-matching mwc-list-item {
-  height: 26px;
+.pair-matching .mdc-list-item {
   font-size: 1rem;
-  padding: 1rem;
+  padding: .3rem;
 }
 
-.pair-matching mwc-button {
-  --mdc-typography-button-letter-spacing: 0;
+.pair-matching .mdc-button {
+  letter-spacing: 0;
 }
 
 .wrapper {
@@ -124,10 +123,6 @@ body {
 .pair-matching .settings {
   display: flex;
   margin-bottom: 1rem;
-}
-
-.pair-matching .settings mwc-select {
-  direction: ltr;
 }
 
 .pair-matching .time {

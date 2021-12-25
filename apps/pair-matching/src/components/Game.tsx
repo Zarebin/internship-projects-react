@@ -1,4 +1,5 @@
 import React, { useEffect } from 'zarkit/react';
+import Button from 'zarkit/button';
 import { fillIcons, icons as allIcons } from './Settings';
 
 const Game = function (props: any) {
@@ -113,17 +114,17 @@ const Game = function (props: any) {
       {renderCards()}
       {gameState === 'init' ? (
         <div className="overlay">
-          <mwc-button raised="" onClick={replay}>
+          <Button onClick={replay} unelevated>
             شروع بازی
-          </mwc-button>
+          </Button>
         </div>
       ) : null}
       {gameState === 'won' ? (
         <div className="overlay">
           <span>تبریک! شما برنده شدید</span>
-          <mwc-button raised="" onClick={replay}>
+          <Button onClick={replay} unelevated>
             بازی دوباره
-          </mwc-button>
+          </Button>
         </div>
       ) : null}
     </div>

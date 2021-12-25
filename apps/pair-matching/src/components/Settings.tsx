@@ -1,8 +1,5 @@
 import React, { useRef, useEffect, useMemo } from 'zarkit/react';
-import '@webcomponents/webcomponentsjs/webcomponents-loader';
-import '@material/mwc-button';
-import '@material/mwc-select';
-import '@material/mwc-list/mwc-list-item';
+import Select from 'zarkit/select';
 
 // A function for dynamic load all assets in a directory
 function importAll(context: any) {
@@ -56,19 +53,10 @@ const Settings = function (props: any) {
     setIconTheme,
     bestTime,
   } = props;
-  // Create refs for material components
-  const sizeRef = useRef<HTMLElement>();
-  const iconThemeRef = useRef<HTMLElement>();
 
   // fill icons on component constructor
   useMemo(() => {
     fillIcons(props);
-  }, []);
-
-  // set events
-  useEffect(() => {
-    sizeRef.current.onchange = (e: any) => setSize(e.target.value.split('x'));
-    iconThemeRef.current.onchange = (e: any) => setIconTheme(e.target.value);
   }, []);
 
   // change game settings
@@ -85,24 +73,29 @@ const Settings = function (props: any) {
   // render game setting elements
   return (
     <div className="settings">
-      <mwc-select label="اندازه" className="setting-size" ref={sizeRef}>
-        <mwc-list-item value="4x4">۴x۴</mwc-list-item>
-        <mwc-list-item value="4x6">۴x۶</mwc-list-item>
-        <mwc-list-item value="4x7">۴x۷</mwc-list-item>
-        <mwc-list-item value="5x6" selected="">
-          ۵x۶
-        </mwc-list-item>
-        <mwc-list-item value="5x8">۵x۸</mwc-list-item>
-        <mwc-list-item value="6x6">۶x۶</mwc-list-item>
-        <mwc-list-item value="6x8">۶x۸</mwc-list-item>
-        <mwc-list-item value="6x10">۶x۱۰</mwc-list-item>
-      </mwc-select>
-      <mwc-select label="زمینه" className="setting-theme" ref={iconThemeRef}>
-        <mwc-list-item value="christmas" selected="">
-          کریسمس
-        </mwc-list-item>
-        <mwc-list-item value="fruits">میوه ها</mwc-list-item>
-      </mwc-select>
+      <Select
+        label="اندازه"
+        onChange={(e: any) => setSize(e.target.value.split('x'))}
+        options={[
+          { key: '4x4', value: '4x4', label: '۴x۴' },
+          { key: '4x6', value: '4x6', label: '۴x۶' },
+          { key: '4x7', value: '4x7', label: '۴x۷' },
+          { key: '5x6', value: '5x6', label: '۵x۶', selected: true },
+          { key: '5x8', value: '5x8', label: '۶x۶' },
+          { key: '6x8', value: '6x8', label: '۶x۸' },
+          { key: '6x10', value: '6x10', label: '۶x۱۰' },
+        ]}
+        value={size.join('x')}
+      />
+      <Select
+        label="زمینه"
+        onChange={(e: any) => setIconTheme(e.target.value)}
+        options={[
+          { key: 'christmas', value: 'christmas', label: 'کریسمس', selected: true },
+          { key: 'fruits', value: 'fruits', label: 'میوه ها' },
+        ]}
+        value={iconTheme}
+      />
       <div className="time">
         <span>زمان</span>
         <div>
