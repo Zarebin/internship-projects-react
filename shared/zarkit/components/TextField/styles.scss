@@ -1,0 +1,13 @@
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/textfield";
+@import "@material/rtl/mixins";
+
+@include textfield.core-styles;
+
+.mdc-floating-label {
+  @include mdc-rtl {
+    transform-origin: right;
+  }
+}
