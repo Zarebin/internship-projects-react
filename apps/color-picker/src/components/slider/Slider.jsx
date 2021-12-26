@@ -1,16 +1,14 @@
-import {useState, useRef } from 'react';
+// import React, {useState, useRef } from 'zarkit/react';
+import React, {useState, useRef } from 'react';
 import Pointer from '../pointer';
 import './slider.scss'
 
-
-const Slider = ({color, setCurrentColor,clicked, setClicked}) => {
-    // const sliderConvas = useRef(null)
+const Slider = ({color, setCurrentColor, clicked, setClicked}) => {
 
     const [offset,setOffset] = useState({
         offsetX: 0,
         offsetY: 0
     })
-
 
     const hue = useRef(null)
     

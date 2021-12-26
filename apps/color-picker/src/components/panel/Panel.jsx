@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+// import React, { useState, useRef, useEffect } from 'zarkit/react';
+import React, { useState, useRef, useEffect } from 'react';
 import Palette from '../palette';
 import Slider from '../slider';
 import * as convertors  from '../../core/convertors';

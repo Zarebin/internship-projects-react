@@ -1,3 +1,4 @@
+// import React, { useEffect, useRef} from "zarkit/react";
 import React, { useEffect, useRef} from "react";
 import './pointer.scss'
 import { HSVtoHSL } from "../../core/convertors";
@@ -45,33 +46,6 @@ const Pointer = ({color, offset, setOffset, horizontal = false, clicked, setClic
         else{
             setOffset({offsetX:441, offsetY:0})
         }
-        
-        // const initialXPos = 
-        //     Math.floor(Math.random() * pointer.current.parentElement.clientWidth) + 1
-            
-        // pointer.current.style.left = `${initialXPos}px`
-
-        // let initialYPos;
-
-        // if(!horizontal){
-        //     initialYPos = 
-        //         Math.floor(Math.random() * pointer.current.parentElement.clientHeight) + 1
-
-        //     pointer.current.style.top = `${initialYPos}px`
-
-        //     setCurrentColor(
-        //         HSVtoHSL([color.h,
-        //             initialXPos/pointer.current.parentElement.clientWidth, 
-        //             1-(initialYPos/pointer.current.parentElement.clientHeight)])
-        //     )
-            
-        // }
-        // else{
-        //     initialYPos = 0
-        //     pointer.current.style.top = `${-7}px`
-        //     setCurrentColor({h:Math.round(initialXPos*360/580),s: color.s, l:color.l})
-        // }
-        // setOffset({offsetX:initialXPos, offsetY:initialYPos})
     }, [])
 
     const move= e =>
@@ -132,6 +106,13 @@ const Pointer = ({color, offset, setOffset, horizontal = false, clicked, setClic
         const inDivX = e.clientX-pointer.current.parentElement.offsetLeft;
         const inDivY = e.clientY-pointer.current.parentElement.offsetTop;
 
+        
+
+        // For mobile devices:
+        // const inDivX = e.touches[0].clientX-pointer.current.parentElement.offsetLeft;
+        // const inDivY = e.touches[0].clientY-pointer.current.parentElement.offsetTop;
+
+
         setOffset({offsetX: inDivX, offsetY: inDivY})
 
         offsetX = pointer.current.clientWidth/2;
@@ -143,6 +124,8 @@ const Pointer = ({color, offset, setOffset, horizontal = false, clicked, setClic
         }
 
         window.addEventListener('mousemove',move)
+        // window.addEventListener('touchmove',move)
+
         
     }
 
@@ -158,6 +141,8 @@ const Pointer = ({color, offset, setOffset, horizontal = false, clicked, setClic
         ref={pointer}
         onMouseDown={add}
         onMouseUp={remove} 
+        // onTouchStart={add}
+        // onTouchEnd={remove}
         style={{backgroundColor: !horizontal?`hsl(${color.h},${color.s}%, ${color.l}%)`: `hsl(${color.h},100%, 50%)` }}
         />
 

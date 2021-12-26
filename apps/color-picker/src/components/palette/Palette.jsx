@@ -1,5 +1,5 @@
-// import { useEffect, useRef} from 'react';
-import { useRef } from "react";
+// import React, { useRef } from "zarkit/react";
+import React, { useEffect, useRef} from 'react';
 import Pointer from "../pointer";
 import './palette.scss';
 
@@ -13,7 +13,6 @@ const Palette = ({color, setCurrent, offset, setOffset, setClicked}) => {
 
         setOffset({offsetX: inDivX, offsetY: inDivY})
     }
-
 
     return ( 
         <div ref={palette} className="palette" style={{background: `hsl(${color.h}, 100%, 50%)`}} onMouseDown={click}>
