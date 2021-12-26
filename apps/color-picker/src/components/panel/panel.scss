@@ -1,0 +1,56 @@
+.panel{
+    width: 650px;
+    border: 1px solid rgba(33, 33, 33,0.08);
+    border-radius: 10px;
+    padding: 1rem 0;
+    .title{
+        text-align: right;
+        margin: 0 1rem 1rem 0;
+        color: rgb(85, 85, 85);
+    }
+    .paletteWrapper{
+        display: flex;
+        flex-wrap: nowrap;
+        .wrapperRight{
+            flex-basis: 68%;
+        }
+        .wrapperLeft{
+            flex-basis: 32%;
+        }
+    }
+
+    .sliderWrapper{
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .dataWrapper{
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.5rem;
+        align-items: center;
+        margin: 0 1rem;
+        justify-content: space-between;
+        margin-top: 1rem;
+        .hex{
+            flex-basis: 100%;
+            text-align: center;
+            
+        }
+        .rgbAndOthers{
+            flex-basis: 50%;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .cmyk{
+            flex-basis: 50%;
+            margin-top: 1rem;
+        }
+
+        mwc-textfield {
+            --mdc-theme-primary: #9e9e9e;
+            --mdc-font-size: 0.5rem;
+        }
+    }
+}
