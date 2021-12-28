@@ -9,17 +9,27 @@ const Select = function (props) {
     ref.current.select = new MDCSelect(ref.current);
     ref.current.select.listen("MDCSelect:change", (e) => {
       e.target.value = e.target.select.value;
-      props.onchange(e);
+      props.onChange(e);
     });
   }, []);
+
+  useEffect(() => {
+    ref.current.select.selectedIndex = props.options.findIndex(
+      (option) => option.value == props.value
+    );
+  }, [props.value]);
 
   return (
     <div>
       <div
-        className="mdc-select mdc-select--filled demo-width-className"
+        className={
+          "mdc-select mdc-select--filled demo-width-className" +
+          " " +
+          props.className
+        }
         ref={ref}
-        {...props}
       >
+        <input {...props} type="hidden" options={null} />
         <div
           className="mdc-select__anchor"
           role="button"
@@ -61,14 +71,13 @@ const Select = function (props) {
         </div>
 
         <div className="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
-          <ul
-            className="mdc-list"
-            role="listbox"
-            aria-label="Food picker listbox"
-          >
+          <ul className="mdc-list" role="listbox" aria-label={props?.label}>
             {props.options?.map((option) => (
               <li
-                className={'mdc-list-item'+(!!option.selected ? ' mdc-list-item--selected': '')}
+                className={
+                  "mdc-list-item" +
+                  (!!option.selected ? " mdc-list-item--selected" : "")
+                }
                 aria-selected={!!option.selected}
                 data-value={option.value}
                 role="option"

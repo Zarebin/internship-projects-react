@@ -8,7 +8,12 @@ const TextField = function (props) {
 
   useEffect(() => {
     ref.current.textField = new MDCTextField(ref.current);
+    ref.current.textField.value = props.value ? props.value : "";
   }, []);
+
+  useEffect(() => {
+    ref.current.textField.value = props.value ? props.value : "";
+  }, [props.value]);
 
   let type = "filled";
   if (!!props.outlined) type = "outlined";
@@ -46,7 +51,6 @@ const TextField = function (props) {
             class="mdc-text-field__input"
             aria-labelledby="my-label-id"
             {...props}
-            
           />
         </>
       ) : null}

@@ -9,16 +9,16 @@ const Button = function (props) {
     new MDCRipple(ref.current);
   }, []);
 
-  let customClass = !!props.unelevated ? " mdc-button--unelevated" : "";
+  let customClass = !!props.unelevated ? " mdc-button--unelevated" : " mdc-button--raised";
 
   return (
     <button
-      className={"mdc-button mdc-button--raised" + customClass}
       ref={ref}
       {...props}
+      className={"mdc-button" + customClass + " " + props.className}
     >
       <span className="mdc-button__ripple"></span>
-      <span className="mdc-button__label">{props.children}</span>
+      <span className="mdc-button__label">{props.label || props.children}</span>
     </button>
   );
 };
