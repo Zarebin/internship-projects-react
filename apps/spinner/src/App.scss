@@ -6,34 +6,6 @@
     background: #00c6ac;
 }
 
-.header {
-    display: inline-flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    margin: 0px 0px 0px 0px;
-    height: 9vh;
-    text-align: center;
-    background-color: white;
-}
-
-.container {
-    display: flexblock;
-    align-items: center;
-    flex-direction: column;
-}
-
-#wheel {
-    width: 400px;
-    height: 400px;
-}
-
-#selector {
-    width: 60px;
-    height: 20px;
-    color: yellow;
-    position: sticky;
-}
-
 
 /******************switcher*****************/
 
@@ -107,31 +79,6 @@ input:checked+.slider:before {
 
 .slider.round:before {
     border-radius: 50%;
-}
-
-
-/*********** button ************/
-
-.footer {
-    display: block;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    margin: 0px 0px 0px 0px;
-    height: 9vh;
-    text-align: center;
-    background-color: #00c6ac;
-}
-
-button {
-    position: relative;
-    background: #ffffff;
-    border-color: white;
-    color: black;
-    font: bold 20px/1 arial, sans-serif;
-    text-align: center;
-    width: 100%;
-    height: 50px;
-    padding: 0px 0px 0px 0px;
 }
 
 

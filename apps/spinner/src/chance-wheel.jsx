@@ -1,72 +1,42 @@
 import React, { useEffect , useState } from "zarkit/react";
 import "./chance-wheel.scss";
 
+function ChanceWheel(props) {
+  const [radius, setRadius] = useState(45); // PIXELS
+  const [rotate, setRotate] = useState(0);  // DEGREES
+  const [easeOut, setEaseOut] = useState(0); // SECONDS
+  const [angle, setAngle] = useState(0);  // RADIANS
+  const [top, setTop] = useState(null); // INDEX
+  const [offset, setoffset] = useState(null); // RADIANS
+  const [net, setNet] = useState(null);  // RADIANS
+  const [spinning, setSpinning] = useState( true); //status
+  const [list, setList] = useState([]); //list
 
 
-function ChanceWheel (props){
+  useEffect(() => {
+    renderWheel();
+  });
 
-  const [state, setState] = useState({
-    radius: 45, // PIXELS
-    rotate: 0, // DEGREES
-    easeOut: 0, // SECONDS
-    angle: 0, // RADIANS
-    top: null, // INDEX
-    offset: null, // RADIANS
-    net: null, // RADIANS
-    result: null, // INDEX
-    spinning: false
-    })
-
-  let list = [1,2,3,4,5,6];
-   
- 
-   useEffect(()=>{renderWheel()});
-  /*componentDidMount() {
-    // generate canvas wheel on load
-    this.renderWheel();
-  }
-  
-  componentDidUpdate(){
-    //check all updates at momment 
-    this.renderWheel();
-  }*/
-
-
-//switch//
-//its not complete yet,it should be more costomized 
-const accordion = () =>{
-    var  n = props.value;
-    var temp = [];   
-    for (var i = 1; i <= Number(n); i++) { 
-      temp.push(i);
-  }
-    list = temp;
-    console.log(state);
-}
-
- 
-
-function renderWheel() {
-    accordion()
+  function renderWheel() {
     // determine number/size of sectors that need to created
-    let numOptions = props.value;
+    let numOptions = props.list.length;
     let arcSize = (2 * Math.PI) / numOptions;
-   /* this.setState({
+    /* setState({
       angle: arcSize
     });*/
 
     // get index of starting position of selector
-     topPosition(numOptions, arcSize);
+    topPosition(numOptions, arcSize);
     // dynamically generate sectors from state list
     let angle = 0;
     for (let i = 0; i < numOptions; i++) {
-      let text = list[i];
-      renderSector(i + 1, text, angle, arcSize, getColor(numOptions,i));
+      let text = props.list[i];
+      renderSector(i + 1, text, angle, arcSize, getColor(numOptions, i));
       angle += arcSize;
     }
   }
 
-const topPosition = (num, angle) => {
+  const topPosition = (num, angle) => {
     // set starting index and angle based on list length
     // works upto 9 options
     let topSpot = null;
@@ -88,19 +58,18 @@ const topPosition = (num, angle) => {
       degreesOff = Math.PI / 2;
     }
 
-    // this.setState({
-    //   top: topSpot - 1,
-    //   offset: degreesOff
-    // });
+    /*  setState({
+    top: topSpot - 1,
+    offset: degreesOff
+    });*/
   };
 
-function renderSector(index, text, start, arc, color) {
+  function renderSector(index, text, start, arc, color) {
     // create canvas arc for each list element
     let canvas = document.getElementById("wheel");
     let ctx = canvas.getContext("2d");
     let x = canvas.width / 2;
     let y = canvas.height / 2;
-    let radius = state.radius;
     let startAngle = start;
     let endAngle = start + arc;
     let angle = index * arc;
@@ -126,98 +95,88 @@ function renderSector(index, text, start, arc, color) {
     ctx.restore();
   }
 
-function getColor(size, n) {
+  function getColor(size, n) {
     // base on the pieces number they would be colored
     //it could be better (mostahab)
-    if(size % 2 == 1){
+    if (size % 2 == 1) {
       n = n % 3;
-      switch(n){
-        case 0 :
-          return '#2bdbc6';
+      switch (n) {
+        case 0:
+          return "#2bdbc6";
         case 1:
-          return '#b4f8ee'
-        case 2:   
-          return  '#5ecfbc'
+          return "#b4f8ee";
+        case 2:
+          return "#5ecfbc";
+      }
+    } else {
+      n = n % 2;
+      switch (n) {
+        case 0:
+          return "#2bdbc6";
+        case 1:
+          return "#b4f8ee";
       }
     }
-    else{
-      n = n % 2;
-      switch(n){
-        case 0 :
-          return '#2bdbc6';
-        case 1:
-          return '#b4f8ee'
-     }    
   }
-}
-    
 
-const spin = () => {
+  const spin = () => {
     // set random spin degree and ease out time
     // set state variables to initiate animation
     let randomSpin = Math.floor(Math.random() * 900) + 500;
-    setState({
-      rotate: randomSpin,
-      easeOut: 2,
-      spinning: true
-      
-    });
+    console.log(randomSpin);
+    setRotate(randomSpin);
+    setEaseOut(2);
+    setSpinning(true);
+    console.log("spin", spinning);
     // calcalute result after wheel stops spinning
     setTimeout(() => {
-      getResult(randomSpin);
+      //getResult(randomSpin);
     }, 2000);
   };
 
-const getResult = spin => {
 
-    const { angle, top, offset, list } = state;
-    let netRotation = ((spin % 360) * Math.PI) / 180; // RADIANS
-    let travel = netRotation + offset;
-    let count = top + 1;
-    while (travel > 0) {
-      travel = travel - angle;
-      count--;
-    }
-    let result;
-    if (count >= 0) {
-      result = count;
-    } else {
-      result = list.length + count;
-    }
-
-    // set state variable to display result
-    setState({
-      net: netRotation,
-      result: result
-    });
+  const reset = () => {
+    // reset wheel and result
+    setRotate(0);
+    setEaseOut(0);
+    setSpinning(false);
+    console.log("reset", spinning);
   };
 
-
-    return (
-      <div className="App">
-  
-        <div class="containar">
-        <div> <label for="wheel" id="selector">&#9660;</label></div>
-       <div><canvas id="wheel" width="300" height="300"
-          style={{
-           WebkitTransform: `rotate(${state.rotate}deg)`,
-            WebkitTransition: `-webkit-transform ${
-              state.easeOut
-            }s ease-out`
-          }}/></div> 
-          </div>
-        <div class="footer">
-         <button type="button" id="spin" onClick={spin}>SPIN </button> 
-        </div>        
+  return (
+    <div className="App">
+      <div class="containar">
+        <div>
+          {" "}
+          <label for="wheel" id="selector">
+            &#9660;
+          </label>
+        </div>
+        <div>
+          <canvas
+            id="wheel"
+            width="300"
+            height="300"
+            style={{
+              WebkitTransform: `rotate(${rotate}deg)`,
+              WebkitTransition: `-webkit-transform ${easeOut}s ease-out`,
+            }}
+          />
+        </div>
       </div>
-    );
-}  
+
+      <div class="footer">
+        {spinning ? (
+          <button type="button" id="reset" onClick={reset}>
+            reset
+          </button>
+        ) : (
+          <button type="button" id="spin" onClick={spin}>
+            spin
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 export default ChanceWheel;
-
-
-
-
-
-
-
-
