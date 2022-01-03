@@ -51,7 +51,9 @@ module.exports = {
       remotes: {
         "zarkit": "zarkit@http://localhost:3002/remoteEntry.js",
         "timerApp": "timerApp@http://localhost:3001/remoteEntry.js",
+        "converterApp":"converterApp@http://localhost:3005/remoteEntry.js",
         "pairMatchingApp": "pairMatchingApp@http://localhost:3003/remoteEntry.js",
+        
       },
     }),
     new HtmlWebpackPlugin({
